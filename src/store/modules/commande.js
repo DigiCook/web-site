@@ -5,6 +5,7 @@ const state = {
     {
       id: 0,
       nom: 'Menu enfant',
+      prix: 25.1,
       description: "c'est un menu, pour les enfants",
       urlPhoto: 'chépasadéterminer'
     }
