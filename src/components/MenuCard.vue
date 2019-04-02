@@ -28,11 +28,9 @@
             margin: 10px;
         }
         &-text {
-            font-size: 17px;
+            font-size: 22px;
             text-align: center;
         }
-
     }
-
 
 </style>
