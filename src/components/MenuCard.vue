@@ -1,6 +1,6 @@
 <template>
     <aside class="menu">
-        <img class="menu-img" src="https://dinersburger.fr/cache/img/media.zelty.fr.images.289.2941-440x440.png"/>
+        <img class="menu-img" :src="dataMenu.urlPhoto"/>
         <p class="menu-text">{{dataMenu.nom}}</p>
     </aside>
 </template>
@@ -20,12 +20,15 @@
 </script>
 
 <style scoped lang="scss">
-    .menu{
-        &-img{
-            width: 250px;
+    .menu {
+        margin: 20px;
+        //border: solid 1px black;
+        &-img {
+            width: 25vw;
+            margin: 10px;
         }
-        &-text{
-            font-size: 20px;
+        &-text {
+            font-size: 17px;
             text-align: center;
         }
 
