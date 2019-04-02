@@ -5,7 +5,8 @@ export default {
   },
   plat: {
     list: { method: 'GET', url: 'api/plat' },
-    get: { method: 'GET', url: 'api/plat/:id' }
+    get: { method: 'GET', url: 'api/plat/:id' },
+    byTypePlat: { method: 'GET', url: 'api/plat/bytype/:typePlatId' }
   },
   exploitation: {
     list: { method: 'GET', url: 'api/exploitation' },
