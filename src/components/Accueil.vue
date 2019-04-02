@@ -1,14 +1,15 @@
 <template>
     <div class="accueil">
         <section class="menu">
-            <h1>Nos Menus</h1>
+            <h1 class="menu">Nos Menus</h1>
             <article>
-                <menu-card name="nom du menu 1"></menu-card>
-                <menu-card name="nom du menu 2"></menu-card>
+                <menu-card :data-idMenu="allMenu[0].id" v-if="allMenu[0]" :dataMenu="allMenu[0]"></menu-card>
+                <menu-card :data-idMenu="allMenu[1].id" v-if="allMenu[1]" :dataMenu="allMenu[1]"></menu-card>
             </article>
+
             <article>
-                <menu-card name="nom du menu 3"></menu-card>
-                <menu-card name="nom du menu 4"></menu-card>
+                <menu-card :data-idMenu="allMenu[2].id" v-if="allMenu[2]" :dataMenu="allMenu[2]"></menu-card>
+                <menu-card :data-idMenu="allMenu[3].id" v-if="allMenu[3]" :dataMenu="allMenu[3]"></menu-card>
             </article>
 
         </section>
@@ -21,6 +22,8 @@
 <script>
   import MenuCard from '@/components/MenuCard'
   import AddPlat from '@/components/AddPlat'
+  import fetch from '@/services/fetch'
+  import endpoints from '@/services/endpoints'
 
   export default {
     name: 'Accueil',
@@ -30,7 +33,18 @@
     },
     data () {
       return {
-        'test': 'test'
+        'allMenu': []
+      }
+    },
+    methods: {
+      async getAllMenu () {
+        this.allMenu = (await fetch(endpoints.menu.list)).data
+      }
+    },
+    async created () {
+      if (this.$store.getters.getMenus.length === 0) {
+        this.$store.dispatch('setMenu', this.allMenu)
+        await this.getAllMenu()
       }
     }
   }
@@ -38,6 +52,14 @@
 
 <style scoped lang="scss">
     .accueil {
+        .menu {
+            display: flex;
+            flex-direction: column;
+            article {
+                display: flex;
+                flex-direction: row;
+            }
+        }
 
     }
 </style>
