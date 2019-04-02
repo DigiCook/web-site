@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="recap" >
     <h1>Recapitulatif de la commande</h1>
     <button @click="back">Back</button>
     <ul class="liste">   
@@ -7,7 +7,7 @@
         {{item.name}} <span>Quantité :  {{item.quantity}} </span> <button @click="deleteDish(item.id)">Supprimer</button>
     </li>    
     </ul>
-    <button @click="validateOrder">Valider la commande</button>
+    <button class="validateBtn" @click="validateOrder">Valider la commande</button>
     <button @click="deleteOrder">Supprimer la commande</button>
   </div>
 </template>
@@ -52,20 +52,31 @@ export default {
 }
 </script>
 
+
 <style scoped lang="scss">
+    @import '@/styles/scss/_variables.scss';
 
-h1 {
-  color: green;
-  text-align: center;
+    .recap {
+        font-family: $main-font;
+        color: $main-text-color;
+        margin: 40px;
+        h1 {
+            font-size: 25px;
+            text-align: center;
+        }
+        .liste{
+            margin: 20px;
+        }
+        .item {
+           display: flex;
+           flex-direction: row;
+           justify-content: space-evenly;
+           font-size: 30px;
+           margin: 10px;
+        }
+        .validateBtn{
+          background-color:$button-ok;
+          //font-color: $second-text-color;
+        }
 }
-.liste{
-  margin: 20px;
-}
-.item {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  font-size: 30px;
-}
-
 </style>
