@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
 import OtherPage from '@/components/OtherPage'
 import Carte from '@/components/Carte'
 import Recapitulatif from '@/components/Recapitulatif'
+import Accueil from '@/components/Accueil'
 
 Vue.use(Router)
 
@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Accueil',
+      component: Accueil
     },
     {
       name: 'OtherPage',
@@ -29,5 +29,6 @@ export default new Router({
       path: '/recapitulatif',
       component: Recapitulatif
     }
+
   ]
 })
