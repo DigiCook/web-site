@@ -28,7 +28,9 @@ function call (endpoint, params = {}) {
     let body = ''
 
     if (options.method !== 'POST') {
-      url += `?${Object.keys(params).map(key => { return `&${key}=${params[key]}` })}`
+      if (Object.keys(params).length > 0) {
+        url += `?${Object.keys(params).map(key => { return `&${key}=${params[key]}` })}`
+      }
     } else {
       body = params
     }
