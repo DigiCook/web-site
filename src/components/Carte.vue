@@ -41,40 +41,46 @@
 </template>
 
 <script>
-    export default {
-      name: 'Carte'
-    }
+  export default {
+    name: 'Carte'
+  }
 </script>
 
 <style scoped lang="scss">
-    .accueil{
-        display:flex;
+    .accueil {
+        display: flex;
+
         &-menu,
-        &-carte{
+        &-carte {
             height: 100vh;
-             width: 50%;
+            width: 50%;
             text-align: center;
             padding: 30px;
-            ul li{
+
+            ul li {
                 list-style: none;
             }
+
             h2 {
                 margin-bottom: 40px;
             }
-         }
+        }
     }
-    .menu{
+
+    .menu {
         display: flex;
         flex-direction: column;
         width: 100%;
         justify-content: space-around;
         height: 100vh;
-        aside{
+
+        aside {
             display: flex;
             width: 100%;
             justify-content: space-around;
         }
-        &-detail{
+
+        &-detail {
             width: 200px;
             height: 200px;
             background: red;
