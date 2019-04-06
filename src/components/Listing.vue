@@ -1,6 +1,6 @@
 <template>
     <div class="listing">
-        <button @click="returnBack">Retour</button>
+        <btn-back></btn-back>
         <div class="listing-choice">
             <section class="choice">
                 <aside v-for="plat in plats">
@@ -17,8 +17,13 @@
 <script>
     import fetch from '@/services/fetch.js'
     import endpoints from '@/services/endpoints.js'
+    import btnBack from '@/components/btnBack.vue'
+
     export default {
       name: 'Listing',
+      components: {
+        btnBack
+      },
       methods: {
         returnBack () {
           this.$router.go(-1)
@@ -45,16 +50,6 @@
 <style scoped lang="scss">
     .listing{
         display:flex;
-        button {
-            position: absolute;
-            padding: 10px 30px;
-            left: 50px;
-            top: 50px;
-            background: #EA3939;
-            border: 1px solid #EA3939;
-            box-sizing: border-box;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        }
         &-choice{
             height: 100vh;
             width: 100%;
