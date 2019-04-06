@@ -14,16 +14,19 @@
             </div>
         </div>
 
-        <pop-up-help></pop-up-help>
+        <pop-up-help style="display: none"></pop-up-help>
+        <pop-up-valider style="display: none"></pop-up-valider>
     </div>
 </template>
 
 <script>
   import PopUpHelp from '@/components/PopUpHelp'
+  import PopUpValider from '@/components/PopUpValider'
 
   export default {
     name: 'PopUp',
     components: {
+      PopUpValider,
       PopUpHelp
     },
     props: {
