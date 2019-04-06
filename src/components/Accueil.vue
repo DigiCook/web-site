@@ -26,10 +26,10 @@
                 </aside>
             </article>
             <article>
-                <div class="carte-button carte-button-recap">
-                    <p>Récapitulatif de ma commande</p>
+                <div v-on:click="onClickValiderPopUp" class="carte-button carte-button-recap">
+                    <p>Valider</p>
                 </div>
-                <div class="carte-button carte-button-help">
+                <div v-on:click="onClickAide" class="carte-button carte-button-help">
                     <p>Service et aide</p>
                 </div>
             </article>
@@ -61,6 +61,12 @@
       },
       async getAllPlat () {
         this.allPlat = (await fetch(endpoints.typePlat.list)).data
+      },
+      onClickValiderPopUp () {
+        console.log('valider')
+      },
+      onClickAide () {
+        console.log('aide')
       }
     },
     async created () {
@@ -85,31 +91,40 @@
         display: flex;
         margin: 40px;
         margin-right: 0px;
+
         h1 {
             font-size: 34px;
             text-align: center;
         }
+
         .menu {
             display: flex;
             flex-direction: column;
             margin-right: 20px;
+
             article {
                 display: flex;
                 flex-direction: row;
             }
+
             &-line {
                 width: 2px;
                 background-color: $terce-text-color;
                 margin: 40px 0;
             }
+
             &-trait {
                 height: 2px;
                 background-color: $terce-text-color;
             }
         }
+
         .carte {
             width: 100%;
             display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
             &:before {
                 background-color: $terce-text-color;
                 width: 2px;
@@ -118,22 +133,27 @@
                 position: absolute;
                 content: "";
             }
+
             //border-left: 2px solid $terce-text-color;
             article {
                 margin-top: 30px;
             }
+
             &-button {
                 background-color: $button-choice;
                 padding: 20px;
                 border-radius: 20px;
                 margin: 20px auto;
                 width: 50%;
+
                 &-help {
                     background-color: $button-alert;
                 }
+
                 &-recap {
                     background-color: $button-ok;
                 }
+
                 p {
                     text-align: center;
                     color: $second-text-color;
