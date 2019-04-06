@@ -1,5 +1,5 @@
 <template>
-    <aside class="menu">
+    <aside v-on:click="onClick" class="menu">
         <img class="menu-img" :src="dataMenu.urlPhoto"/>
         <p class="menu-text">{{dataMenu.nom}}</p>
     </aside>
@@ -13,8 +13,11 @@
         type: [Object]
       }
     },
-    data () {
-      return {}
+    methods: {
+      onClick () {
+        console.log('direction vers ' + this.dataMenu.nom)
+      }
+
     }
   }
 </script>
@@ -28,11 +31,9 @@
             margin: 10px;
         }
         &-text {
-            font-size: 17px;
+            font-size: 22px;
             text-align: center;
         }
-
     }
-
 
 </style>
