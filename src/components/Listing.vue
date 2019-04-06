@@ -17,12 +17,12 @@
 <script>
     import fetch from '@/services/fetch.js'
     import endpoints from '@/services/endpoints.js'
-    import btnBack from '@/components/btnBack.vue'
+    import BtnBack from '@/components/btnBack.vue'
 
     export default {
       name: 'Listing',
       components: {
-        btnBack
+        BtnBack
       },
       methods: {
         returnBack () {
