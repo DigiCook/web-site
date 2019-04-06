@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import OtherPage from '@/components/OtherPage'
 import Carte from '@/components/Carte'
 import Accueil from '@/components/Accueil'
+import Listing from '@/components/Listing'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       name: 'Carte',
       path: '/carte',
       component: Carte
+    },
+    {
+      name: 'Listing',
+      path: '/listing',
+      component: Listing
     }
 
   ]
