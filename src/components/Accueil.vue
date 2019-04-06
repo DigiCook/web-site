@@ -1,39 +1,45 @@
 <template>
-    <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil">
-        <section class="menu">
-            <h1 class="menu-titre">Nos Menus</h1>
-            <article>
-                <menu-card :data-idMenu="allMenu[0].id" v-if="allMenu[0]" :dataMenu="allMenu[0]"></menu-card>
-                <div class="menu-line">
+    <div>
+        <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil">
+            <section class="menu">
+                <h1 class="menu-titre">Nos Menus</h1>
+                <article>
+                    <menu-card :data-idMenu="allMenu[0].id" v-if="allMenu[0]" :dataMenu="allMenu[0]"></menu-card>
+                    <div class="menu-line">
+                    </div>
+                    <menu-card :data-idMenu="allMenu[1].id" v-if="allMenu[1]" :dataMenu="allMenu[1]"></menu-card>
+                </article>
+                <div class="menu-trait">
                 </div>
-                <menu-card :data-idMenu="allMenu[1].id" v-if="allMenu[1]" :dataMenu="allMenu[1]"></menu-card>
-            </article>
-            <div class="menu-trait">
-            </div>
-            <article>
-                <menu-card :data-idMenu="allMenu[2].id" v-if="allMenu[2]" :dataMenu="allMenu[2]"></menu-card>
-                <div class="menu-line">
-                </div>
-                <menu-card :data-idMenu="allMenu[3].id" v-if="allMenu[3]" :dataMenu="allMenu[3]"></menu-card>
-            </article>
+                <article>
+                    <menu-card :data-idMenu="allMenu[2].id" v-if="allMenu[2]" :dataMenu="allMenu[2]"></menu-card>
+                    <div class="menu-line">
+                    </div>
+                    <menu-card :data-idMenu="allMenu[3].id" v-if="allMenu[3]" :dataMenu="allMenu[3]"></menu-card>
+                </article>
 
-        </section>
-        <section class="carte">
-            <h1>Menu à la Carte</h1>
-            <article>
-                <aside v-for='typeplat in allPlat'>
-                    <add-plat :dataPlat="typeplat"></add-plat>
-                </aside>
-            </article>
-            <article>
-                <div v-on:click="onClickValiderPopUp" class="carte-button carte-button-recap">
-                    <p>Valider</p>
-                </div>
-                <div v-on:click="onClickAide" class="carte-button carte-button-help">
-                    <p>Service et aide</p>
-                </div>
-            </article>
-        </section>
+            </section>
+            <section class="carte">
+                <h1>Menu à la Carte</h1>
+                <article>
+                    <aside v-for='typeplat in allPlat'>
+                        <add-plat :dataPlat="typeplat"></add-plat>
+                    </aside>
+                </article>
+                <article>
+                    <div v-on:click="onClickValiderPopUp" class="carte-button carte-button-recap">
+                        <p>Valider</p>
+                    </div>
+                    <div v-on:click="onClickAide" class="carte-button carte-button-help">
+                        <p>Service et aide</p>
+                    </div>
+                </article>
+            </section>
+
+        </div>
+        <pop-up typePopUp="Help" v-if="showPopupHelp" @close="showPopupHelp = false"></pop-up>
+
+
     </div>
 </template>
 
@@ -42,17 +48,20 @@
   import AddPlat from '@/components/AddPlat'
   import fetch from '@/services/fetch'
   import endpoints from '@/services/endpoints'
+  import PopUp from '@/components/PopUp'
 
   export default {
     name: 'Accueil',
     components: {
+      PopUp,
       MenuCard,
       AddPlat
     },
     data () {
       return {
         'allMenu': [],
-        'allPlat': []
+        'allPlat': [],
+        'showPopupHelp': false
       }
     },
     methods: {
@@ -66,7 +75,7 @@
         console.log('valider')
       },
       onClickAide () {
-        console.log('aide')
+        this.showPopupHelp = true
       }
     },
     async created () {
