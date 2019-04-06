@@ -11,18 +11,21 @@
                 </aside>
             </section>
         </div>
+        <pop-up typePopUp="Plat" v-if="showPopUpPlat" @close="showPopUpPlat = false"></pop-up>
     </div>
 </template>
 
 <script>
     import fetch from '@/services/fetch.js'
     import endpoints from '@/services/endpoints.js'
-    import BtnBack from '@/components/btnBack.vue'
+    import BtnBack from '@/components/BtnBack.vue'
+    import PopUp from '@/components/PopUp.vue'
 
     export default {
       name: 'Listing',
       components: {
-        BtnBack
+        BtnBack,
+        PopUp
       },
       methods: {
         returnBack () {
@@ -30,6 +33,7 @@
         },
         onItemClick (id) {
           console.log('http://localhost:8000/#/listing/' + id)
+          this.showPopUpPlat = true
           // this.$router.go('http://localhost:8000/#/listing/' + id)
         },
         async getPlats () {
@@ -41,7 +45,8 @@
       },
       data () {
         return {
-          plats: []
+          plats: [],
+          'showPopUpPlat' : false
         }
       }
     }

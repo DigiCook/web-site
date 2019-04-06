@@ -14,17 +14,19 @@
             </div>
         </div>
 
-        <pop-up-help></pop-up-help>
+        <pop-up-help style="display:none"></pop-up-help>
     </div>
 </template>
 
 <script>
   import PopUpHelp from '@/components/PopUpHelp'
+  import PopUpPlat from '@/components/PopUpPlat'
 
   export default {
     name: 'PopUp',
     components: {
-      PopUpHelp
+      PopUpHelp,
+      PopUpPlat
     },
     props: {
       typePopUp: {
