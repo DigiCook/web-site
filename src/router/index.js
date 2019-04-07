@@ -4,6 +4,7 @@ import OtherPage from '@/components/OtherPage'
 import Carte from '@/components/Carte'
 import Recapitulatif from '@/components/Recapitulatif'
 import Accueil from '@/components/Accueil'
+import Listing from '@/components/Listing'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       name: 'Recapitulatif',
       path: '/recapitulatif',
       component: Recapitulatif
+    },
+    {
+      name: 'Listing',
+      path: '/listing',
+      component: Listing
     }
 
   ]
