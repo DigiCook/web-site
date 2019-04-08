@@ -1,5 +1,5 @@
 <template>
-    <div v-on:click="onClick" class="button">
+    <div v-on:click="onClick(dataPlat.id)" class="button">
         <p>{{dataPlat.libelle}}</p>
     </div>
 </template>
@@ -13,8 +13,8 @@
       }
     },
     methods: {
-      onClick () {
-        console.log('direction vers ' + this.dataPlat.libelle)
+      onClick (id) {
+        this.$router.push(`listing/${id}`)
       }
 
     }

@@ -5,6 +5,7 @@ import Carte from '@/components/Carte'
 import Recapitulatif from '@/components/Recapitulatif'
 import Accueil from '@/components/Accueil'
 import Listing from '@/components/Listing'
+import DescriptionMenu from '@/components/DescriptionMenu'
 
 Vue.use(Router)
 
@@ -26,15 +27,22 @@ export default new Router({
       component: Carte
     },
     {
+<<<<<<< HEAD
       name: 'Recapitulatif',
       path: '/recapitulatif',
       component: Recapitulatif
+=======
+      name: 'DescriptionMenu',
+      path: '/menu/:id',
+      component: DescriptionMenu,
+      props: true
+>>>>>>> develop
     },
     {
       name: 'Listing',
-      path: '/listing',
-      component: Listing
+      path: '/listing/:id/',
+      component: Listing,
+      props: true
     }
-
   ]
 })
