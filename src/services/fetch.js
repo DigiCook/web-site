@@ -18,6 +18,8 @@ function call (endpoint, params = {}) {
         const key = allMatch[1]
         if (params.hasOwnProperty(key)) {
           url = url.replace(allMatch[0], params[key])
+
+          delete params[key]
         } else {
           console.error(`[Fetch] Attribute ${key} is missing !`)
         }
@@ -29,7 +31,7 @@ function call (endpoint, params = {}) {
 
     if (options.method !== 'POST') {
       if (Object.keys(params).length > 0) {
-        url += `?${Object.keys(params).map(key => { return `&${key}=${params[key]}` })}`
+        url += `?${Object.keys(params).map(key => { return `& ${key}=${params[key]}` })}`
       }
     } else {
       body = params
