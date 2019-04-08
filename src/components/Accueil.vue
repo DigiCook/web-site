@@ -67,10 +67,20 @@
     },
     methods: {
       async getAllMenu () {
-        this.allMenu = (await fetch(endpoints.menu.list)).data
+        if (this.$store.getters.getMenus.length === 0) {
+          this.allMenu = (await fetch(endpoints.menu.list)).data
+          this.$store.dispatch('setMenu', this.allMenu)
+        } else {
+          this.allMenu = this.$store.getters.getMenus
+        }
       },
       async getAllPlat () {
-        this.allPlat = (await fetch(endpoints.typePlat.list)).data
+        if (this.$store.getters.getTypesPlat.length === 0) {
+          this.allPlat = (await fetch(endpoints.typePlat.list)).data
+          this.$store.dispatch('setTypesPlat', this.allPlat)
+        } else {
+          this.allPlat = this.$store.getters.getTypesPlat
+        }
       },
       onClickValider () {
         this.showPopupValider = true
@@ -80,14 +90,8 @@
       }
     },
     async created () {
-      if (this.$store.getters.getMenus.length === 0) {
-        await this.getAllMenu()
-        this.$store.dispatch('setMenu', this.allMenu)
-      }
-      if (this.$store.getters.getTypesPlat.length === 0) {
-        await this.getAllPlat()
-        this.$store.dispatch('setMenu', this.allPlat)
-      }
+      this.getAllMenu()
+      this.getAllPlat()
     }
   }
 </script>
