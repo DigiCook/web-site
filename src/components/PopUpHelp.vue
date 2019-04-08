@@ -27,6 +27,7 @@
             height: 75px;
             margin: auto;
             display: flex;
+            border-radius: 20px;
             p{
                 margin: auto;
                 font-family: $main-font;

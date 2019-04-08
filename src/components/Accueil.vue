@@ -27,7 +27,7 @@
                     </aside>
                 </article>
                 <article>
-                    <div v-on:click="onClickValiderPopUp" class="carte-button carte-button-recap">
+                    <div v-on:click="onClickValider" class="carte-button carte-button-recap">
                         <p>Valider</p>
                     </div>
                     <div v-on:click="onClickAide" class="carte-button carte-button-help">
@@ -38,7 +38,7 @@
 
         </div>
         <pop-up typePopUp="Help" v-if="showPopupHelp" @close="showPopupHelp = false"></pop-up>
-
+        <pop-up typePopUp="Valider" v-if="showPopupValider" @close="showPopupValider = false"></pop-up>
 
     </div>
 </template>
@@ -61,7 +61,8 @@
       return {
         'allMenu': [],
         'allPlat': [],
-        'showPopupHelp': false
+        'showPopupHelp': false,
+        'showPopupValider': false
       }
     },
     methods: {
@@ -71,8 +72,8 @@
       async getAllPlat () {
         this.allPlat = (await fetch(endpoints.typePlat.list)).data
       },
-      onClickValiderPopUp () {
-        console.log('valider')
+      onClickValider () {
+        this.showPopupValider = true
       },
       onClickAide () {
         this.showPopupHelp = true
