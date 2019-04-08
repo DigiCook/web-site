@@ -46,7 +46,7 @@
       data () {
         return {
           plats: [],
-          'showPopUpPlat' : false
+          'showPopUpPlat': false
         }
       }
     }
