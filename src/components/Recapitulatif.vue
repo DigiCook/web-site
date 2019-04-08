@@ -7,14 +7,17 @@
         <div>{{menu.nom}}</div>
         <div>Quantité : {{menu.quantite}}</div>
          <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
-         <div @click="decreaseQty(menu.id)" class="button"><p>Minus</p></div>
-         <div @click="deleteDish(menu.id)" class="button"><p>Supprimer</p></div>
+         <div @click="menu.quantite --" class="button"><p>Minus</p></div>
+         <div @click="menu.quantite ++" class="button"><p>Plus</p></div>
+         <div @click="deleteLineMenu(menu.id)" class="button"><p>Supprimer</p></div>
     </li> 
      <li class="item" v-for='plat in cdePlats'>
         <div>{{plat.nom}}</div> 
         <div>Quantité :  {{plat.quantite}} </div> 
-        <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div> 
-        <div @click="deleteDish(plat.id)" class="button"><p>Supprimer</p></div> 
+        <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div>
+        <div @click="plat.quantite --" class="button"><p>Minus</p></div>
+        <div @click="plat.quantite ++" class="button"><p>Plus</p></div>
+        <div @click="deleteLinePlat(plat.id)" class="button"><p>Supprimer</p></div> 
     </li>
     <li class="item">
         <div>&nbsp;</div>  
@@ -30,7 +33,7 @@
 
 <script>
 
-// import storeCde from '@/store/modules/commande'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Recapitulatif',
@@ -40,15 +43,9 @@ export default {
   },
   mounted () {
     console.log('Recapitulatif mounted')
-    this.cdeMenus = this.$store.getters.getCommandeMenu
-    this.cdePlats = this.$store.getters.getCommandePlat
   },
   data () {
     return {
-      // cdeMenus: storeCde.getters.getCommandeMenu(storeCde.state),
-      // cdePlats: storeCde.getters.getCommandePlat(storeCde.state)
-      cdeMenus: [],
-      cdePlats: []
     }
   },
   watch: {
@@ -60,15 +57,15 @@ export default {
     validateOrder () {
       console.log('order validated')
     },
-    decreaseQty (id) {
-      console.log('decrease qty')
-      console.log(id)
-      this.$store.dispatch('decreaseQtyMenus', id)
-    },
-    deleteDish (id) {
+    deleteLineMenu (id) {
       console.log('dish deleted')
       console.log(id)
-      this.$store.dispatch('deleteDish', id)
+      this.$store.dispatch('deleteLineMenu', id)
+    },
+    deleteLinePlat (id) {
+      console.log('dish deleted')
+      console.log(id)
+      this.$store.dispatch('deleteLinePlat', id)
     },
     deleteOrder () {
       console.log('orderdeteled : todo lien vers le store')
@@ -94,7 +91,12 @@ export default {
         tot = tot + cde.prix * cde.quantite
       } */
       return tot.toFixed(2)
-    }
+    },
+    ...mapGetters({
+      cdeMenus: 'getCommandeMenu',
+      cdePlats: 'getCommandePlat'
+    })
+
   }
 }
 </script>
