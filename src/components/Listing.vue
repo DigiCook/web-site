@@ -14,7 +14,7 @@
             </section>
         </div>
         <pop-up typePopUp="Plat" v-if="showPopUpPlat" @close="showPopUpPlat = false" class="pop-up">
-            <div v-if="currentPlat.urlPhoto != null">
+            <div v-if="currentPlat.urlPhoto != null & currentPlat.nom != null & currentPlat.prix != null & currentPlat.description != null">
                 <div class="photo">
                     <div>
                         <img v-bind:src="currentPlat.urlPhoto" v-bind:alt="currentPlat.nom">
