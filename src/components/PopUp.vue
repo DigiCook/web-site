@@ -22,12 +22,14 @@
 <script>
   import PopUpHelp from '@/components/PopUpHelp'
   import PopUpValider from '@/components/PopUpValider'
+  import PopUpPlat from '@/components/PopUpPlat'
 
   export default {
     name: 'PopUp',
     components: {
       PopUpValider,
-      PopUpHelp
+      PopUpHelp,
+      PopUpPlat
     },
     props: {
       typePopUp: {
