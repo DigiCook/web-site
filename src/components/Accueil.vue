@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil">
+    <div class="maxHeight">
+        <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil maxHeight">
             <section class="menu">
                 <h1 class="menu-titre">Nos Menus</h1>
                 <article>
@@ -20,18 +20,20 @@
 
             </section>
             <section class="carte">
-                <h1>Menu à la Carte</h1>
+                <h1>Plats à la Carte</h1>
                 <article>
                     <aside v-for='typeplat in allPlat'>
                         <add-plat :dataPlat="typeplat"></add-plat>
                     </aside>
                 </article>
-                <article>
-                    <div v-on:click="onClickValider" class="carte-button carte-button-recap">
-                        <p>Valider</p>
-                    </div>
+                <article class="bottom-carte">
                     <div v-on:click="onClickAide" class="carte-button carte-button-help">
-                        <p>Service et aide</p>
+                        <img src="../assets/alarm.svg">
+                        <p>Appeler un serveur</p>
+                    </div>
+                    <div v-on:click="onClickValider" class="carte-button carte-button-recap">
+                        <img src="../assets/check-symbol.svg">
+                        <p>Valider</p>
                     </div>
                 </article>
             </section>
@@ -99,12 +101,17 @@
 <style scoped lang="scss">
     @import '@/styles/scss/_variables.scss';
 
+    .maxHeight {
+        height: 100%;
+    }
+
     .accueil {
+        position: relative;
+        overflow: hidden;
         font-family: $main-font;
-        color: $main-text-color;
+
         display: flex;
-        margin: 40px;
-        margin-right: 0px;
+        //padding: 40px;
 
         h1 {
             font-size: 34px;
@@ -112,9 +119,12 @@
         }
 
         .menu {
+            padding-top: 30px;
+            padding-left: 30px;
             display: flex;
             flex-direction: column;
             margin-right: 20px;
+            color: $second-text-color;
 
             article {
                 display: flex;
@@ -122,56 +132,70 @@
             }
 
             &-line {
+                display: none;
                 width: 2px;
-                background-color: $terce-text-color;
+                background-color: $second-text-color;
                 margin: 40px 0;
             }
 
             &-trait {
+                display: none;
                 height: 2px;
-                background-color: $terce-text-color;
+                background-color: $second-text-color;
             }
         }
 
         .carte {
+            padding-top: 30px;
             width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background-color: $bg-main;
+            color: $main-text-color;
+            box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
 
-            &:before {
-                background-color: $terce-text-color;
-                width: 2px;
-                height: 90%;
-                display: block;
-                position: absolute;
-                content: "";
-            }
-
-            //border-left: 2px solid $terce-text-color;
             article {
                 margin-top: 30px;
             }
 
-            &-button {
-                background-color: $button-choice;
-                padding: 20px;
-                border-radius: 20px;
-                margin: 20px auto;
-                width: 50%;
+            .bottom-carte {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
 
-                &-help {
-                    background-color: $button-alert;
-                }
+                font-family: $main-font;
 
-                &-recap {
-                    background-color: $button-ok;
-                }
 
-                p {
-                    text-align: center;
-                    color: $second-text-color;
+                .carte-button {
+                    background-color: $button-choice;
+                    padding: 20px;
+                    border-radius: 20px;
+                    display: flex;
+                    flex-direction: column;
                     font-size: 22px;
+                    margin: 0px 30px;
+                    margin-bottom: 20px;
+                    box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
+
+                    &-help {
+                        background-color: $button-alert;
+                    }
+
+                    &-recap {
+                        background-color: $button-ok;
+                    }
+
+
+                    img {
+                        display: none;
+                        width: 30px;
+                        margin: auto;
+                    }
+
+                    p {
+                        margin: auto;
+                    }
                 }
             }
         }
