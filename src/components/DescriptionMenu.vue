@@ -12,7 +12,12 @@
 
         <div class="Menu-conteneur-plats">
 
-          <h2>Contenu du menu</h2>
+          <h3>Contenu du menu</h3>
+          <p class="Menu-conteneur-plats_separateur">____</p>
+
+          <p class="Menu-conteneur-plats-plat" :key="`id-plat-${plat.id}`" v-for="plat in menu.plats">{{ plat.nom }}</p>
+
+          <p class="Menu-conteneur-plats-prix" v-text="`${menu.prix} €`"></p>
 
         </div>
       </div>
@@ -66,6 +71,7 @@ export default {
         console.info('[DescriptionMenu:fetchMenu] Fetch the full menu.')
         const result = await fetch(endpoints.menu.get, { id: this.id })
         if (result && result.code === 200) {
+          result.data.plats.sort((a, b) => a.id - b.id)
           this.menu = result.data
           this.$store.dispatch('addMenu', this.menu)
         }
@@ -135,23 +141,50 @@ html, body {
     }
 
     &-plats {
+      position: relative;
       padding: 24px;
       width: 100%;
       border-left: solid 2px rgba(0, 0, 0, .53);
 
-      h2 {
+      h3 {
         color:#333333;
+        text-align: center;
+      }
+
+      &_separateur {
+        color:#333333 !important;
+        text-align: center !important;
+        padding: 0px !important;
+        padding-bottom: 16px;
+      }
+
+      &-plat {
+        color:#333333;
+        text-align: center;
+        font-size: 1.1rem;
+        padding: 8px;
+      }
+
+      &-prix {
+        display: inline;
+        position: absolute;
+        right: 10%;
+        bottom: 20%;
+        color:#333333;
+        font-size: 1.3rem;
+        font-weight: 600;
       }
     }
   }
 
   &-description {
     padding-top: 24px; 
-    width: 50%;
+    width: 70%;
     margin: auto;
 
     color: #333333;
     font-size: 1.2rem;
+    text-align: justify;
   }
 }
 </style>
