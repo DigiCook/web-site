@@ -18,6 +18,8 @@ function call (endpoint, params = {}) {
         const key = allMatch[1]
         if (params.hasOwnProperty(key)) {
           url = url.replace(allMatch[0], params[key])
+
+          delete params[key]
         } else {
           console.error(`[Fetch] Attribute ${key} is missing !`)
         }
