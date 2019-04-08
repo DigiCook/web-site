@@ -1,7 +1,7 @@
 <template>
   <div v-if="menu" class="Menu">
 
-    <button class="Menu-retoure">Retour</button>
+    <btn-back class="Menu-retoure"></btn-back>
 
     <div class="border">
       <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
@@ -29,10 +29,12 @@
 import { mapGetters } from 'vuex'
 import fetch from '@/services/fetch'
 import endpoints from '@/services/endpoints'
+import BtnBack from '@/components/BtnBack'
 
 export default {
   name: 'DescriptionMenu',
   components: {
+    BtnBack
   },
   props: {
     id: {
@@ -66,6 +68,7 @@ export default {
         const result = await fetch(endpoints.menu.get, { id: this.id })
         if (result && result.code === 200) {
           this.menu = result.data
+          this.$store.dispatch('addMenu', this.menu)
         }
       } catch (error) {
         console.error('[DescriptionMenu:fetchMenu]', error)
@@ -97,6 +100,7 @@ html, body {
   padding: 24px;
 
   &-retoure {
+    position: initial;
     margin-bottom: 24px;
   }
 
@@ -125,15 +129,20 @@ html, body {
     flex-direction: row;
 
      &-image {
-      padding: 24px;
+      margin: 24px;
       width: 300px;
       height: 300px;
+      border-radius: 6px;
     }
 
     &-plats {
       padding: 24px;
       width: 100%;
       border-left: solid 2px rgba(0, 0, 0, .53);
+
+      h2 {
+        color:#333333;
+      }
     }
   }
 
