@@ -68,6 +68,7 @@ export default {
         const result = await fetch(endpoints.menu.get, { id: this.id })
         if (result && result.code === 200) {
           this.menu = result.data
+          this.$store.dispatch('addMenu', this.menu)
         }
       } catch (error) {
         console.error('[DescriptionMenu:fetchMenu]', error)

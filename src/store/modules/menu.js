@@ -15,6 +15,18 @@ const actions = {
     if (menus) {
       commit(types.SET_MENU, menus)
     }
+  },
+  addMenu ({ commit, state }, menu) {
+    const menus = [...state.menus]
+    // Check if the menu is already in the store.
+    const menuFound = menus.find(m => m.id === menu.id)
+
+    if (menuFound) {
+      const indexToReplace = menus.indexOf(menuFound)
+      // Replace with the full menu + save it.
+      menus.splice(indexToReplace, 1, menu)
+      commit(types.SET_MENU, menus)
+    }
   }
 }
 
