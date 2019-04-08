@@ -33,8 +33,9 @@ export default new Router({
     },
     {
       name: 'Listing',
-      path: '/listing',
-      component: Listing
+      path: '/listing/:id/',
+      component: Listing,
+      props: true
     }
   ]
 })

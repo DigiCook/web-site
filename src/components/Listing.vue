@@ -16,50 +16,57 @@
 </template>
 
 <script>
-    import fetch from '@/services/fetch.js'
-    import endpoints from '@/services/endpoints.js'
-    import BtnBack from '@/components/BtnBack.vue'
-    import PopUp from '@/components/PopUp.vue'
+  import fetch from '@/services/fetch.js'
+  import endpoints from '@/services/endpoints.js'
+  import BtnBack from '@/components/BtnBack.vue'
+  import PopUp from '@/components/PopUp.vue'
 
-    export default {
-      name: 'Listing',
-      components: {
-        BtnBack,
-        PopUp
+  export default {
+    name: 'Listing',
+    components: {
+      BtnBack,
+      PopUp
+    },
+    props: {
+      id: {
+        type: [Number, String]
+      }
+    },
+    methods: {
+      returnBack () {
+        this.$router.go(-1)
       },
-      methods: {
-        returnBack () {
-          this.$router.go(-1)
-        },
-        onItemClick (id) {
-          console.log('http://localhost:8000/#/listing/' + id)
-          this.showPopUpPlat = true
-          // this.$router.go('http://localhost:8000/#/listing/' + id)
-        },
-        async getPlats () {
-          this.plats = (await fetch(endpoints.plat.list)).data
-        }
+      onItemClick (id) {
+        console.log('http://localhost:8000/#/listing/' + id)
+        this.showPopUpPlat = true
+        // this.$router.go('http://localhost:8000/#/listing/' + id)
       },
-      async created () {
-        await this.getPlats()
-      },
-      data () {
-        return {
-          plats: [],
-          'showPopUpPlat': false
-        }
+      async getPlats () {
+        this.plats = (await fetch(endpoints.plat.list)).data
+      }
+    },
+    async created () {
+      await this.getPlats()
+    },
+    data () {
+      return {
+        plats: [],
+        'showPopUpPlat': false
       }
     }
+  }
 </script>
 
 <style scoped lang="scss">
-    .listing{
-        display:flex;
-        &-choice{
+    .listing {
+        display: flex;
+
+        &-choice {
             height: 100vh;
             width: 100%;
             text-align: center;
-            .choice{
+
+            .choice {
                 display: flex;
                 flex-direction: row;
                 width: 100%;
@@ -67,10 +74,12 @@
                 height: calc(100vh - 112px);
                 margin-top: 112px;
                 flex-wrap: wrap;
-                aside{
+
+                aside {
                     width: 33%;
-                    article{
-                        img{
+
+                    article {
+                        img {
                             height: 170px;
                             width: 170px;
                             box-sizing: border-box;
