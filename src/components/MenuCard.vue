@@ -1,5 +1,5 @@
 <template>
-    <aside v-on:click="onClick" class="menu">
+    <aside v-on:click="onClick(dataMenu.id)" class="menu">
         <img class="menu-img" :src="dataMenu.urlPhoto"/>
         <p class="menu-text">{{dataMenu.nom}}</p>
     </aside>
@@ -14,8 +14,8 @@
       }
     },
     methods: {
-      onClick () {
-        console.log('direction vers ' + this.dataMenu.nom)
+      onClick (id) {
+        this.$router.push(`menu/${id}`)
       }
 
     }

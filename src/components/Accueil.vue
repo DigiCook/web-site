@@ -27,7 +27,7 @@
                     </aside>
                 </article>
                 <article>
-                    <div v-on:click="onClickValiderPopUp" class="carte-button carte-button-recap">
+                    <div v-on:click="onClickValider" class="carte-button carte-button-recap">
                         <p>Valider</p>
                     </div>
                     <div v-on:click="onClickAide" class="carte-button carte-button-help">
@@ -38,7 +38,7 @@
 
         </div>
         <pop-up typePopUp="Help" v-if="showPopupHelp" @close="showPopupHelp = false"></pop-up>
-
+        <pop-up typePopUp="Valider" v-if="showPopupValider" @close="showPopupValider = false"></pop-up>
 
     </div>
 </template>
@@ -61,32 +61,37 @@
       return {
         'allMenu': [],
         'allPlat': [],
-        'showPopupHelp': false
+        'showPopupHelp': false,
+        'showPopupValider': false
       }
     },
     methods: {
       async getAllMenu () {
-        this.allMenu = (await fetch(endpoints.menu.list)).data
+        if (this.$store.getters.getMenus.length === 0) {
+          this.allMenu = (await fetch(endpoints.menu.list)).data
+          this.$store.dispatch('setMenu', this.allMenu)
+        } else {
+          this.allMenu = this.$store.getters.getMenus
+        }
       },
       async getAllPlat () {
-        this.allPlat = (await fetch(endpoints.typePlat.list)).data
+        if (this.$store.getters.getTypesPlat.length === 0) {
+          this.allPlat = (await fetch(endpoints.typePlat.list)).data
+          this.$store.dispatch('setTypesPlat', this.allPlat)
+        } else {
+          this.allPlat = this.$store.getters.getTypesPlat
+        }
       },
-      onClickValiderPopUp () {
-        console.log('valider')
+      onClickValider () {
+        this.showPopupValider = true
       },
       onClickAide () {
         this.showPopupHelp = true
       }
     },
     async created () {
-      if (this.$store.getters.getMenus.length === 0) {
-        await this.getAllMenu()
-        this.$store.dispatch('setMenu', this.allMenu)
-      }
-      if (this.$store.getters.getTypesPlat.length === 0) {
-        await this.getAllPlat()
-        this.$store.dispatch('setMenu', this.allPlat)
-      }
+      this.getAllMenu()
+      this.getAllPlat()
     }
   }
 </script>
