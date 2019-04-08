@@ -5,8 +5,8 @@
             <section class="choice">
                 <aside v-for="plat in plats">
                     <article class="choice-detail" @click="onItemClick(plat.id)">
-                        <img :src="plat.urlPhoto" alt="">
-                        <p>{{ plat.id }}</p>
+                        <img v-bind:src="plat.urlPhoto" alt="">
+                        <p>{{ plat.nom }}</p>
                     </article>
                 </aside>
             </section>
@@ -42,7 +42,7 @@
         // this.$router.go('http://localhost:8000/#/listing/' + id)
       },
       async getPlats () {
-        this.plats = (await fetch(endpoints.plat.list)).data
+        this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
       }
     },
     async created () {
