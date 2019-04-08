@@ -1,6 +1,6 @@
 <template>
     <div class="listing">
-        <button @click="returnBack">Retour</button>
+        <btn-back></btn-back>
         <div class="listing-choice">
             <section class="choice">
                 <aside v-for="plat in plats">
@@ -11,20 +11,29 @@
                 </aside>
             </section>
         </div>
+        <pop-up typePopUp="Plat" v-if="showPopUpPlat" @close="showPopUpPlat = false"></pop-up>
     </div>
 </template>
 
 <script>
     import fetch from '@/services/fetch.js'
     import endpoints from '@/services/endpoints.js'
+    import BtnBack from '@/components/BtnBack.vue'
+    import PopUp from '@/components/PopUp.vue'
+
     export default {
       name: 'Listing',
+      components: {
+        BtnBack,
+        PopUp
+      },
       methods: {
         returnBack () {
           this.$router.go(-1)
         },
         onItemClick (id) {
           console.log('http://localhost:8000/#/listing/' + id)
+          this.showPopUpPlat = true
           // this.$router.go('http://localhost:8000/#/listing/' + id)
         },
         async getPlats () {
@@ -36,7 +45,8 @@
       },
       data () {
         return {
-          plats: []
+          plats: [],
+          'showPopUpPlat': false
         }
       }
     }
@@ -45,16 +55,6 @@
 <style scoped lang="scss">
     .listing{
         display:flex;
-        button {
-            position: absolute;
-            padding: 10px 30px;
-            left: 50px;
-            top: 50px;
-            background: #EA3939;
-            border: 1px solid #EA3939;
-            box-sizing: border-box;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        }
         &-choice{
             height: 100vh;
             width: 100%;
