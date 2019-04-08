@@ -1,5 +1,7 @@
 <template>
-    <button @click="returnBack">Retour</button>
+    <button @click="returnBack">
+        <slot></slot>
+    </button>
 </template>
 
 <script>

@@ -1,6 +1,8 @@
 <template>
     <div class="listing">
-        <btn-back></btn-back>
+        <btn-back>
+            Retour
+        </btn-back>
         <div class="listing-choice">
             <section class="choice">
                 <aside v-for="plat in plats">
