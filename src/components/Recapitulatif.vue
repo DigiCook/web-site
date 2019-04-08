@@ -7,7 +7,7 @@
         <div>{{menu.nom}}</div>
         <div>Quantité : {{menu.quantite}}</div>
          <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
-         <div @click="menu.quantite --" class="button"><p>Minus</p></div>
+         <div @click="decreaseQtyMenu(menu)" class="button"><p>Minus</p></div>
          <div @click="menu.quantite ++" class="button"><p>Plus</p></div>
          <div @click="deleteLineMenu(menu.id)" class="button"><p>Supprimer</p></div>
     </li> 
@@ -15,7 +15,7 @@
         <div>{{plat.nom}}</div> 
         <div>Quantité :  {{plat.quantite}} </div> 
         <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div>
-        <div @click="plat.quantite --" class="button"><p>Minus</p></div>
+        <div @click="decreaseQtyPlat(plat)" class="button"><p>Minus</p></div>
         <div @click="plat.quantite ++" class="button"><p>Plus</p></div>
         <div @click="deleteLinePlat(plat.id)" class="button"><p>Supprimer</p></div> 
     </li>
@@ -69,7 +69,20 @@ export default {
     },
     deleteOrder () {
       console.log('orderdeteled : todo lien vers le store')
+    },
+    decreaseQtyMenu (menu) {
+      menu.quantite --
+      if (menu.quantite <= 0) {
+        this.deleteLineMenu(menu.id)
+      }
+    },
+    decreaseQtyPlat (plat) {
+      plat.quantite --
+      if (plat.quantite <= 0) {
+        this.deleteLinePlat(plat.id)
+      }
     }
+
   },
   computed: {
     total () {
