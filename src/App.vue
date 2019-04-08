@@ -1,27 +1,31 @@
 <template>
-  <div>
-    <router-view/>
-  </div>
+    <div class="maxHeight">
+        <router-view/>
+    </div>
 </template>
 
 <script>
-
-export default {
-  name: 'app'
-}
+  export default {
+    name: 'app'
+  }
 </script>
 <style>
-  *{
-    margin: 0;
-    padding: 0;
-  }
+    * {
+        margin: 0;
+        padding: 0;
+    }
 </style>
 
 <style scoped>
 
-#app {
-  height: 100%;
-  width: 100%;
-}
+    #app {
+        height: 100%;
+        width: 100%;
+    }
+
+    .maxHeight {
+        height: 100%;
+
+    }
 
 </style>

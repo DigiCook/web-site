@@ -30,6 +30,7 @@
         border-radius: 20px;
         margin: 20px auto;
         width: 50%;
+        box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
 
         p {
             text-align: center;
