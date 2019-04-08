@@ -25,7 +25,7 @@
       <p class="Menu-description">{{ menu.description }}</p>
     </div>
 
-    <button class="Menu-ajouter">Ajouter</button>
+    <button @click="saveMenu" class="Menu-ajouter">Ajouter</button>
 
   </div>
 </template>
@@ -78,6 +78,12 @@ export default {
       } catch (error) {
         console.error('[DescriptionMenu:fetchMenu]', error)
       }
+    },
+    saveMenu () {
+      const savedMenu = this.menu
+      delete savedMenu.plats
+
+      console.log('Menu to saved : ', savedMenu)
     }
   },
   computed: {
