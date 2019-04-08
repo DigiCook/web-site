@@ -43,8 +43,7 @@ export default {
   },
   mounted () {
     // Check if the full menu are already in the store.
-    const currentMenu = this.menus.find(m => m.id === this.id && m.hasOwnProperty('description'))
-
+    const currentMenu = this.menus.find(m => m.id === parseInt(this.id) && m.hasOwnProperty('description'))
     if (currentMenu) {
       this.menu = currentMenu
     } else {
