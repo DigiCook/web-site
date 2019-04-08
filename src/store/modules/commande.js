@@ -48,11 +48,19 @@ const state = {
 }
 
 const mutations = {
-  // TODO: Add mutation for change the value of menus and plats.
+  DELETE_DISH (state, id) {
+    const index = state.menus.findIndex(x => x.id === id)
+    if (index >= 0) {
+      state.menus.splice(index, 1)
+      console.log('After removal:', state.menus)
+    }
+  }
 }
 
 const actions = {
-  // TODO: Add action for change the value of menus and plats.
+  deleteDish (context, id) {
+    context.commit('DELETE_DISH', id)
+  }
 }
 
 const getters = {

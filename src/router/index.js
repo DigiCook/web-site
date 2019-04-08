@@ -27,16 +27,15 @@ export default new Router({
       component: Carte
     },
     {
-<<<<<<< HEAD
       name: 'Recapitulatif',
       path: '/recapitulatif',
       component: Recapitulatif
-=======
+    },
+    {
       name: 'DescriptionMenu',
       path: '/menu/:id',
       component: DescriptionMenu,
       props: true
->>>>>>> develop
     },
     {
       name: 'Listing',

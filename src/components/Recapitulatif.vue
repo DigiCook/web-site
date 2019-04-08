@@ -7,6 +7,7 @@
         <div>{{menu.nom}}</div>
         <div>Quantité : {{menu.quantite}}</div>
          <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
+         <div @click="decreaseQty(menu.id)" class="button"><p>Minus</p></div>
          <div @click="deleteDish(menu.id)" class="button"><p>Supprimer</p></div>
     </li> 
      <li class="item" v-for='plat in cdePlats'>
@@ -29,7 +30,7 @@
 
 <script>
 
-import trucmuche from '@/store/modules/commande'
+// import storeCde from '@/store/modules/commande'
 
 export default {
   name: 'Recapitulatif',
@@ -39,11 +40,15 @@ export default {
   },
   mounted () {
     console.log('Recapitulatif mounted')
+    this.cdeMenus = this.$store.getters.getCommandeMenu
+    this.cdePlats = this.$store.getters.getCommandePlat
   },
   data () {
     return {
-      cdeMenus: trucmuche.getters.getCommandeMenu(trucmuche.state),
-      cdePlats: trucmuche.getters.getCommandePlat(trucmuche.state)
+      // cdeMenus: storeCde.getters.getCommandeMenu(storeCde.state),
+      // cdePlats: storeCde.getters.getCommandePlat(storeCde.state)
+      cdeMenus: [],
+      cdePlats: []
     }
   },
   watch: {
@@ -55,9 +60,15 @@ export default {
     validateOrder () {
       console.log('order validated')
     },
+    decreaseQty (id) {
+      console.log('decrease qty')
+      console.log(id)
+      this.$store.dispatch('decreaseQtyMenus', id)
+    },
     deleteDish (id) {
       console.log('dish deleted')
       console.log(id)
+      this.$store.dispatch('deleteDish', id)
     },
     deleteOrder () {
       console.log('orderdeteled : todo lien vers le store')
@@ -66,16 +77,22 @@ export default {
   computed: {
     total () {
       let tot = 0
-      var cdeMenus = trucmuche.getters.getCommandeMenu(trucmuche.state)
-      for (let id in cdeMenus) {
-        let cde = cdeMenus[id]
+      // var cdeMenus = storeCde.getters.getCommandeMenu(storeCde.state)
+      this.cdeMenus.map(function (menu) {
+        tot = tot + menu.prix * menu.quantite
+      })
+      /* for (let id in this.cdeMenus) {
+        let cde = this.cdeMenus[id]
         tot = tot + cde.prix * cde.quantite
-      }
-      var cdePlats = trucmuche.getters.getCommandePlat(trucmuche.state)
-      for (let id in cdePlats) {
-        let cde = cdePlats[id]
+      } */
+      // var cdePlats = storeCde.getters.getCommandePlat(storeCde.state)
+      this.cdePlats.map(function (plat) {
+        tot = tot + plat.prix * plat.quantite
+      })
+      /* for (let id in this.cdePlats) {
+        let cde = this.cdePlats[id]
         tot = tot + cde.prix * cde.quantite
-      }
+      } */
       return tot.toFixed(2)
     }
   }
