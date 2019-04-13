@@ -51,18 +51,15 @@ export default {
     const currentMenu = this.menus.find(m => m.id === parseInt(this.id) && m.hasOwnProperty('description'))
     if (currentMenu) {
       this.menu = currentMenu
-    } else {
-      this.fetchMenu()
     }
 
-    // TODO: Get plats of Menu.
+    // Get or update the full menu.
+    this.fetchMenu()
   },
   data () {
     return {
       menu: null
     }
-  },
-  watch: {
   },
   methods: {
     async fetchMenu () {
@@ -105,6 +102,7 @@ html, body {
 
 
 <style scoped lang="scss">
+
 .Menu {
   width: 100%;
   height: 100%;
@@ -123,8 +121,8 @@ html, body {
 
   .border {
     padding: 24px;
-    border: solid 2px rgba(0, 0, 0, .53);
-    border-radius: 4px;
+    border-radius: 25px;
+    box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
   }
 
   &-titre {
@@ -139,11 +137,11 @@ html, body {
     display: flex;
     flex-direction: row;
 
-     &-image {
+    &-image {
       margin: 24px;
       width: 300px;
       height: 300px;
-      border-radius: 6px;
+      border-radius: 50%;
     }
 
     &-plats {
