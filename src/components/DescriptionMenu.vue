@@ -83,6 +83,7 @@ export default {
       delete savedMenu.plats
 
       store.dispatch('addMenuToCommande', savedMenu)
+      this.$router.push('/')
     }
   },
   computed: {
