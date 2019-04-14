@@ -36,6 +36,8 @@ import fetch from '@/services/fetch'
 import endpoints from '@/services/endpoints'
 import BtnBack from '@/components/BtnBack'
 
+import store from '@/store'
+
 export default {
   name: 'DescriptionMenu',
   components: {
@@ -80,7 +82,7 @@ export default {
       const savedMenu = this.menu
       delete savedMenu.plats
 
-      console.log('Menu to saved : ', savedMenu)
+      store.dispatch('addMenuToCommande', savedMenu)
     }
   },
   computed: {
