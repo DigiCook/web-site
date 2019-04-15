@@ -26,7 +26,7 @@
     </div>
 
     <button @click="saveMenu" class="Menu-ajouter">Ajouter</button>
-
+    <snackbar>C'est tout bon !</snackbar>
   </div>
 </template>
 
@@ -35,13 +35,15 @@ import { mapGetters } from 'vuex'
 import fetch from '@/services/fetch'
 import endpoints from '@/services/endpoints'
 import BtnBack from '@/components/BtnBack'
+import Snackbar from '@/components/utils/Snackbar'
 
 import store from '@/store'
 
 export default {
   name: 'DescriptionMenu',
   components: {
-    BtnBack
+    BtnBack,
+    Snackbar
   },
   props: {
     id: {
