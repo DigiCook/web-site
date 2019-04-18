@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import OtherPage from '@/components/OtherPage'
 import Carte from '@/components/Carte'
 import Recapitulatif from '@/components/Recapitulatif'
-import Accueil from '@/components/Accueil'
+import Accueil from '@/components/accueil/Accueil'
 import Listing from '@/components/Listing'
 import DescriptionMenu from '@/components/DescriptionMenu'
 

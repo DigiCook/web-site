@@ -25,7 +25,7 @@
 <style scoped lang="scss">
     .unMenu {
         margin: 20px;
-        background-color: $button-choice;
+        background-color: $text-white;
         border-radius: 25px;
         box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
         &-img {
@@ -37,10 +37,11 @@
         }
 
         &-text {
-            font-size: 22px;
+            font-size: $sub-title;
             text-align: center;
             padding-bottom: 20px;
-            color: $second-text-color;
+            color: $text-dark-ligth;
+            font-weight: $weight-sub-title;
         }
     }
 

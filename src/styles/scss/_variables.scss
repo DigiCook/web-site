@@ -2,10 +2,29 @@
 
 $button-ok: #9CCC65;
 $button-alert: #FFB74D;
-$button-choice: #FFFFFF;
 $main-font: 'Roboto', sans-serif;
-$main-text-color: #FFFFFF;
 $second-text-color: #B0BEC5;
 
+// $bg-main: #D7CCC8;
 
-$bg-main: #D7CCC8;
+// Text colors
+$text-white: #FFFFFF;
+$text-dark: #37474f;
+$text-dark-ligth: #455a64;
+
+// Div colors
+$grey-ligth: rgba(0, 0, 0, .3);
+$green-ligth: #9ccc65;
+$orange-ligth: #ffa726;
+$brown-ligth: #efebe9;
+$brown-dark: #8d6e63;
+
+// Font sizes
+$title: 2.4rem;
+$sub-title: 1.1rem;
+
+// Font weight
+$weight-sub-title: 600;
+
+// Button box shadow
+$shadow-grey: -1px 2px 6px 0px rgba(0, 0, 0, .4);
