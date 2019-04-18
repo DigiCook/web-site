@@ -67,7 +67,7 @@ export default {
   text-align: center;
 
   background-color: #263238;
-  color: #ccff90;
+  color: #b2ff59;
 
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
