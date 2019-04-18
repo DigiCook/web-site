@@ -22,8 +22,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import '@/styles/scss/_variables.scss';
-
     .button {
         background-color: $button-choice;
         padding: 20px;

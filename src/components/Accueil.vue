@@ -99,8 +99,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import '@/styles/scss/_variables.scss';
-
     .maxHeight {
         height: 100%;
     }

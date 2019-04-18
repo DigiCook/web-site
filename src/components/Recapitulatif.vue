@@ -116,8 +116,6 @@ export default {
 
 
 <style scoped lang="scss">
-    @import '@/styles/scss/_variables.scss';
-
     .recap {
         font-family: $main-font;
         color: $main-text-color;

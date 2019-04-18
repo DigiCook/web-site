@@ -23,8 +23,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import '@/styles/scss/_variables.scss';
-
     .unMenu {
         margin: 20px;
         background-color: $button-choice;
