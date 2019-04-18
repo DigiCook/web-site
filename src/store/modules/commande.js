@@ -1,22 +1,22 @@
-// import * as types from '@/store/mutationTypes'
+import * as types from '@/store/mutationTypes'
 
 const state = {
   menus: [
     {
-      id: 0,
+      id: 1,
       nom: 'Menu enfant',
-      prix: 25.1,
-      description: "c'est un menu, pour les enfants",
-      urlPhoto: 'chépasadéterminer',
-      quantite: 3
+      prix: 25,
+      description: 'C\'est un menu, pour les enfants. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+      urlPhoto: 'https://assets.afcdn.com/story/20180327/de-simples-oeufs-mayo-bien-tradi-mais-bien-mis-en-scene-pour-paques-1152577_w767h767c1cx707cy1060.jpg',
+      quantite: 1
     },
     {
-      id: 1,
-      nom: 'Menu adulte, j ai la dale',
-      prix: 35.45,
-      description: "c'est un menu, pour les grands",
-      urlPhoto: 'chépasadéterminer',
-      quantite: 1
+      id: 3,
+      nom: 'Menu Savoyard',
+      prix: 30,
+      description: 'Le gras c\'est la vie ! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.',
+      urlPhoto: 'https://assets.afcdn.com/story/20180327/de-simples-oeufs-mayo-bien-tradi-mais-bien-mis-en-scene-pour-paques-1152577_w767h767c1cx707cy1060.jpg',
+      quantite: 2
     }
   ],
   plats: [
@@ -62,8 +62,20 @@ const mutations = {
       state.plats.splice(index, 1)
       console.log('After removal:', state.menus)
     }
-  }
+  },
+  [types.ADD_MENU_TO_COMMANDE] (state, menu) {
+    // Check if the menu is already in the Commande.
+    const foundMenu = state.menus.find(m => m.id === menu.id)
 
+    if (foundMenu) {
+      foundMenu.quantite ++
+    } else {
+      state.menus.push({
+        quantite: 1,
+        ...menu
+      })
+    }
+  }
 }
 
 const actions = {
@@ -72,6 +84,11 @@ const actions = {
   },
   deleteLinePlat (context, id) {
     context.commit('DELETE_LINE_PLAT', id)
+  },
+  addMenuToCommande ({ commit }, menu) {
+    if (menu) {
+      commit(types.ADD_MENU_TO_COMMANDE, menu)
+    }
   }
 }
 

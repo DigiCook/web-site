@@ -5,6 +5,7 @@ import example from '@/store/modules/example'
 import commande from '@/store/modules/commande'
 import menu from '@/store/modules/menu'
 import typePlat from '@/store/modules/typePlat'
+import snackbar from '@/store/modules/snackbar'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     example,
     commande,
     menu,
-    typePlat
+    typePlat,
+    snackbar
   }
 })
