@@ -110,14 +110,14 @@
         font-family: $main-font;
 
         display: flex;
-        //padding: 40px;
+        justify-content: space-around;
 
         .menu {
-            padding-top: 30px;
-            padding-left: 30px;
+            flex: 1;
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            padding-right: 20px;
+            justify-content: space-between;
             background-color: $brown-ligth;
 
             &-titre {
@@ -129,6 +129,7 @@
             article {
                 display: flex;
                 flex-direction: row;
+                justify-content: center;
             }
 
             &-line {
@@ -147,7 +148,6 @@
 
         .carte {
             padding: 30px;
-            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;

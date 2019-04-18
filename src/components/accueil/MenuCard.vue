@@ -26,20 +26,21 @@
     .unMenu {
         margin: 20px;
         background-color: $text-white;
+        box-shadow: -2px -4px 10px 0px rgba(0, 0, 0, .4);
         border-radius: 25px;
-        box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
+        border-top-left-radius: 22vw;
+        border-top-right-radius: 22vw;
+
         &-img {
-            width: 20vw;
-            margin: 20px;
+            width: 22vw;
             border-radius: 50%;
-            padding: 15px;
-            padding-bottom: 0px;
         }
 
         &-text {
             font-size: $sub-title;
             text-align: center;
-            padding-bottom: 20px;
+            padding-top: 4px;
+            padding-bottom: 14px;
             color: $text-dark-ligth;
             font-weight: $weight-sub-title;
         }
