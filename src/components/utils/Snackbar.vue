@@ -1,5 +1,5 @@
 <template>
-  <div class="Snackbar" v-if="display">
+  <div class="Snackbar">
     {{ text }}
   </div>
 </template>
@@ -22,12 +22,18 @@ export default {
   },
   watch: {
     'display' () {
+      const snackbar = document.querySelector('.Snackbar')
+
       if (this.display) {
+        snackbar.classList.add('Snackbar-show')
+
         clearTimeout(this.handler)
 
         this.handler = setTimeout(() => {
           this.$store.dispatch('hideSnackbar')
         }, this.time)
+      } else {
+        snackbar.classList.remove('Snackbar-show')
       }
     }
   },
@@ -43,7 +49,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .Snackbar {
   position: fixed;
@@ -53,7 +59,7 @@ export default {
   padding-left: 32px;
   padding-right: 32px;
   margin: auto;
-  bottom: 0px;
+  bottom: -52px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.2rem;
@@ -65,6 +71,11 @@ export default {
 
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  transition: bottom .1s linear;
+
+  &-show {
+    bottom: 0px;
+  }
 }
 
 </style>
