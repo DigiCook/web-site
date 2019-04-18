@@ -26,7 +26,6 @@
     </div>
 
     <button @click="saveMenu" class="Menu-ajouter">Ajouter</button>
-    <snackbar>C'est tout bon !</snackbar>
   </div>
 </template>
 
@@ -35,15 +34,13 @@ import { mapGetters } from 'vuex'
 import fetch from '@/services/fetch'
 import endpoints from '@/services/endpoints'
 import BtnBack from '@/components/BtnBack'
-import Snackbar from '@/components/utils/Snackbar'
-
-import store from '@/store'
+import Mixin from '@/mixins'
 
 export default {
   name: 'DescriptionMenu',
+  mixins: [Mixin],
   components: {
-    BtnBack,
-    Snackbar
+    BtnBack
   },
   props: {
     id: {
@@ -84,7 +81,8 @@ export default {
       const savedMenu = this.menu
       delete savedMenu.plats
 
-      store.dispatch('addMenuToCommande', savedMenu)
+      this.$store.dispatch('addMenuToCommande', savedMenu)
+      this.displaySnackbar(`${savedMenu.nom} ajouté à votre commande`)
       this.$router.push('/')
     }
   },

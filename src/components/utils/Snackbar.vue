@@ -1,42 +1,44 @@
 <template>
-  <div class="Snackbar">
-    <p><slot></slot></p>
+  <div class="Snackbar" v-if="display">
+    {{ text }}
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SnackBar',
   components: {
   },
   props: {
-    backgroundColor: {
-      type: [ String ],
-      default: '#37474F'
-    },
-    color: {
-      type: [ String ],
-      default: '#FFFFFF'
-    }
   },
   mounted () {
-    const snackbar = document.querySelector('.Snackbar')
-
-    if (snackbar) {
-      snackbar.style.backgroundColor = this.backgroundColor
-      snackbar.style.color = this.color
-    }
   },
   data () {
     return {
+      handler: null
     }
   },
   watch: {
+    'display' () {
+      if (this.display) {
+        clearTimeout(this.handler)
+
+        this.handler = setTimeout(() => {
+          this.$store.dispatch('hideSnackbar')
+        }, this.time)
+      }
+    }
   },
   methods: {
   },
   computed: {
+    ...mapGetters({
+      display: 'getSnackbarDisplay',
+      text: 'getSnackbarText',
+      time: 'getSnackbarTime'
+    })
   }
 }
 </script>
@@ -47,12 +49,22 @@ export default {
   position: fixed;
   z-index: 42;
   height: 24px;
-  padding: 12px;
+  padding: 14px;
+  padding-left: 32px;
+  padding-right: 32px;
   margin: auto;
   bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  line-height: 24px;
+  text-align: center;
+
+  background-color: #263238;
+  color: #ccff90;
+
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 </style>
