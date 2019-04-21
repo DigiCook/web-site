@@ -100,118 +100,113 @@
 </script>
 
 <style scoped lang="scss">
-    .maxHeight {
-        height: 100%;
+.maxHeight {
+  height: 100%;
+}
+
+.accueil {
+  position: relative;
+  overflow: hidden;
+  font-family: $main-font;
+
+  display: flex;
+  justify-content: space-around;
+
+  .menu {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $text-white;
+
+    &-titre {
+      color: $text-dark;
+      font-size: $title;
+      text-align: center;
     }
 
-    .accueil {
-        position: relative;
-        overflow: hidden;
-        font-family: $main-font;
+    article {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
 
+    &-line {
+      display: none;
+      width: 2px;
+      background-color: $second-text-color;
+      margin: 40px 0;
+    }
+
+    &-trait {
+      display: none;
+      height: 2px;
+      background-color: $second-text-color;
+    }
+  }
+
+  .carte {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $brown-dark;
+    color: $text-white;
+    box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
+
+    &-titre {
+      color: $text-white;
+      font-size: $title;
+      text-align: center;
+    }
+
+    &-plat {
+      margin: 20px;
+      padding: 16px;
+      background-color: $text-white;
+
+      p {
+        text-align: center;
+        font-size: $sub-title;
+        color: $text-dark-ligth;
+        font-weight: $weight-sub-title;
+      }
+    }
+
+    article {
+      margin-top: 30px;
+    }
+
+    .bottom-carte {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      font-family: $main-font;
+
+      .carte-button {
+        margin: 20px;
+        padding: 16px;
         display: flex;
-        justify-content: space-around;
+        flex-direction: column;
 
-        .menu {
-            flex: 1;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background-color: $brown-ligth;
-
-            &-titre {
-              color: $text-dark;
-              font-size: $title;
-              text-align: center;
-            }
-
-            article {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-            }
-
-            &-line {
-                display: none;
-                width: 2px;
-                background-color: $second-text-color;
-                margin: 40px 0;
-            }
-
-            &-trait {
-                display: none;
-                height: 2px;
-                background-color: $second-text-color;
-            }
+        &-help {
+          background-color: $orange-ligth;
         }
 
-        .carte {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background-color: $brown-dark;
-            color: $text-white;
-            box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
-
-            &-titre {
-              color: $text-white;
-              font-size: $title;
-              text-align: center;
-            }
-
-            &-plat {
-              margin: 20px;
-              padding: 16px;
-              background-color: $text-white;
-              border-radius: 8px;
-              box-shadow: $shadow-grey;
-
-              p {
-                  text-align: center;
-                  font-size: $sub-title;
-                  color: $text-dark-ligth;
-                  font-weight: $weight-sub-title;
-              }
-            }
-
-            article {
-                margin-top: 30px;
-            }
-
-            .bottom-carte {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-
-                font-family: $main-font;
-
-                .carte-button {
-                    margin: 20px;
-                    padding: 16px;
-                    display: flex;
-                    flex-direction: column;
-                    border-radius: 8px;
-                    box-shadow: $shadow-grey;
-
-                    &-help {
-                        background-color: $orange-ligth;
-                    }
-
-                    &-recap {
-                        background-color: $green-ligth;
-                    }
-
-                    p {
-                      text-align: center;
-                      font-size: $sub-title;
-                      color: $text-dark-ligth;
-                      font-weight: $weight-sub-title;
-                    }
-                }
-            }
+        &-recap {
+          background-color: $green-ligth;
         }
 
+        p {
+          text-align: center;
+          font-size: $sub-title;
+          color: $text-dark-ligth;
+          font-weight: $weight-sub-title;
+        }
+      }
     }
+  }
+}
 </style>

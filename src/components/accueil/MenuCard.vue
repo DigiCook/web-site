@@ -6,26 +6,26 @@
 </template>
 
 <script>
-  export default {
-    name: 'MenuCart',
-    props: {
-      dataMenu: {
-        type: [Object]
-      }
-    },
-    methods: {
-      onClick (id) {
-        this.$router.push(`menu/${id}`)
-      }
-
+export default {
+  name: 'MenuCart',
+  props: {
+    dataMenu: {
+      type: [Object]
     }
+  },
+  methods: {
+    onClick (id) {
+      this.$router.push(`menu/${id}`)
+    }
+
   }
+}
 </script>
 
 <style scoped lang="scss">
     .unMenu {
         margin: 20px;
-        background-color: $text-white;
+        background-color: $brown-ligth;
         box-shadow: -2px -4px 10px 0px rgba(0, 0, 0, .4);
         border-radius: 25px;
         border-top-left-radius: 22vw;

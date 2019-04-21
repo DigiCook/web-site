@@ -1,31 +1,33 @@
 <template>
-  <div v-if="menu" class="Menu">
+  <div class="maxHeight">
+    <div v-if="menu" class="Menu maxHeight">
 
-    <btn-back class="Menu-retoure"></btn-back>
+      <btn-back class="Menu-retoure"></btn-back>
 
-    <div class="border">
-      <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
+      <div class="border">  
+        <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
 
-      <div class="Menu-conteneur">
-        <!-- Image -->
-        <img class="Menu-conteneur-image" :src="menu.urlPhoto"/>
+        <div class="Menu-conteneur">
+          <!-- Image -->
+          <img class="Menu-conteneur-image" :src="menu.urlPhoto"/>
 
-        <div class="Menu-conteneur-plats">
+          <div class="Menu-conteneur-plats">
 
-          <h3>Contenu du menu</h3>
-          <p class="Menu-conteneur-plats_separateur">____</p>
+            <h3>Contenu du menu</h3>
+            <p class="Menu-conteneur-plats_separateur">____</p>
 
-          <p class="Menu-conteneur-plats-plat" :key="`id-plat-${plat.id}`" v-for="plat in menu.plats">{{ plat.nom }}</p>
+            <p class="Menu-conteneur-plats-plat" :key="`id-plat-${plat.id}`" v-for="plat in menu.plats">{{ plat.nom }}</p>
 
-          <p class="Menu-conteneur-plats-prix" v-text="`${menu.prix} €`"></p>
+            <p class="Menu-conteneur-plats-prix" v-text="`${menu.prix} €`"></p>
 
+          </div>
         </div>
+
+        <p class="Menu-description">{{ menu.description }}</p>
       </div>
 
-      <p class="Menu-description">{{ menu.description }}</p>
+      <btn @click="saveMenu" class="Menu-ajouter">Ajouter</btn>
     </div>
-
-    <button @click="saveMenu" class="Menu-ajouter">Ajouter</button>
   </div>
 </template>
 
@@ -35,12 +37,14 @@ import fetch from '@/services/fetch'
 import endpoints from '@/services/endpoints'
 import BtnBack from '@/components/BtnBack'
 import Mixin from '@/mixins'
+import Btn from '@/components/utils/Btn'
 
 export default {
   name: 'DescriptionMenu',
   mixins: [Mixin],
   components: {
-    BtnBack
+    BtnBack,
+    Btn
   },
   props: {
     id: {
@@ -93,7 +97,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss">
 html, body {
   width: 100% !important;
@@ -103,27 +106,34 @@ html, body {
 }
 </style>
 
-
 <style scoped lang="scss">
 
-.Menu {
-  width: 100%;
+.maxHeight {
   height: 100%;
-  padding: 24px;
+}
+
+.Menu {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &-retoure {
-    position: initial;
-    margin-bottom: 24px;
+    position: relative;
+    align-self: flex-start;
   }
 
   &-ajouter {
-    position: absolute;
-    right: 0px;
-    margin-top: 24px;
+    margin: 30px;
+    align-self: flex-end;
+    background-color: $green-ligth;
+    padding: 10px 30px;
   }
 
   .border {
-    padding: 24px;
+    margin: 30px;
     border-radius: 25px;
     box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
   }
@@ -135,15 +145,15 @@ html, body {
   }
 
   &-conteneur {
-    width: 100%;
-    height: 100%;
+    width: 10%;
+    height: 10%;
     display: flex;
     flex-direction: row;
 
     &-image {
       margin: 24px;
-      width: 300px;
-      height: 300px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
     }
 

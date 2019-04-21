@@ -96,6 +96,8 @@ export default {
 .container {
   position: relative;
   overflow: hidden;
+  border-radius: $btn-border-radius;
+  box-shadow: $shadow-grey;
 }
 
 .btn {
