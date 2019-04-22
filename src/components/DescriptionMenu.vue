@@ -4,7 +4,7 @@
 
       <btn-back class="Menu-retoure"></btn-back>
 
-      <div class="border">  
+      <div class="border">
         <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
 
         <div class="Menu-conteneur">
@@ -26,7 +26,7 @@
         <p class="Menu-description">{{ menu.description }}</p>
       </div>
 
-      <btn @click="saveMenu" class="Menu-ajouter">Ajouter</btn>
+      <btn @click.native="saveMenu" class="Menu-ajouter">Ajouter</btn>
     </div>
   </div>
 </template>
@@ -115,6 +115,7 @@ html, body {
 .Menu {
   position: relative;
   overflow: hidden;
+  font-family: $main-font;
 
   display: flex;
   flex-direction: column;
@@ -122,38 +123,48 @@ html, body {
 
   &-retoure {
     position: relative;
+    margin-top: $margin-main;
+    margin-left: $margin-main;
+    top: 0px !important;
+    left: 0px !important;
     align-self: flex-start;
   }
 
   &-ajouter {
-    margin: 30px;
+    margin-right: $margin-main;
+    margin-bottom: $margin-main;
     align-self: flex-end;
     background-color: $green-ligth;
     padding: 10px 30px;
+    color: $text-dark;
+    font-size: $sub-title;
+    font-weight: $weight-sub-title;
   }
 
   .border {
-    margin: 30px;
-    border-radius: 25px;
-    box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
+    margin: $margin-main;
+    padding: $margin-main;
+    background-color: $brown-ligth;
+    border-radius: $card-border-radius;
+    box-shadow: -2px 4px 10px 0px rgba(0, 0, 0, 0.4);
   }
 
   &-titre {
-    padding-bottom: 24px;
+    padding-bottom: $margin-main;
     text-align: center;
-    color: #333333;
+    color: $text-dark;
+    font-size: $title;
   }
 
   &-conteneur {
-    width: 10%;
-    height: 10%;
+    width: 100%;
     display: flex;
     flex-direction: row;
 
     &-image {
       margin: 24px;
-      width: 30px;
-      height: 30px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
     }
 
@@ -164,19 +175,20 @@ html, body {
       border-left: solid 2px rgba(0, 0, 0, .53);
 
       h3 {
-        color:#333333;
+        color: $text-dark;
         text-align: center;
+        font-size: $sub-title;
       }
 
       &_separateur {
-        color:#333333 !important;
+        color: $text-dark !important;
         text-align: center !important;
         padding: 0px !important;
         padding-bottom: 16px;
       }
 
       &-plat {
-        color:#333333;
+        color: $text-dark;
         text-align: center;
         font-size: 1.1rem;
         padding: 8px;
@@ -187,19 +199,17 @@ html, body {
         position: absolute;
         right: 10%;
         bottom: 20%;
-        color:#333333;
-        font-size: 1.3rem;
+        color: $text-dark;
+        font-size: $sub-title;
         font-weight: 600;
       }
     }
   }
 
   &-description {
-    padding-top: 24px; 
-    width: 70%;
+    padding-top: $margin-main;
     margin: auto;
-
-    color: #333333;
+    color: $text-dark;
     font-size: 1.2rem;
     text-align: justify;
   }

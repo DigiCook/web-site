@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     returnBack () {
-      // this.$router.go(-1)
+      this.$router.go(-1)
     }
   }
 }
@@ -24,8 +24,10 @@ export default {
   padding: 10px 30px;
   left: 30px;
   top: 30px;
-  background: #EA3939;
-  border: 1px solid #EA3939;
+  color: $text-dark;
+  background: $orange-ligth;
   box-sizing: border-box;
+  font-size: $sub-title;
+  font-weight: $weight-sub-title;
 }
 </style>

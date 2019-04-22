@@ -114,7 +114,7 @@
 
   .menu {
     flex: 1;
-    padding: 30px;
+    padding: $margin-main;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -147,7 +147,7 @@
   }
 
   .carte {
-    padding: 30px;
+    padding: $margin-main;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
