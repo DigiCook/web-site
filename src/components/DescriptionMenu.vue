@@ -119,6 +119,7 @@ html, body {
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
 
   &-retoure {
@@ -142,9 +143,8 @@ html, body {
   }
 
   .border {
-    margin: $margin-main;
+    width: 70%;
     padding: $margin-main;
-    background-color: $brown-ligth;
     border-radius: $card-border-radius;
     box-shadow: -2px 4px 10px 0px rgba(0, 0, 0, 0.4);
   }

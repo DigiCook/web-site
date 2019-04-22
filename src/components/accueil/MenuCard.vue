@@ -25,8 +25,7 @@ export default {
 
 .unMenu {
   margin: 20px;
-  background-color: $brown-ligth;
-  box-shadow: -2px -4px 10px 0px rgba(0, 0, 0, .4);
+  box-shadow: -1px -2px 6px 2px rgba(0, 0, 0, .4);
   border-radius: $card-border-radius;
   border-top-left-radius: 22vw;
   border-top-right-radius: 22vw;
