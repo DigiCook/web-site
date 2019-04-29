@@ -1,7 +1,5 @@
 <template>
-  <button @click="returnBack">
-    <slot></slot>
-  </button>
+  <btn class="btn-back" @click.native="returnBack">Retour</btn>
 </template>
 
 <script>
