@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import OtherPage from '@/components/OtherPage'
 import Carte from '@/components/Carte'
-import Accueil from '@/components/Accueil'
+import Recapitulatif from '@/components/Recapitulatif'
+import Accueil from '@/components/accueil/Accueil'
 import Listing from '@/components/Listing'
 import DescriptionMenu from '@/components/DescriptionMenu'
 
@@ -24,6 +25,11 @@ export default new Router({
       name: 'Carte',
       path: '/carte',
       component: Carte
+    },
+    {
+      name: 'Recapitulatif',
+      path: '/recapitulatif',
+      component: Recapitulatif
     },
     {
       name: 'DescriptionMenu',

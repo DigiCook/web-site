@@ -1,27 +1,33 @@
 <template>
-  <div v-if="menu" class="Menu">
+  <div class="maxHeight">
+    <div v-if="menu" class="Menu maxHeight">
 
-    <btn-back class="Menu-retoure"></btn-back>
+      <btn-back class="Menu-retoure"></btn-back>
 
-    <div class="border">
-      <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
+      <div class="border">
+        <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
 
-      <div class="Menu-conteneur">
-        <!-- Image -->
-        <img class="Menu-conteneur-image" :src="menu.urlPhoto"/>
+        <div class="Menu-conteneur">
+          <!-- Image -->
+          <img class="Menu-conteneur-image" :src="menu.urlPhoto"/>
 
-        <div class="Menu-conteneur-plats">
+          <div class="Menu-conteneur-plats">
 
-          <h2>Contenu du menu</h2>
+            <h3>Contenu du menu</h3>
+            <p class="Menu-conteneur-plats_separateur">____</p>
 
+            <p class="Menu-conteneur-plats-plat" :key="`id-plat-${plat.id}`" v-for="plat in menu.plats">{{ plat.nom }}</p>
+
+            <p class="Menu-conteneur-plats-prix" v-text="`${menu.prix} €`"></p>
+
+          </div>
         </div>
+
+        <p class="Menu-description">{{ menu.description }}</p>
       </div>
 
-      <p class="Menu-description">{{ menu.description }}</p>
+      <btn @click.native="saveMenu" class="Menu-ajouter">Ajouter</btn>
     </div>
-
-    <button class="Menu-ajouter">Ajouter</button>
-
   </div>
 </template>
 
@@ -30,11 +36,15 @@ import { mapGetters } from 'vuex'
 import fetch from '@/services/fetch'
 import endpoints from '@/services/endpoints'
 import BtnBack from '@/components/BtnBack'
+import Mixin from '@/mixins'
+import Btn from '@/components/utils/Btn'
 
 export default {
   name: 'DescriptionMenu',
+  mixins: [Mixin],
   components: {
-    BtnBack
+    BtnBack,
+    Btn
   },
   props: {
     id: {
@@ -43,22 +53,18 @@ export default {
   },
   mounted () {
     // Check if the full menu are already in the store.
-    const currentMenu = this.menus.find(m => m.id === this.id && m.hasOwnProperty('description'))
-
+    const currentMenu = this.menus.find(m => m.id === parseInt(this.id) && m.hasOwnProperty('description'))
     if (currentMenu) {
       this.menu = currentMenu
-    } else {
-      this.fetchMenu()
     }
 
-    // TODO: Get plats of Menu.
+    // Get or update the full menu.
+    this.fetchMenu()
   },
   data () {
     return {
       menu: null
     }
-  },
-  watch: {
   },
   methods: {
     async fetchMenu () {
@@ -67,12 +73,21 @@ export default {
         console.info('[DescriptionMenu:fetchMenu] Fetch the full menu.')
         const result = await fetch(endpoints.menu.get, { id: this.id })
         if (result && result.code === 200) {
+          result.data.plats.sort((a, b) => a.id - b.id)
           this.menu = result.data
           this.$store.dispatch('addMenu', this.menu)
         }
       } catch (error) {
         console.error('[DescriptionMenu:fetchMenu]', error)
       }
+    },
+    saveMenu () {
+      const savedMenu = this.menu
+      delete savedMenu.plats
+
+      this.$store.dispatch('addMenuToCommande', savedMenu)
+      this.displaySnackbar(`${savedMenu.nom} ajouté à votre commande`)
+      this.$router.push('/')
     }
   },
   computed: {
@@ -82,7 +97,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss">
 html, body {
   width: 100% !important;
@@ -92,67 +106,112 @@ html, body {
 }
 </style>
 
-
 <style scoped lang="scss">
-.Menu {
-  width: 100%;
+
+.maxHeight {
   height: 100%;
-  padding: 24px;
+}
+
+.Menu {
+  position: relative;
+  overflow: hidden;
+  font-family: $main-font;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 
   &-retoure {
-    position: initial;
-    margin-bottom: 24px;
+    position: relative;
+    margin-top: $margin-main;
+    margin-left: $margin-main;
+    top: 0px !important;
+    left: 0px !important;
+    align-self: flex-start;
   }
 
   &-ajouter {
-    position: absolute;
-    right: 0px;
-    margin-top: 24px;
+    margin-right: $margin-main;
+    margin-bottom: $margin-main;
+    align-self: flex-end;
+    background-color: $green-ligth;
+    padding: 10px 30px;
+    color: $text-dark;
+    font-size: $sub-title;
+    font-weight: $weight-sub-title;
   }
 
   .border {
-    padding: 24px;
-    border: solid 2px rgba(0, 0, 0, .53);
-    border-radius: 4px;
+    width: 70%;
+    padding: $margin-main;
+    border-radius: $card-border-radius;
+    box-shadow: -2px 4px 10px 0px rgba(0, 0, 0, 0.4);
   }
 
   &-titre {
-    padding-bottom: 24px;
+    padding-bottom: $margin-main;
     text-align: center;
-    color: #333333;
+    color: $text-dark;
+    font-size: $title;
   }
 
   &-conteneur {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
 
-     &-image {
+    &-image {
       margin: 24px;
       width: 300px;
       height: 300px;
-      border-radius: 6px;
+      border-radius: 50%;
     }
 
     &-plats {
+      position: relative;
       padding: 24px;
       width: 100%;
       border-left: solid 2px rgba(0, 0, 0, .53);
 
-      h2 {
-        color:#333333;
+      h3 {
+        color: $text-dark;
+        text-align: center;
+        font-size: $sub-title;
+      }
+
+      &_separateur {
+        color: $text-dark !important;
+        text-align: center !important;
+        padding: 0px !important;
+        padding-bottom: 16px;
+      }
+
+      &-plat {
+        color: $text-dark;
+        text-align: center;
+        font-size: 1.1rem;
+        padding: 8px;
+      }
+
+      &-prix {
+        display: inline;
+        position: absolute;
+        right: 10%;
+        bottom: 20%;
+        color: $text-dark;
+        font-size: $sub-title;
+        font-weight: 600;
       }
     }
   }
 
   &-description {
-    padding-top: 24px; 
-    width: 50%;
+    padding-top: $margin-main;
     margin: auto;
-
-    color: #333333;
+    color: $text-dark;
     font-size: 1.2rem;
+    text-align: justify;
   }
 }
 </style>

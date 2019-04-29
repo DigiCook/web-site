@@ -1,9 +1,39 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-$button-ok: #19AE9F;
-$button-alert: #D3445C;
-$button-choice: #6658F5;
+$button-ok: #9CCC65;
+$button-alert: #FFB74D;
 $main-font: 'Roboto', sans-serif;
-$main-text-color: #404040;
-$second-text-color: #FFFFFF;
-$terce-text-color:#C3CFD9;
+$second-text-color: #B0BEC5;
+
+// $bg-main: #D7CCC8;
+
+// Text colors
+$text-white: #FFFFFF;
+$text-dark: #37474f;
+$text-dark-ligth: #455a64;
+
+// Div colors
+$grey-ligth: rgba(0, 0, 0, .3);
+$green-ligth: #9ccc65;
+$orange-ligth: #ffa726;
+$brown-ligth: #eceff1;
+$brown-dark: #8d6e63;
+
+// Font sizes
+$title: 2.4rem;
+$sub-title: 1.1rem;
+
+// Font weight
+$weight-sub-title: 600;
+
+// Button box shadow
+$shadow-grey: -1px 2px 6px 0px rgba(0, 0, 0, .4);
+
+// Button border radius
+$btn-border-radius: 4px;
+
+// Card border radius
+$card-border-radius: 8px;
+
+// Margins
+$margin-main: 30px;

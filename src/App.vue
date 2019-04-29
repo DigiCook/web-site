@@ -1,27 +1,34 @@
 <template>
-  <div>
+  <div class="maxHeight">
     <router-view/>
+    <snackbar></snackbar>
   </div>
 </template>
 
 <script>
+import Snackbar from '@/components/utils/Snackbar'
 
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Snackbar
+  }
 }
 </script>
+
 <style>
-  *{
-    margin: 0;
-    padding: 0;
-  }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 </style>
 
 <style scoped>
 
-#app {
+.maxHeight {
   height: 100%;
-  width: 100%;
 }
 
 </style>
