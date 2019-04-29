@@ -3,9 +3,9 @@
     <div @click="close" class="popUp-background">
     </div>
     <div @click="close" class="popUp-inner">
-      <div @click="close" class="popUp-croix">
-        <img src="../assets/close.png"/><!-- TODO: Use material icon -->
-      </div>
+      <btn @click="close" flat class="popUp-croix">
+        <img src="../assets/close.png"/>
+      </btn>
 
       <div class="popUp-main">
         <div class="popUp-content">
@@ -18,10 +18,12 @@
 </template>
 
 <script>
+import Btn from '@/components/utils/Btn'
 
 export default {
   name: 'PopUp',
   components: {
+    Btn
   },
   props: {
     value: {
@@ -74,16 +76,16 @@ export default {
   }
 
   &-croix {
-    height: 25px;
-    width: 25px;
-    padding: 12.5px;
+    height: 36px;
+    width: 36px;
+    padding: 6px;
     margin-left: auto;
     background-color: white;
     border-radius: 50%;
 
-    img {
-      height: 25px;
-      width: 25px;
+    img { 
+      height: 36px;
+      width: 36px;
     }
   }
 

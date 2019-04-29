@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div :id="id" class="btn">
+  <div :id="id" class="container">
+    <div class="btn">
       <slot></slot>
     </div>
   </div>
@@ -15,13 +15,23 @@ export default {
   components: {
   },
   props: {
+    flat: {
+      type: [Boolean]
+    }
   },
   beforeMount () {
     this.id = uuidv1()
   },
   mounted () {
-    const btn = document.querySelector(`[id="${this.id}"]`)
+    const btn = document.querySelector(`[id="${this.id}"] .btn`)
     btn.addEventListener('click', (e) => this.animate(e, btn))
+
+    if (this.flat === true) {
+      const container = document.querySelector(`[id="${this.id}"]`)
+
+      // Remove the bok-shadow for a flat design.
+      container.style.boxShadow = 'none'
+    }
   },
   data () {
     return {
