@@ -25,10 +25,9 @@ export default {
 
 .unMenu {
   margin: 20px;
-  box-shadow: -1px -2px 6px 2px rgba(0, 0, 0, .4);
+  box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
   border-radius: $card-border-radius;
-  border-top-left-radius: 22vw;
-  border-top-right-radius: 22vw;
+  padding: 20px;
 
   &-img {
     width: 22vw;
@@ -39,7 +38,6 @@ export default {
     font-size: $sub-title;
     text-align: center;
     padding-top: 4px;
-    padding-bottom: 14px;
     color: $text-dark-ligth;
     font-weight: $weight-sub-title;
   }
