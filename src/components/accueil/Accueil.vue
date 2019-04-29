@@ -50,7 +50,7 @@
         <div @click="validerCustomMenu" class="popup-valider-button">
           <p>Valider le menu a la carte</p>
         </div>
-        <div @click="ValiderCommande" class="popup-valider-button">
+        <div @click="validerCommande" class="popup-valider-button">
           <p>Valider ma commande et accèder au récapitulatif</p>
         </div>
       </div>
@@ -122,6 +122,12 @@
       },
       askForHelp () {
         console.log('help Me !')
+      },
+      validerCustomMenu () {
+        console.log('validerCustomMenu')
+      },
+      validerCommande () {
+        console.log('validerCommande')
       }
     },
     async created () {
