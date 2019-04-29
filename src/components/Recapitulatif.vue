@@ -3,34 +3,36 @@
     <h1>Récapitulatif de la commande</h1>
     <btn-back>retour</btn-back>
     <ul class="liste">   
-    <li class="item" v-for='menu in cdeMenus'>
-        <div>{{menu.nom}}</div>
-        <div>Quantité : {{menu.quantite}}</div>
-         <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
-         <div @click="decreaseQtyMenu(menu)" class="button"><p>Minus</p></div>
-         <div @click="menu.quantite ++" class="button"><p>Plus</p></div>
-         <div @click="deleteLineMenu(menu.id)" class="button"><p>Supprimer</p></div>
-    </li> 
-     <li class="item" v-for='plat in cdePlats'>
-        <div>{{plat.nom}}</div> 
-        <div>Quantité :  {{plat.quantite}} </div> 
-        <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div>
-        <div @click="decreaseQtyPlat(plat)" class="button"><p>Minus</p></div>
-        <div @click="plat.quantite ++" class="button"><p>Plus</p></div>
-        <div @click="deleteLinePlat(plat.id)" class="button"><p>Supprimer</p></div> 
-    </li>
-    <li class="item">
-        <div>&nbsp;</div>  
-        <div>&nbsp;</div> 
-        <div> Total : {{total}}</div>
-        <div class="button" style="background-color:transparent">&nbsp;</div> 
-    </li>
+      <li class="item" v-for='menu in cdeMenus'>
+          <div>{{menu.nom}}</div>
+          <div>Quantité : {{menu.quantite}}</div>
+          <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
+          <div @click="decreaseQtyMenu(menu)" class="button"><p>Minus</p></div>
+          <div @click="menu.quantite ++" class="button"><p>Plus</p></div>
+          <div @click="deleteLineMenu(menu.id)" class="button"><p>Supprimer</p></div>
+      </li> 
+      <li class="item" v-for='plat in cdePlats'>
+          <div>{{plat.nom}}</div> 
+          <div>Quantité :  {{plat.quantite}} </div> 
+          <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div>
+          <div @click="decreaseQtyPlat(plat)" class="button"><p>Minus</p></div>
+          <div @click="plat.quantite ++" class="button"><p>Plus</p></div>
+          <div @click="deleteLinePlat(plat.id)" class="button"><p>Supprimer</p></div> 
+      </li>
+      <li class="item">
+          <div>&nbsp;</div>  
+          <div>&nbsp;</div> 
+          <div> Total : {{total}}</div>
+          <div class="button" style="background-color:transparent">&nbsp;</div> 
+      </li>
     </ul>
     <div>
-    <btn class="validateBtn" @click="validateOrder">Valider la commande</btn>
+      <p> 
+      <btn @click="validateOrder()" class="validateBtn">Valider la commande</btn>
+       </p>
     </div>
     <div>
-    <btn @click="deleteOrder">Supprimer la commande</btn>
+      <btn @click.native="deleteOrder()" class="deleteOrderBtn">Supprimer la commande</btn>
     </div>
   </div>
 </template>
@@ -76,7 +78,8 @@ export default {
       this.$store.dispatch('deleteLinePlat', id)
     },
     deleteOrder () {
-      console.log('orderdeteled : todo lien vers le store')
+      console.log('order deleted')
+      this.$store.dispatch('deleteOrder')
     },
     decreaseQtyMenu (menu) {
       menu.quantite --
@@ -116,6 +119,7 @@ export default {
 <style scoped lang="scss">
     .recap {
         font-family: $main-font;
+        font-size:15px;
         color: $text-dark;
         margin: 40px;
         h1 {
@@ -129,7 +133,6 @@ export default {
            display: flex;
            flex-direction: row;
            justify-content: space-evenly;
-           font-size: 30px;
            margin: 10px;
            align-items: baseline;
         }
@@ -144,7 +147,15 @@ export default {
         }
         .validateBtn{
           background-color:$button-ok;
-          //font-color: $second-text-color;
+          width: 20%;
+        
+                    //font-color: $second-text-color;
+        }
+        .deleteOrderBtn{
+          background-color:$button-alert;
+          width: 20%;
+        
+                    //font-color: $second-text-color;
         }
         .button {
             background-color: $text-white;
@@ -156,7 +167,7 @@ export default {
                 p {
                     text-align: center;
                     color: $second-text-color;
-                    font-size: 22px;
+                    font-size: 15px;
                 }
 
         }

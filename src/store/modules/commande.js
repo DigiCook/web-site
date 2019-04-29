@@ -63,6 +63,11 @@ const mutations = {
       console.log('After removal:', state.menus)
     }
   },
+  [types.DELETE_ORDER] (state) {
+    state.menus = []
+    state.plats = []
+  },
+
   [types.ADD_MENU_TO_COMMANDE] (state, menu) {
     // Check if the menu is already in the Commande.
     const foundMenu = state.menus.find(m => m.id === menu.id)
@@ -84,6 +89,9 @@ const actions = {
   },
   deleteLinePlat (context, id) {
     context.commit('DELETE_LINE_PLAT', id)
+  },
+  deleteOrder ({ commit }) {
+    commit(types.DELETE_ORDER)
   },
   addMenuToCommande ({ commit }, menu) {
     if (menu) {
