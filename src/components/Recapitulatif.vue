@@ -1,7 +1,7 @@
 <template>
   <div class="recap" >
     <h1>Récapitulatif de la commande</h1>
-    <button @click="back">Back</button>
+    <btn-back>retour</btn-back>
     <ul class="liste">   
     <li class="item" v-for='menu in cdeMenus'>
         <div>{{menu.nom}}</div>
@@ -26,18 +26,26 @@
         <div class="button" style="background-color:transparent">&nbsp;</div> 
     </li>
     </ul>
-    <button class="validateBtn" @click="validateOrder">Valider la commande</button>
-    <button @click="deleteOrder">Supprimer la commande</button>
+    <div>
+    <btn class="validateBtn" @click="validateOrder">Valider la commande</btn>
+    </div>
+    <div>
+    <btn @click="deleteOrder">Supprimer la commande</btn>
+    </div>
   </div>
 </template>
 
 <script>
 
 import { mapGetters } from 'vuex'
+import BtnBack from '@/components/BtnBack'
+import Btn from '@/components/utils/Btn'
 
 export default {
   name: 'Recapitulatif',
   components: {
+    BtnBack,
+    Btn
   },
   props: {
   },
@@ -87,22 +95,12 @@ export default {
   computed: {
     total () {
       let tot = 0
-      // var cdeMenus = storeCde.getters.getCommandeMenu(storeCde.state)
       this.cdeMenus.map(function (menu) {
         tot = tot + menu.prix * menu.quantite
       })
-      /* for (let id in this.cdeMenus) {
-        let cde = this.cdeMenus[id]
-        tot = tot + cde.prix * cde.quantite
-      } */
-      // var cdePlats = storeCde.getters.getCommandePlat(storeCde.state)
       this.cdePlats.map(function (plat) {
         tot = tot + plat.prix * plat.quantite
       })
-      /* for (let id in this.cdePlats) {
-        let cde = this.cdePlats[id]
-        tot = tot + cde.prix * cde.quantite
-      } */
       return tot.toFixed(2)
     },
     ...mapGetters({
@@ -118,7 +116,7 @@ export default {
 <style scoped lang="scss">
     .recap {
         font-family: $main-font;
-        color: $text-white;
+        color: $text-dark;
         margin: 40px;
         h1 {
             font-size: 25px;
