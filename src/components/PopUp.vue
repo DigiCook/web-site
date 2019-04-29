@@ -7,9 +7,7 @@
             <div class="popUp-main">
                 <div class="popUp-content">
 
-                    <component
-                            v-bind:is="currentPopUpComponent"
-                    ></component>
+                    <slot></slot>
                 </div>
             </div>
         </div>
