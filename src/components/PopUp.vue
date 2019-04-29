@@ -63,8 +63,8 @@
         height: 100%;
 
         &-background {
-            background-color: black;
-            opacity: 0.2;
+            background-color: $color-neutral;
+            opacity: 0.4;
             width: 100%;
             height: 100%;
         }

@@ -29,6 +29,7 @@ export default {
   border-radius: $card-border-radius;
   padding: 20px;
 
+
   &-img {
     width: 22vw;
     border-radius: 50%;

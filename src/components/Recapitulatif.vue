@@ -118,7 +118,7 @@ export default {
 <style scoped lang="scss">
     .recap {
         font-family: $main-font;
-        color: $text-white;
+        color: $color-white;
         margin: 40px;
         h1 {
             font-size: 25px;
@@ -149,7 +149,7 @@ export default {
           //font-color: $second-text-color;
         }
         .button {
-            background-color: $text-white;
+            background-color: $color-white;
             padding: 20px;
             border-radius: 20px;
             margin: 20px;

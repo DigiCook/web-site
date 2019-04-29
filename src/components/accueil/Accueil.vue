@@ -21,9 +21,9 @@
                 <h1 class="carte-titre">Plats à la Carte</h1>
                 <article>
                     <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
-                      <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
-                          <p>{{ typeplat.libelle }}</p>
-                      </btn>
+                        <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
+                            <p>{{ typeplat.libelle }}</p>
+                        </btn>
                     </aside>
                 </article>
                 <article class="bottom-carte">
@@ -100,113 +100,112 @@
 </script>
 
 <style scoped lang="scss">
-.maxHeight {
-  height: 100%;
-}
-
-.accueil {
-  position: relative;
-  overflow: hidden;
-  font-family: $main-font;
-
-  display: flex;
-  justify-content: space-around;
-
-  .menu {
-    flex: 1;
-    padding: $margin-main;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: $text-white;
-
-    &-titre {
-      color: $text-dark;
-      font-size: $title;
-      text-align: center;
+    .maxHeight {
+        height: 100%;
     }
 
-    article {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
+    .accueil {
+        position: relative;
+        overflow: hidden;
+        font-family: $main-font;
 
-    &-line {
-      display: none;
-      width: 2px;
-      background-color: $second-text-color;
-      margin: 40px 0;
-    }
-
-    &-trait {
-      display: none;
-      height: 2px;
-      background-color: $second-text-color;
-    }
-  }
-
-  .carte {
-    padding: $margin-main;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: $brown-dark;
-    color: $text-white;
-    box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
-
-    &-titre {
-      color: $text-white;
-      font-size: $title;
-      text-align: center;
-    }
-
-    &-plat {
-      margin: 20px;
-      padding: 16px;
-      background-color: $text-white;
-
-      p {
-        text-align: center;
-        font-size: $sub-title;
-        color: $text-dark-ligth;
-        font-weight: $weight-sub-title;
-      }
-    }
-
-    article {
-      margin-top: 30px;
-    }
-
-    .bottom-carte {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-
-      font-family: $main-font;
-
-      .carte-button {
-        margin: 20px;
-        padding: 16px;
         display: flex;
-        flex-direction: column;
+        justify-content: space-around;
 
-        &-help {
-          background-color: $orange-ligth;
+        .menu {
+            flex: 1;
+            padding: $margin-main;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: $color-white;
+            &-titre {
+                color: $text-dark;
+                font-size: $title;
+                text-align: center;
+            }
+
+            article {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            &-line {
+                display: none;
+                width: 2px;
+                background-color: $second-text-color;
+                margin: 40px 0;
+            }
+
+            &-trait {
+                display: none;
+                height: 2px;
+                background-color: $second-text-color;
+            }
         }
 
-        &-recap {
-          background-color: $green-ligth;
-        }
+        .carte {
+            padding: $margin-main;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: $color-main;
+            color: $color-white;
+            box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
 
-        p {
-          text-align: center;
-          font-size: $sub-title;
-          color: $text-dark-ligth;
-          font-weight: $weight-sub-title;
+            &-titre {
+                color: $color-white;
+                font-size: $title;
+                text-align: center;
+            }
+
+            &-plat {
+                margin: 20px;
+                padding: 16px;
+                background-color: $color-white;
+
+                p {
+                    text-align: center;
+                    font-size: $sub-title;
+                    color: $text-dark-ligth;
+                    font-weight: $weight-sub-title;
+                }
+            }
+
+            article {
+                margin-top: 30px;
+            }
+
+            .bottom-carte {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                font-family: $main-font;
+
+                .carte-button {
+                    margin: 20px;
+                    padding: 16px;
+                    display: flex;
+                    flex-direction: column;
+
+                    &-help {
+                        background-color: $color-second;
+                    }
+
+                    &-recap {
+                        background-color: $green-ligth;
+                    }
+
+                    p {
+                        text-align: center;
+                        font-size: $sub-title;
+                        color: $text-dark-ligth;
+                        font-weight: $weight-sub-title;
+                    }
+                }
+            }
         }
-      }
     }
-  }
-}
 </style>
