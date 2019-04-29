@@ -94,8 +94,8 @@
                     width: 33%;
                     article {
                         img {
-                            height: 170px;
-                            width: 170px;
+                            height: auto;
+                            width: 200px;
                             box-sizing: border-box;
                             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
                         }
@@ -121,9 +121,11 @@
                         overflow: hidden;
                         img {
                             position: relative;
-                            transform: translate(-50%,-50%) scale(1.01);
+                            transform: translate(-50%,-50%) scale(1);
                             top: 50%;
                             left: 50%;
+                            height: 100%;
+                            width: auto;
                         }
                     }
                 }
