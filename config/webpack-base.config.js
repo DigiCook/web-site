@@ -96,7 +96,10 @@ module.exports = {
           },
           {
             loader: 'sass-loader',
-            options: { sourceMap: true }
+            options: {
+              sourceMap: true,
+              data: '@import "@/styles/scss/_variables.scss";'
+            }
           }
         ]
       }

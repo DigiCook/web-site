@@ -55,8 +55,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import '@/styles/scss/_variables.scss';
-
     .popUp {
         position: absolute;
         top: 0px;

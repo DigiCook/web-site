@@ -4,7 +4,7 @@ export default {
   computed: {
   },
   methods: {
-    displaySnackbar (text, time = 50000) {
+    displaySnackbar (text, time = 5000) {
       store.dispatch('displayNewSnackbar', { text, time })
     }
   }
