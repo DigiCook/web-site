@@ -24,13 +24,13 @@
                     <h2>{{currentPlat.nom}}</h2>
                     <p>{{currentPlat.description}}</p>
                     <p>{{currentPlat.prix}} €</p>
-                    <div class="container-btn-add">
+                    <aside @click="onAddClick(currentPlat.id)">
                         <btn class="btn-add">
                             <p>
                                 ajouter au panier
                             </p>
                         </btn>
-                    </div>
+                    </aside>
                 </div>
             </div>
         </pop-up>
@@ -69,6 +69,9 @@
       },
       async getPlats () {
         this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
+      },
+      onAddClick (idPlat) {
+        console.log(idPlat)
       }
     },
     async created () {
@@ -145,19 +148,22 @@
                     * {
                         margin: 10px 20px;
                     }
-                    .container-btn-add {
-                        margin: 0;
-                        .btn-add {
-                            padding: 10px 30px;
-                            color: $text-dark;
-                            background: $green-ligth;
-                            box-sizing: border-box;
-                            font-size: $sub-title;
-                            font-weight: $weight-sub-title;
-                            height: 40px;
-                            * {
-                                padding: 0;
-                                margin: 0;
+                    .btn-add {
+                        margin: 0 auto;
+                        width: calc(131.02px + 60px);
+                        position: static;
+                        padding: 10px 30px;
+                        color: $text-dark;
+                        background: $green-ligth;
+                        box-sizing: border-box;
+                        font-size: $sub-title;
+                        font-weight: $weight-sub-title;
+                        height: 40px;
+                        * {
+                            padding: 0;
+                            margin: 0;
+                            p {
+                                text-align: center;
                             }
                         }
                     }
