@@ -38,9 +38,8 @@ export default {
   &-text {
     font-size: $sub-title;
     text-align: center;
-    padding-top: 4px;
+    padding-top: 10px;
     color: $text-dark-ligth;
-    font-weight: $weight-sub-title;
   }
 }
 

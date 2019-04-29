@@ -6,9 +6,11 @@
         <div class="listing-choice">
             <section class="choice">
                 <aside v-for="plat in plats">
-                    <article class="choice-detail" @click="onItemClick(plat)">
-                        <img v-bind:src="plat.urlPhoto" alt="">
-                        <p>{{ plat.nom }}</p>
+                    <article @click="onItemClick(plat)">
+                        <div class="choice-detail">
+                            <img v-bind:src="plat.urlPhoto" alt="">
+                            <p>{{ plat.nom }}</p>
+                        </div>
                     </article>
                 </aside>
             </section>
@@ -23,13 +25,15 @@
                 <div class="description">
                     <h2>{{currentPlat.nom}}</h2>
                     <p>{{currentPlat.description}}</p>
-                    <p>{{currentPlat.prix}} €</p>
-                    <div class="container-btn-add">
-                        <btn class="btn-add">
-                            <p>
-                                ajouter au panier
-                            </p>
-                        </btn>
+                    <div class="priceAndBtn">
+                        <p class="price">{{currentPlat.prix}} €</p>
+                        <div class="container-btn-add">
+                            <btn class="btn-add">
+                                <p class="btn-add-text">
+                                    ajouter au panier
+                                </p>
+                            </btn>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,6 +73,12 @@
       },
       async getPlats () {
         this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
+        this.plats = [
+          ...this.plats,
+          ...this.plats,
+          ...this.plats
+        ]
+        console.log(this.plats)
       }
     },
     async created () {
@@ -91,6 +101,7 @@
             height: 100vh;
             width: 100%;
             text-align: center;
+            background-color: $color-main;
             .choice {
                 display: flex;
                 flex-direction: row;
@@ -99,6 +110,13 @@
                 height: calc(100vh - 112px);
                 margin-top: 112px;
                 flex-wrap: wrap;
+                background-color: white;
+                &-detail {
+                    box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
+                    border-radius: $card-border-radius;
+                    padding: 20px;
+                    margin: 20px;
+                }
                 aside {
                     width: 33%;
                     article {
@@ -106,7 +124,13 @@
                             height: auto;
                             width: 200px;
                             box-sizing: border-box;
-                            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                            border-radius: 50%;
+                        }
+                        p {
+                            font-size: $sub-title;
+                            text-align: center;
+                            padding-top: 10px;
+                            color: $text-dark-ligth;
                         }
                     }
                 }
@@ -117,6 +141,8 @@
                 display: flex;
                 flex-direction: row;
                 height: 100%;
+                font-family: $main-font;
+                color: $text-dark-ligth;
                 .photo {
                     width: 44%;
                     height: 100%;
@@ -130,7 +156,7 @@
                         overflow: hidden;
                         img {
                             position: relative;
-                            transform: translate(-50%,-50%) scale(1);
+                            transform: translate(-50%, -50%) scale(1);
                             top: 50%;
                             left: 50%;
                             height: 100%;
@@ -139,26 +165,42 @@
                     }
                 }
                 .description {
+                    height: 100%;
                     width: 66%;
-                    display:flex;
+                    display: flex;
                     flex-direction: column;
-                    * {
-                        margin: 10px 20px;
+                    padding: 10px;
+                    h2 {
+                        padding: 10px;
+                    }
+                    p {
+                        padding: 50px;
+                        padding-top: 10px;
+                    }
+                    .priceAndBtn {
+                        height: 40px;
+                        padding: 10px;
+                        margin-top: auto;
+                        margin-bottom: 20px;
+                        align-self: flex-end;
+                        .price {
+                            height: 20px;
+                            padding: 10px;
+                            margin-right: 10px;
+                        }
+                        p {
+                            padding: 0px;
+                        }
+
                     }
                     .container-btn-add {
-                        margin: 0;
+                        height: 20px;
                         .btn-add {
                             padding: 10px 30px;
-                            color: $text-dark;
-                            background: $green-ligth;
-                            box-sizing: border-box;
+                            color: $text-dark-ligth;
+                            background: $color-terce;
                             font-size: $sub-title;
                             font-weight: $weight-sub-title;
-                            height: 40px;
-                            * {
-                                padding: 0;
-                                margin: 0;
-                            }
                         }
                     }
                 }
