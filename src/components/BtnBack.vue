@@ -25,7 +25,7 @@ export default {
   left: 30px;
   top: 30px;
   color: $text-dark;
-  background: $orange-ligth;
+  background: $color-second;
   box-sizing: border-box;
   font-size: $sub-title;
   font-weight: $weight-sub-title;

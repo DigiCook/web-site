@@ -7,9 +7,7 @@
             <div class="popUp-main">
                 <div class="popUp-content">
 
-                    <component
-                            v-bind:is="currentPopUpComponent"
-                    ></component>
+                    <slot></slot>
                 </div>
             </div>
         </div>
@@ -63,8 +61,8 @@
         height: 100%;
 
         &-background {
-            background-color: black;
-            opacity: 0.2;
+            background-color: $color-neutral;
+            opacity: 0.8;
             width: 100%;
             height: 100%;
         }

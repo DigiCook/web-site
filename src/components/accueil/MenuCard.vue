@@ -29,6 +29,7 @@ export default {
   border-radius: $card-border-radius;
   padding: 20px;
 
+
   &-img {
     width: 22vw;
     border-radius: 50%;
@@ -37,9 +38,8 @@ export default {
   &-text {
     font-size: $sub-title;
     text-align: center;
-    padding-top: 4px;
+    padding-top: 10px;
     color: $text-dark-ligth;
-    font-weight: $weight-sub-title;
   }
 }
 

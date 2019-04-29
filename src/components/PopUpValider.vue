@@ -39,7 +39,7 @@
                 text-align: center;
                 margin: auto;
                 font-family: $main-font;
-                color: $second-text-color;
+                color: $color-white;
             }
         }
     }

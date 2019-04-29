@@ -1,23 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-$button-ok: #9CCC65;
-$button-alert: #FFB74D;
+
+$button-ok: #FFC626;
+$button-alert: #9CCC65;
 $main-font: 'Roboto', sans-serif;
 $second-text-color: #B0BEC5;
 
 // $bg-main: #D7CCC8;
 
 // Text colors
-$text-white: #FFFFFF;
 $text-dark: #37474f;
 $text-dark-ligth: #455a64;
 
 // Div colors
 $grey-ligth: rgba(0, 0, 0, .3);
 $green-ligth: #9ccc65;
-$orange-ligth: #ffa726;
-$brown-ligth: #eceff1;
-$brown-dark: #8d6e63;
+
+
+$color-main: #B39288;
+$color-second: #FFC626;
+$color-terce: #9CCC65;
+$color-hint: #C48FC9;
+$color-neutral: #8891BF;
+$color-white : #FFFFFF;
 
 // Font sizes
 $title: 2.4rem;
