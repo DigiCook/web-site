@@ -24,6 +24,13 @@
                     <h2>{{currentPlat.nom}}</h2>
                     <p>{{currentPlat.description}}</p>
                     <p>{{currentPlat.prix}} €</p>
+                    <div class="container-btn-add">
+                        <btn class="btn-add">
+                            <p>
+                                ajouter au panier
+                            </p>
+                        </btn>
+                    </div>
                 </div>
             </div>
         </pop-up>
@@ -35,11 +42,13 @@
   import endpoints from '@/services/endpoints.js'
   import BtnBack from '@/components/BtnBack.vue'
   import PopUp from '@/components/PopUp.vue'
+  import Btn from '@/components/utils/Btn.vue'
 
   export default {
     name: 'Listing',
     components: {
       BtnBack,
+      Btn,
       PopUp
     },
     props: {
@@ -135,6 +144,22 @@
                     flex-direction: column;
                     * {
                         margin: 10px 20px;
+                    }
+                    .container-btn-add {
+                        margin: 0;
+                        .btn-add {
+                            padding: 10px 30px;
+                            color: $text-dark;
+                            background: $green-ligth;
+                            box-sizing: border-box;
+                            font-size: $sub-title;
+                            font-weight: $weight-sub-title;
+                            height: 40px;
+                            * {
+                                padding: 0;
+                                margin: 0;
+                            }
+                        }
                     }
                 }
             }
