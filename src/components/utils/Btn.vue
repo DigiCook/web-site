@@ -3,7 +3,6 @@
     <div class="btn">
       <slot></slot>
     </div>
-  </div>
 </template>
 
 <script>
@@ -76,42 +75,46 @@ export default {
     }
   },
   computed: {
+
   }
 }
 </script>
 
 <style lang="scss">
 
-.ink {
-  display: block;
-  position: absolute;
-  background: $grey-ligth;
-  border-radius: 100%;
-  transform: scale(0);
-}
+    .ink {
+        display: block;
+        position: absolute;
+        background: $grey-ligth;
+        border-radius: 100%;
+        transform: scale(0);
+    }
 
-.ink.animate {
-  animation: ripple 0.65s linear;
-}
+    .ink.animate {
+        animation: ripple 0.65s linear;
+    }
 
-@keyframes ripple {
-  100% {opacity: 0; transform: scale(2.5);}
-}
+    @keyframes ripple {
+        100% {
+            opacity: 0;
+            transform: scale(2.5);
+        }
+    }
 
 </style>
 
 
 <style scoped lang="scss">
 
-.container {
-  position: relative;
-  overflow: hidden;
-  border-radius: $btn-border-radius;
-  box-shadow: $shadow-grey;
-}
+    .container {
+        position: relative;
+        overflow: hidden;
+        border-radius: $btn-border-radius;
+        box-shadow: $shadow-grey;
+    }
 
-.btn {
-  position: relative;
-}
+    .btn {
+        position: relative;
+    }
 
 </style>
