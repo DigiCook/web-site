@@ -1,9 +1,9 @@
 <template>
   <div v-if="value" class="popUp">
-    <div @click="close" class="popUp-background">
-    </div>
-    <div @click="close" class="popUp-inner">
-      <btn @click="close" flat class="popUp-croix">
+    <div @click="close" class="popUp-background"></div>
+
+    <div class="popUp-inner">
+      <btn @click.native="close" flat class="popUp-croix">
         <img src="../assets/close.png"/>
       </btn>
 

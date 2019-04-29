@@ -122,12 +122,15 @@
       },
       askForHelp () {
         console.log('help Me !')
+        this.displayPopUp = false
       },
       validerCustomMenu () {
         console.log('validerCustomMenu')
+        this.displayPopUp = false
       },
       validerCommande () {
         console.log('validerCommande')
+        this.displayPopUp = false
       }
     },
     async created () {
