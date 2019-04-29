@@ -1,14 +1,14 @@
 <template>
-  <div v-if="value" class="popUp">
-    <div @click="close" class="popUp-background"></div>
+  <div v-if="value" @click="close" class="popUp">
+    <div class="popUp-background"></div>
 
     <div class="popUp-inner">
-      <btn @click.native="close" flat class="popUp-croix">
+      <btn flat class="popUp-croix">
         <img src="../assets/close.png"/>
       </btn>
 
       <div class="popUp-main">
-        <div class="popUp-content">
+        <div @click="clickOnContent" class="popUp-content">
           <slot></slot>
         </div>
       </div>
@@ -39,6 +39,10 @@ export default {
     close () {
       // Close the PopUp and change the value of v-model.
       this.$emit('input', false)
+    },
+    clickOnContent (event) {
+      // Stop propagation for avoid closing.
+      event.stopPropagation()
     }
   },
   computed: {
