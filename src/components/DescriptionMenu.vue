@@ -37,7 +37,7 @@
   import {mapGetters} from 'vuex'
   import fetch from '@/services/fetch'
   import endpoints from '@/services/endpoints'
-  import BtnBack from '@/components/BtnBack'
+  import BtnBack from '@/components/utils/BtnBack'
   import Mixin from '@/mixins'
   import Btn from '@/components/utils/Btn'
 

@@ -40,7 +40,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import BtnBack from '@/components/BtnBack'
+import BtnBack from '@/components/utils/BtnBack'
 import Btn from '@/components/utils/Btn'
 
 export default {
