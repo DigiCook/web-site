@@ -33,7 +33,7 @@ const state = {
       }
     },
     {
-      id: 1,
+      id: 2,
       nom: 'Tiramisu',
       description: 'supercallifragilis',
       prix: 14.5,

@@ -43,7 +43,7 @@
 import fetch from '@/services/fetch.js'
 import endpoints from '@/services/endpoints.js'
 import BtnBack from '@/components/utils/BtnBack.vue'
-import PopUp from '@/components/PopUp.vue'
+import PopUp from '@/components/utils/PopUp.vue'
 import Mixin from '@/mixins'
 import Btn from '@/components/utils/Btn.vue'
 

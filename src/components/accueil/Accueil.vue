@@ -63,7 +63,7 @@
   import MenuCard from '@/components/accueil/MenuCard'
   import fetch from '@/services/fetch'
   import endpoints from '@/services/endpoints'
-  import PopUp from '@/components/PopUp'
+  import PopUp from '@/components/utils/PopUp'
   import Btn from '@/components/utils/Btn'
 
   export default {
