@@ -5,7 +5,7 @@
         </btn-back>
         <div class="listing-choice">
             <section class="choice">
-                <aside v-for="plat in plats">
+                <aside :key="`key-plat-${plat.id}`" v-for="plat in plats">
                     <article @click="onItemClick(plat)">
                         <div class="choice-detail">
                             <img v-bind:src="plat.urlPhoto" alt="">
@@ -15,8 +15,9 @@
                 </aside>
             </section>
         </div>
-        <pop-up typePopUp="Plat" v-if="showPopUpPlat" @close="showPopUpPlat = false" class="pop-up">
-            <div v-if="currentPlat.urlPhoto != null & currentPlat.nom != null & currentPlat.prix != null & currentPlat.description != null">
+
+        <pop-up v-model="showPopUpPlat" @close="showPopUpPlat = false" class="pop-up">
+            <div v-if="currentPlat && currentPlat.urlPhoto != null & currentPlat.nom != null & currentPlat.prix != null & currentPlat.description != null">
                 <div class="photo">
                     <div>
                         <img v-bind:src="currentPlat.urlPhoto" v-bind:alt="currentPlat.nom">
@@ -38,6 +39,7 @@
                 </div>
             </div>
         </pop-up>
+
     </div>
 </template>
 
@@ -73,11 +75,6 @@
       },
       async getPlats () {
         this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
-        this.plats = [
-          ...this.plats,
-          ...this.plats,
-          ...this.plats
-        ]
         console.log(this.plats)
       }
     },
@@ -87,7 +84,7 @@
     data () {
       return {
         plats: [],
-        'showPopUpPlat': false,
+        showPopUpPlat: false,
         currentPlat: null
       }
     }
