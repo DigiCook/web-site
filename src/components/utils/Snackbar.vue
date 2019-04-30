@@ -1,6 +1,6 @@
 <template>
   <div class="Snackbar">
-    {{ text }}
+    <p>{{ text }}</p>
   </div>
 </template>
 
@@ -72,6 +72,10 @@ export default {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   transition: bottom .1s linear;
+
+  p {
+    white-space: nowrap;
+  }
 
   &-show {
     bottom: 0px;
