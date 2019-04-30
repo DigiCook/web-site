@@ -52,6 +52,7 @@ export default {
 
 <style scoped lang="scss">
 .popUp {
+  z-index: 300;
   position: absolute;
   top: 0px;
   left: 0px;
