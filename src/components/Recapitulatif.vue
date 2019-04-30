@@ -1,33 +1,33 @@
 <template>
-  <div class="recap" >
+  <div class="recap">
     <h1>Récapitulatif de la commande</h1>
     <btn-back>retour</btn-back>
-    <ul class="liste">   
-      <li class="item" v-for='menu in cdeMenus'>
+    <ul class="liste">
+      <li :key="`key-item-menu-${menu.id}`" class="item" v-for="menu in cdeMenus">
           <div>{{menu.nom}}</div>
           <div>Quantité : {{menu.quantite}}</div>
           <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
           <div @click="decreaseQtyMenu(menu)" class="button"><p>Minus</p></div>
           <div @click="menu.quantite ++" class="button"><p>Plus</p></div>
           <div @click="deleteLineMenu(menu.id)" class="button"><p>Supprimer</p></div>
-      </li> 
-      <li class="item" v-for='plat in cdePlats'>
-          <div>{{plat.nom}}</div> 
+      </li>
+      <li :key="`key-item-plat-${plat.id}`" class="item" v-for="plat in cdePlats">
+          <div>{{plat.nom}}</div>
           <div>Quantité :  {{plat.quantite}} </div> 
           <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div>
           <div @click="decreaseQtyPlat(plat)" class="button"><p>Minus</p></div>
           <div @click="plat.quantite ++" class="button"><p>Plus</p></div>
-          <div @click="deleteLinePlat(plat.id)" class="button"><p>Supprimer</p></div> 
+          <div @click="deleteLinePlat(plat.id)" class="button"><p>Supprimer</p></div>
       </li>
       <li class="item">
-          <div>&nbsp;</div>  
-          <div>&nbsp;</div> 
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
           <div> Total : {{total}}</div>
           <div class="button" style="background-color:transparent">&nbsp;</div> 
       </li>
     </ul>
     <div>
-      <p> 
+      <p>
       <btn @click="validateOrder()" class="validateBtn">Valider la commande</btn>
        </p>
     </div>
@@ -40,7 +40,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
-import BtnBack from '@/components/BtnBack'
+import BtnBack from '@/components/utils/BtnBack'
 import Btn from '@/components/utils/Btn'
 
 export default {
