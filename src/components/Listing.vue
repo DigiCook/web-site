@@ -1,94 +1,97 @@
 <template>
-    <div class="listing">
-        <btn-back>
-            Retour
-        </btn-back>
-        <div class="listing-choice">
-            <section class="choice">
-                <aside :key="`key-plat-${plat.id}`" v-for="plat in plats">
-                    <article @click="onItemClick(plat)">
-                        <div class="choice-detail">
-                            <img v-bind:src="plat.urlPhoto" alt="">
-                            <p>{{ plat.nom }}</p>
-                        </div>
-                    </article>
-                </aside>
-            </section>
-        </div>
-
-        <pop-up v-model="showPopUpPlat" @close="showPopUpPlat = false" class="pop-up">
-            <div v-if="currentPlat && currentPlat.urlPhoto != null & currentPlat.nom != null & currentPlat.prix != null & currentPlat.description != null">
-                <div class="photo">
-                    <div>
-                        <img v-bind:src="currentPlat.urlPhoto" v-bind:alt="currentPlat.nom">
-                    </div>
-                </div>
-                <div class="description">
-                    <h2>{{currentPlat.nom}}</h2>
-                    <p>{{currentPlat.description}}</p>
-                    <div class="priceAndBtn">
-                        <p class="price">{{currentPlat.prix}} €</p>
-                        <div class="container-btn-add">
-                            <btn class="btn-add">
-                                <p class="btn-add-text">
-                                    ajouter au panier
-                                </p>
-                            </btn>
-                        </div>
-                    </div>
-                </div>
+  <div class="listing">
+    <btn-back>Retour</btn-back>
+    <div class="listing-choice">
+      <section class="choice">
+        <aside :key="`key-plat-${plat.id}`" v-for="plat in plats">
+          <article @click="onItemClick(plat)">
+            <div class="choice-detail">
+              <img v-bind:src="plat.urlPhoto" alt="">
+              <p>{{ plat.nom }}</p>
             </div>
-        </pop-up>
-
+          </article>
+        </aside>
+      </section>
     </div>
+
+    <pop-up v-model="showPopUpPlat" @close="showPopUpPlat = false" class="pop-up">
+      <div v-if="currentPlat && currentPlat.urlPhoto != null & currentPlat.nom != null & currentPlat.prix != null & currentPlat.description != null">
+        <div class="photo">
+          <div>
+            <img v-bind:src="currentPlat.urlPhoto" v-bind:alt="currentPlat.nom">
+          </div>
+        </div>
+        <div class="description">
+          <h2>{{currentPlat.nom}}</h2>
+          <p>{{currentPlat.description}}</p>
+          <div class="priceAndBtn">
+            <p class="price">{{currentPlat.prix}} €</p>
+            <div class="container-btn-add">
+              <btn @click.native="savePlat" class="btn-add">
+                <p class="btn-add-text">Ajouter au panier</p>
+              </btn>
+            </div>
+          </div>
+        </div>
+      </div>
+    </pop-up>
+
+  </div>
 </template>
 
 <script>
-  import fetch from '@/services/fetch.js'
-  import endpoints from '@/services/endpoints.js'
-  import BtnBack from '@/components/BtnBack.vue'
-  import PopUp from '@/components/PopUp.vue'
-  import Btn from '@/components/utils/Btn.vue'
+import fetch from '@/services/fetch.js'
+import endpoints from '@/services/endpoints.js'
+import BtnBack from '@/components/BtnBack.vue'
+import PopUp from '@/components/PopUp.vue'
+import Mixin from '@/mixins'
+import Btn from '@/components/utils/Btn.vue'
 
-  export default {
-    name: 'Listing',
-    components: {
-      BtnBack,
-      Btn,
-      PopUp
+export default {
+  name: 'Listing',
+  mixins: [Mixin],
+  components: {
+    BtnBack,
+    Btn,
+    PopUp
+  },
+  props: {
+    id: {
+      type: [Number, String]
+    }
+  },
+  data () {
+    return {
+      plats: [],
+      showPopUpPlat: false,
+      currentPlat: null
+    }
+  },
+  methods: {
+    returnBack () {
+      this.$router.go(-1)
     },
-    props: {
-      id: {
-        type: [Number, String]
-      }
+    async onItemClick (plat) {
+      this.showPopUpPlat = true
+      this.currentPlat = plat
+      this.currentPlat = (await fetch(endpoints.plat.get, {id: plat.id})).data
     },
-    methods: {
-      returnBack () {
-        this.$router.go(-1)
-      },
-      async onItemClick (plat) {
-        console.log(plat)
-        this.showPopUpPlat = true
-        this.currentPlat = plat
-        this.currentPlat = (await fetch(endpoints.plat.get, {id: plat.id})).data
-        // this.$router.go('http://localhost:8000/#/listing/' + id)
-      },
-      async getPlats () {
-        this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
-        console.log(this.plats)
-      }
+    async getPlats () {
+      this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
     },
-    async created () {
-      await this.getPlats()
-    },
-    data () {
-      return {
-        plats: [],
-        showPopUpPlat: false,
-        currentPlat: null
+    savePlat () {
+      if (this.currentPlat) {
+        this.$store.dispatch('addPlatToCommande', this.currentPlat)
+        this.displaySnackbar(`${this.currentPlat.nom} ajouté à votre commande`)
+
+        this.$router.push('/')
       }
     }
+  },
+  async created () {
+    await this.getPlats()
   }
+}
 </script>
 
 <style scoped lang="scss">

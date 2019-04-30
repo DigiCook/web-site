@@ -67,7 +67,6 @@ const mutations = {
     state.menus = []
     state.plats = []
   },
-
   [types.ADD_MENU_TO_COMMANDE] (state, menu) {
     // Check if the menu is already in the Commande.
     const foundMenu = state.menus.find(m => m.id === menu.id)
@@ -78,6 +77,19 @@ const mutations = {
       state.menus.push({
         quantite: 1,
         ...menu
+      })
+    }
+  },
+  [types.ADD_PLAT_TO_COMMANDE] (state, plat) {
+    // Check if the plat is already in the Commande.
+    const foundPlat = state.plats.find(m => m.id === plat.id)
+
+    if (foundPlat) {
+      foundPlat.quantite ++
+    } else {
+      state.plats.push({
+        quantite: 1,
+        ...plat
       })
     }
   }
@@ -96,6 +108,11 @@ const actions = {
   addMenuToCommande ({ commit }, menu) {
     if (menu) {
       commit(types.ADD_MENU_TO_COMMANDE, menu)
+    }
+  },
+  addPlatToCommande ({ commit }, plat) {
+    if (plat) {
+      commit(types.ADD_PLAT_TO_COMMANDE, plat)
     }
   }
 }
