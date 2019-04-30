@@ -119,12 +119,8 @@ export default {
 <style scoped lang="scss">
     .recap {
         font-family: $main-font;
-<<<<<<< HEAD
-        color: $color-white;
-=======
         font-size:15px;
         color: $text-dark;
->>>>>>> feature/recapitulatif
         margin: 40px;
         h1 {
             font-size: 25px;
