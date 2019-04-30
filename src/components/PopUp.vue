@@ -1,109 +1,112 @@
 <template>
-    <div class="popUp">
-        <div v-on:click="closePopUp" class="popUp-background">
-        </div>
-        <div v-on:click="closePopUp" class="popUp-inner">
-            <div v-on:click="closePopUp" class="popUp-croix"><img src="../assets/close.png"></div>
-            <div class="popUp-main">
-                <div class="popUp-content">
+  <div v-if="value" @click="close" class="popUp">
+    <div class="popUp-background"></div>
 
-                    <slot></slot>
-                </div>
-            </div>
-        </div>
+    <div class="popUp-inner">
+      <btn flat class="popUp-croix">
+        <img src="../assets/close.png"/>
+      </btn>
 
-        <pop-up-help style="display: none"></pop-up-help>
-        <pop-up-valider style="display: none"></pop-up-valider>
+      <div class="popUp-main">
+        <div @click="clickOnContent" class="popUp-content">
+          <slot></slot>
+        </div>
+      </div>
+
     </div>
+  </div>
 </template>
 
 <script>
-  import PopUpHelp from '@/components/PopUpHelp'
-  import PopUpValider from '@/components/PopUpValider'
-  import PopUpPlat from '@/components/PopUpPlat'
+import Btn from '@/components/utils/Btn'
 
-  export default {
-    name: 'PopUp',
-    components: {
-      PopUpValider,
-      PopUpHelp,
-      PopUpPlat
-    },
-    props: {
-      typePopUp: {
-        type: [String]
-      }
-    },
-    data () {
-      return {
-        'currentPopUp': 'Help'
-      }
-    },
-    methods: {
-      closePopUp () {
-        this.$emit('close')
-      }
-    },
-    computed: {
-      currentPopUpComponent: function () {
-        return 'pop-up-' + this.typePopUp.toLowerCase()
-      }
+export default {
+  name: 'PopUp',
+  components: {
+    Btn
+  },
+  props: {
+    value: {
+      type: [Boolean],
+      default: false
     }
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {
+    close () {
+      // Close the PopUp and change the value of v-model.
+      this.$emit('input', false)
+    },
+    clickOnContent (event) {
+      // Stop propagation for avoid closing.
+      event.stopPropagation()
+    }
+  },
+  computed: {
   }
+}
 </script>
 
 <style scoped lang="scss">
-    .popUp {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 100%;
+.popUp {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
 
-        &-background {
-            background-color: $color-neutral;
-            opacity: 0.8;
-            width: 100%;
-            height: 100%;
-        }
+  &-background {
+    background-color: $color-neutral;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+  }
 
-        &-inner {
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            margin: 10%;
-            width: 80%;
-            height: 75%;
+  &-background {
+    background-color: black;
+    opacity: 0.2;
+    width: 100%;
+    height: 100%;
+  }
 
-        }
+  &-inner {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin: 10%;
+    width: 80%;
+    height: 75%;
+  }
 
-        &-main {
-            display: flex;
-            height: 100%;
-        }
+  &-main {
+    display: flex;
+    height: 100%;
+  }
 
-        &-croix {
-            height: 25px;
-            width: 25px;
-            padding: 12.5px;
-            margin-left: auto;
-            background-color: white;
-            border-radius: 50%;
+  &-croix {
+    height: 36px;
+    width: 36px;
+    padding: 6px;
+    margin-left: auto;
+    background-color: white;
+    border-radius: 50%;
 
-            img {
-                height: 25px;
-                width: 25px;
-            }
-        }
-
-        &-content {
-            margin: auto;
-            margin-top: 20px;
-            background-color: white;
-            border-radius: 20px;
-            width: 80%;
-            height: 80%;
-        }
-
+    img { 
+      height: 36px;
+      width: 36px;
     }
+  }
+
+  &-content {
+    margin: auto;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 20px;
+    width: 80%;
+    height: 80%;
+  }
+}
 </style>
