@@ -27,10 +27,10 @@
         </article>
         <article class="bottom-carte">
           <btn @click.native="onClickAide" class="carte-button carte-button-help">
-            <p>Appeler un serveur</p>
+            <p>Aide</p>
           </btn>
-          <btn @click.native="onClickValider" class="carte-button carte-button-recap">
-            <p>Valider</p>
+          <btn @click.native="validerCommande" class="carte-button carte-button-recap">
+            <p>Commande</p>
           </btn>
         </article>
       </section>
@@ -38,22 +38,11 @@
     </div>
 
     <pop-up v-model="displayPopUp">
-
-      <div v-if="showPopupHelp" class="popup-help">
-        <div @click="askForHelp" class="popup-help-button">
-          <p>Faire appele à un serveur</p>
+      <div v-if="displayPopUp" class="popup-help">
+        <div @click="clickOnAide" class="popup-help-button">
+          <p>Appeler un serveur</p>
         </div>
       </div>
-
-      <div v-else-if="showPopupValider" class="popup-valider">
-        <div @click="validerCustomMenu" class="popup-valider-button">
-          <p>Valider le menu a la carte</p>
-        </div>
-        <div @click="validerCommande" class="popup-valider-button">
-          <p>Valider ma commande et accèder au récapitulatif</p>
-        </div>
-      </div>
-
     </pop-up>
 
   </div>
@@ -78,18 +67,10 @@
         allMenu: [],
         allPlat: [],
         showPopupHelp: false,
-        showPopupValider: false,
         displayPopUp: false
       }
     },
     watch: {
-      'displayPopUp' () {
-        if (!this.displayPopUp) {
-          // Reset values
-          this.showPopupHelp = false
-          this.showPopupValider = false
-        }
-      }
     },
     methods: {
       async getAllMenu () {
@@ -108,28 +89,19 @@
           this.allPlat = this.$store.getters.getTypesPlat
         }
       },
-      onClickValider () {
-        this.showPopupValider = true
-        this.displayPopUp = true
-      },
       onClickAide () {
-        this.showPopupHelp = true
         this.displayPopUp = true
       },
       clickOnPlat (id) {
         this.$router.push(`listing/${id}`)
       },
-      askForHelp () {
-        console.log('help Me !')
-        this.displayPopUp = false
-      },
-      validerCustomMenu () {
-        console.log('validerCustomMenu')
+      clickOnAide () {
         this.displayPopUp = false
       },
       validerCommande () {
-        console.log('validerCommande')
         this.displayPopUp = false
+
+        this.$router.push('/recapitulatif')
       }
     },
     async created () {
