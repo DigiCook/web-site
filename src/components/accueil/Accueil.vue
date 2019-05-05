@@ -20,28 +20,30 @@
                 </article>
 
             </section>
-            <section class="carte">
-                <div class="cartAnimate"></div>
-                <div class="animDiv">
-                    <h1 class="carte-titre">Plats à la Carte</h1>
-                    <article>
-                        <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
-                            <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
-                                <p>{{ typeplat.libelle }}</p>
+            <transition name="animationUp">
+                <section v-if="animToListePlat" class="carte">
+                    <div class="cartAnimate"></div>
+                    <div class="animDiv">
+                        <h1 class="carte-titre">Plats à la Carte</h1>
+                        <article>
+                            <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat"
+                                   v-on:click="animToListePlat = ! animToListePlat">
+                                <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
+                                    <p>{{ typeplat.libelle }}</p>
+                                </btn>
+                            </aside>
+                        </article>
+                        <article class="bottom-carte">
+                            <btn @click.native="onClickAide" class="carte-button carte-button-help">
+                                <p>Appeler un serveur</p>
                             </btn>
-                        </aside>
-                    </article>
-                    <article class="bottom-carte">
-                        <btn @click.native="onClickAide" class="carte-button carte-button-help">
-                            <p>Appeler un serveur</p>
-                        </btn>
-                        <btn @click.native="onClickValider" class="carte-button carte-button-recap">
-                            <p>Valider</p>
-                        </btn>
-                    </article>
-                </div>
-            </section>
-
+                            <btn @click.native="onClickValider" class="carte-button carte-button-recap">
+                                <p>Valider</p>
+                            </btn>
+                        </article>
+                    </div>
+                </section>
+            </transition>
         </div>
 
         <pop-up v-model="displayPopUp">
@@ -86,7 +88,8 @@
         allPlat: [],
         showPopupHelp: false,
         showPopupValider: false,
-        displayPopUp: false
+        displayPopUp: false,
+        animToListePlat: true
       }
     },
     watch: {
@@ -210,6 +213,7 @@
                 justify-content: space-between;
                 height: 100%;
             }
+
             &-titre {
                 color: $color-white;
                 font-size: $title;
@@ -264,6 +268,7 @@
                     }
                 }
             }
+
             .cartAnimate {
                 position: absolute;
                 margin-left: -30px;
@@ -337,6 +342,15 @@
     .expandeLeft {
         transform: scale(4, 1);
         transition: transform 1s
+    }
+
+    .animationUp-leave-active {
+        transition: transform .5s;
+    }
+
+    .animationUp-leave-to /* .fade-leave-active below version 2.1.8 */
+    {
+        transform: translate(0px, calc(-100% + 112px));
     }
 
 
