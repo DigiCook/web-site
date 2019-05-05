@@ -323,17 +323,15 @@
     }
 
     .annimOutRight {
-        //position: absolute;
-        z-index: 300;
         opacity: 0;
         transform: translate(300%, 0);
-        transition: transform 1s, opacity 1s;
+        transition: transform 1s ease-in, opacity 1s ease-out;
     }
 
     .annimOutLeft {
-        //opacity: 0;
+        opacity: 0;
         transform: translate(-200%, 0);
-        transition: transform 1s, opacity 1s;
+        transition: transform 1s ease-in, opacity 1s ease-out;
     }
 
     .expandeLeft {
