@@ -1,39 +1,44 @@
 <template>
   <div class="recap">
+    <section class="recap-titre">
     <h1>Récapitulatif de la commande</h1>
     <btn-back>retour</btn-back>
-    <ul class="liste">
-      <li :key="`key-item-menu-${menu.id}`" class="item" v-for="menu in cdeMenus">
-          <div>{{menu.nom}}</div>
-          <div>Quantité : {{menu.quantite}}</div>
-          <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
-          <div @click="decreaseQtyMenu(menu)" class="button"><p><img src="../assets/images/moins.jpg"></p></div>
-          <div @click="menu.quantite ++" class="button"><p><img src="../assets/images/plus.jpg"></p></div>
-          <div @click="deleteLineMenu(menu.id)" class="button"><p>Supprimer</p></div>
-      </li>
-      <li :key="`key-item-plat-${plat.id}`" class="item" v-for="plat in cdePlats">
-          <div>{{plat.nom}}</div>
-          <div>Quantité :  {{plat.quantite}} </div> 
-          <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div>
-          <div @click="decreaseQtyPlat(plat)" class="button"><p><img src="../assets/images/moins.jpg"></p></div>
-          <div @click="plat.quantite ++" class="button"><p><img src="../assets/images/plus.jpg"></p></div>
-          <div @click="deleteLinePlat(plat.id)" class="button"><p>Supprimer</p></div>
-      </li>
-      <li class="item">
-          <div>&nbsp;</div>
-          <div>&nbsp;</div>
-          <div> Total : {{total}}</div>
-          <div class="button" style="background-color:transparent">&nbsp;</div> 
-      </li>
-    </ul>
-    <div>
-      <p>
-      <btn @click="validateOrder()" class="validateBtn">Valider la commande</btn>
-       </p>
-    </div>
-    <div>
-      <btn @click.native="deleteOrder()" class="deleteOrderBtn">Supprimer la commande</btn>
-    </div>
+    </section>
+    <section class="recap-content">
+        <ul class="liste">
+          <li :key="`key-item-menu-${menu.id}`" class="item" v-for="menu in cdeMenus">
+              <div>{{menu.nom}}</div>
+              <div>Quantité : {{menu.quantite}}</div>
+              <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
+              <div @click="decreaseQtyMenu(menu)" class="buttons"><p><img src="../assets/images/moins.jpg"></p></div>
+              <div @click="menu.quantite ++" class="buttons"><p><img src="../assets/images/plus.jpg"></p></div>
+              <div @click="deleteLineMenu(menu.id)" class="buttons"><p><img src="../assets/images/croix.jpg"></p></div>
+          </li>
+          <li :key="`key-item-plat-${plat.id}`" class="item" v-for="plat in cdePlats">
+              <div>{{plat.nom}}</div>
+              <div>Quantité :  {{plat.quantite}} </div> 
+              <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div>
+              <div @click="decreaseQtyPlat(plat)"><p><img src="../assets/images/moins.jpg"></p></div>
+              <div @click="plat.quantite ++"><p><img src="../assets/images/plus.jpg"></p></div>
+              <div @click="deleteLinePlat(plat.id)"><p><img src="../assets/images/croix.jpg"></p></div>
+          </li>
+          <li class="item">
+              <div>&nbsp;</div>
+              <div>&nbsp;</div>
+              <div>&nbsp;</div>
+              <div class="total"> Total : {{total}}</div>
+          </li>
+        </ul>
+
+        <section class="validation">
+            <div>
+              <btn @click="validateOrder()" class="validateBtn">Valider la commande</btn>
+            </div>
+            <div>
+              <btn @click.native="deleteOrder()" class="deleteOrderBtn">Supprimer la commande</btn>
+            </div>
+        </section>
+    </section>
   </div>
 </template>
 
@@ -118,13 +123,17 @@ export default {
 
 <style scoped lang="scss">
     .recap {
-        font-family: $main-font;
-        font-size:15px;
-        color: $text-dark;
-        margin: 40px;
-        h1 {
-            font-size: 25px;
+            height: 1500px;
+            width: 100%;
             text-align: center;
+            background-color: $color-main;
+        &-titre {
+              color: $color-white;
+              font-size: $title;
+              text-align: center;
+        }
+        .recap-content {
+          background-color: white;
         }
         .liste{
             margin: 20px;
@@ -135,6 +144,7 @@ export default {
            justify-content: space-evenly;
            margin: 10px;
            align-items: baseline;
+           font-size: $sub-title;
         }
         .item>:nth-child(1) {
            width: 400px;
@@ -145,31 +155,25 @@ export default {
          .item>:nth-child(3) {
            width: 200px;
         }
+        .validation{
+          display: flex;
+          flex-direction: row-reverse;
+        }
         .validateBtn{
-          background-color:$button-ok;
-          width: 20%;
-        
-                    //font-color: $second-text-color;
+          background-color: $button-alert;
+          font-family: $main-font;
+          margin: 20px;
+          padding: 16px;
         }
         .deleteOrderBtn{
-          background-color:$button-alert;
-          width: 20%;
-        
-                    //font-color: $second-text-color;
+          background-color: $button-ok;
+          font-family: $main-font;
+          margin: 20px;
+          padding: 16px;
         }
-        .button {
-            background-color: $color-white;
-            padding: 20px;
-            border-radius: 20px;
-            margin: 20px;
-            width: 20%;
-
-                p {
-                    text-align: center;
-                    color: $second-text-color;
-                    font-size: 15px;
-                }
-
+        .total {
+            margin:20px;
+            font-size: 30px;
         }
 }
 </style>
