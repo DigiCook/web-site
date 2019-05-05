@@ -7,16 +7,16 @@
           <div>{{menu.nom}}</div>
           <div>Quantité : {{menu.quantite}}</div>
           <div>Prix : {{(menu.prix * menu.quantite).toFixed(2)}}</div> 
-          <div @click="decreaseQtyMenu(menu)" class="button"><p>Minus</p></div>
-          <div @click="menu.quantite ++" class="button"><p>Plus</p></div>
+          <div @click="decreaseQtyMenu(menu)" class="button"><p><img src="../assets/images/moins.jpg"></p></div>
+          <div @click="menu.quantite ++" class="button"><p><img src="../assets/images/plus.jpg"></p></div>
           <div @click="deleteLineMenu(menu.id)" class="button"><p>Supprimer</p></div>
       </li>
       <li :key="`key-item-plat-${plat.id}`" class="item" v-for="plat in cdePlats">
           <div>{{plat.nom}}</div>
           <div>Quantité :  {{plat.quantite}} </div> 
           <div>Prix : {{(plat.prix * plat.quantite).toFixed(2)}}</div>
-          <div @click="decreaseQtyPlat(plat)" class="button"><p>Minus</p></div>
-          <div @click="plat.quantite ++" class="button"><p>Plus</p></div>
+          <div @click="decreaseQtyPlat(plat)" class="button"><p><img src="../assets/images/moins.jpg"></p></div>
+          <div @click="plat.quantite ++" class="button"><p><img src="../assets/images/plus.jpg"></p></div>
           <div @click="deleteLinePlat(plat.id)" class="button"><p>Supprimer</p></div>
       </li>
       <li class="item">
