@@ -20,14 +20,13 @@
                 </article>
 
             </section>
-            <transition name="animationUp">
+            <transition name="goToListing">
                 <section v-if="animToListePlat" class="carte">
                     <div class="cartAnimate"></div>
                     <div class="animDiv">
                         <h1 class="carte-titre">Plats à la Carte</h1>
                         <article>
-                            <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat"
-                                   v-on:click="animToListePlat = ! animToListePlat">
+                            <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
                                 <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
                                     <p>{{ typeplat.libelle }}</p>
                                 </btn>
@@ -127,7 +126,14 @@
         this.displayPopUp = true
       },
       clickOnPlat (id) {
-        this.$router.push(`listing/${id}`)
+        this.animToListePlat = false
+        document.querySelector('.animDiv').style.display = 'none'
+        document.querySelector('.cartAnimate').style.display = 'none'
+        document.querySelector('.carte').style.boxShadow = 'none'
+        document.querySelector('.carte').style.width = '259px'
+        setTimeout(function () {
+          this.$router.push(`listing/${id}`)
+        }.bind(this), 500)
       },
       askForHelp () {
         console.log('help Me !')
@@ -344,14 +350,14 @@
         transition: transform 1s
     }
 
-    .animationUp-leave-active {
+
+    .goToListing-enter-active, .goToListing-leave-active {
         transition: transform .5s;
     }
 
-    .animationUp-leave-to /* .fade-leave-active below version 2.1.8 */
+    .goToListing-enter, .goToListing-leave-to /* .fade-leave-active below version 2.1.8 */
     {
-        transform: translate(0px, calc(-100% + 112px));
+        transform: translate(0, calc(112px - 100%));
     }
-
 
 </style>
