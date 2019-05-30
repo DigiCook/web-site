@@ -23,24 +23,26 @@
             <transition name="goToListing">
                 <section v-if="animToListePlat" class="carte">
                     <div class="cartAnimate"></div>
-                    <div class="animDiv">
-                        <h1 class="carte-titre">Plats à la Carte</h1>
-                        <article>
-                            <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
-                                <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
-                                    <p>{{ typeplat.libelle }}</p>
+                    <transition name="fade">
+                        <div v-show="animFade" class="animDiv">
+                            <h1 class="carte-titre">Plats à la Carte</h1>
+                            <article>
+                                <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
+                                    <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
+                                        <p>{{ typeplat.libelle }}</p>
+                                    </btn>
+                                </aside>
+                            </article>
+                            <article class="bottom-carte">
+                                <btn @click.native="onClickAide" class="carte-button carte-button-help">
+                                    <p>Appeler un serveur</p>
                                 </btn>
-                            </aside>
-                        </article>
-                        <article class="bottom-carte">
-                            <btn @click.native="onClickAide" class="carte-button carte-button-help">
-                                <p>Appeler un serveur</p>
-                            </btn>
-                            <btn @click.native="onClickValider" class="carte-button carte-button-recap">
-                                <p>Valider</p>
-                            </btn>
-                        </article>
-                    </div>
+                                <btn @click.native="onClickValider" class="carte-button carte-button-recap">
+                                    <p>Valider</p>
+                                </btn>
+                            </article>
+                        </div>
+                    </transition>
                 </section>
             </transition>
         </div>
@@ -88,7 +90,8 @@
         showPopupHelp: false,
         showPopupValider: false,
         displayPopUp: false,
-        animToListePlat: true
+        animToListePlat: true,
+        animFade: true
       }
     },
     watch: {
@@ -127,13 +130,12 @@
       },
       clickOnPlat (id) {
         this.animToListePlat = false
-        document.querySelector('.animDiv').style.display = 'none'
-        document.querySelector('.cartAnimate').style.display = 'none'
+        this.animFade = false
         document.querySelector('.carte').style.boxShadow = 'none'
         document.querySelector('.carte').style.width = '259px'
         setTimeout(function () {
           this.$router.push(`listing/${id}`)
-        }.bind(this), 500)
+        }.bind(this), 1000)
       },
       askForHelp () {
         console.log('help Me !')
@@ -353,11 +355,19 @@
 
     .goToListing-enter-active, .goToListing-leave-active {
         transition: transform .5s;
+        transition-delay: 0.5s;
     }
 
-    .goToListing-enter, .goToListing-leave-to /* .fade-leave-active below version 2.1.8 */
-    {
+    .goToListing-enter, .goToListing-leave-to {
         transform: translate(0, calc(112px - 100%));
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+
+    .fade-enter, .fade-leave-to {
+        opacity: 1;
     }
 
 </style>
