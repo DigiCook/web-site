@@ -49,26 +49,27 @@
 
         <pop-up v-model="displayPopUp">
 
-    <pop-up v-model="displayPopUp">
+            <pop-up v-model="displayPopUp">
 
-      <div v-if="showPopupHelp" class="popup-help">
-        <div @click="askForHelp" class="popup-help-button">
-          <p>Faire appele à un serveur</p>
-        </div>
-      </div>
+                <div v-if="showPopupHelp" class="popup-help">
+                    <div @click="askForHelp" class="popup-help-button">
+                        <p>Faire appele à un serveur</p>
+                    </div>
+                </div>
 
-      <div v-else-if="showPopupValider" class="popup-valider">
-        <div @click="validerCustomMenu" class="popup-valider-button">
-          <p>Valider le menu a la carte</p>
-        </div>
-        <div @click="validerCommande" class="popup-valider-button">
-          <p>Valider ma commande et accèder au récapitulatif</p>
-        </div>
-      </div>
+                <div v-else-if="showPopupValider" class="popup-valider">
+                    <div @click="validerCustomMenu" class="popup-valider-button">
+                        <p>Valider le menu a la carte</p>
+                    </div>
+                    <div @click="validerCommande" class="popup-valider-button">
+                        <p>Valider ma commande et accèder au récapitulatif</p>
+                    </div>
+                </div>
 
-    </pop-up>
+            </pop-up>
+        </pop-up>
 
-  </div>
+    </div>
 </template>
 
 <script>
@@ -91,11 +92,12 @@
         allPlat: [],
         showPopupHelp: false,
         showPopupValider: false,
-        displayPopUp: false
+        displayPopUp: false,
+        animToListePlat: true,
+        animFade: true
       }
     },
-    watch: {
-    },
+    watch: {},
     methods: {
       async getAllMenu () {
         if (this.$store.getters.getMenus.length === 0) {
@@ -130,6 +132,11 @@
       },
       validerCommande () {
         this.displayPopUp = false
+      },
+      animateGoingToMenuPage () {
+        document.querySelector('.animDiv').classList.add('annimOutRight')
+        document.querySelector('.menu').classList.add('annimOutLeft')
+        document.querySelector('.cartAnimate').classList.add('expandeLeft')
       }
     },
     async created () {
@@ -328,7 +335,6 @@
         transform: scale(4, 1);
         transition: transform 1s
     }
-
 
     .goToListing-enter-active, .goToListing-leave-active {
         transition: transform .5s;

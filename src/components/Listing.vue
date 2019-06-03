@@ -6,7 +6,7 @@
 
                 <div class="listing-choice">
 
-                    <btn-back>
+                    <btn-back :souldBeShow="false">
                         Retour
                     </btn-back>
                     <transition name="fade">
@@ -47,69 +47,63 @@
                     </div>
                 </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </pop-up>
-
-  </div>
+        </pop-up>
+    </div>
 </template>
 
 <script>
-import fetch from '@/services/fetch.js'
-import endpoints from '@/services/endpoints.js'
-import BtnBack from '@/components/utils/BtnBack.vue'
-import PopUp from '@/components/utils/PopUp.vue'
-import Mixin from '@/mixins'
-import Btn from '@/components/utils/Btn.vue'
+  import fetch from '@/services/fetch.js'
+  import endpoints from '@/services/endpoints.js'
+  import BtnBack from '@/components/utils/BtnBack.vue'
+  import PopUp from '@/components/utils/PopUp.vue'
+  import Mixin from '@/mixins'
+  import Btn from '@/components/utils/Btn.vue'
 
-export default {
-  name: 'Listing',
-  mixins: [Mixin],
-  components: {
-    BtnBack,
-    Btn,
-    PopUp
-  },
-  props: {
-    id: {
-      type: [Number, String]
-    }
-  },
-  data () {
-    return {
-      plats: [],
-      showPopUpPlat: false,
-      currentPlat: null
-    }
-  },
-  methods: {
-    returnBack () {
-      this.$router.go(-1)
+  export default {
+    name: 'Listing',
+    mixins: [Mixin],
+    components: {
+      BtnBack,
+      Btn,
+      PopUp
     },
-    async onItemClick (plat) {
-      this.showPopUpPlat = true
-      this.currentPlat = plat
-      this.currentPlat = (await fetch(endpoints.plat.get, {id: plat.id})).data
-    },
-    async getPlats () {
-      this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
-    },
-    async created () {
-      await this.getPlats()
+    props: {
+      id: {
+        type: [Number, String]
+      }
     },
     data () {
       return {
         plats: [],
         showPopUpPlat: false,
-        currentPlat: null
+        currentPlat: null,
+
+        fromListing: false
       }
+    },
+    methods: {
+      returnBack () {
+        this.$router.go(-1)
+      },
+      async onItemClick (plat) {
+        this.showPopUpPlat = true
+        this.currentPlat = plat
+        this.currentPlat = (await fetch(endpoints.plat.get, {id: plat.id})).data
+      },
+      async getPlats () {
+        this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
+      },
+      async created () {
+        await this.getPlats()
+      }
+    },
+    async created () {
+      await this.getPlats()
+    },
+    updated () {
+      this.fromListing = true
     }
-  },
-  async created () {
-    await this.getPlats()
   }
-}
 </script>
 
 <style scoped lang="scss">

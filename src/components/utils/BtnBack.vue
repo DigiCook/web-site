@@ -12,10 +12,16 @@
     components: {
       Btn
     },
+    props: {
+      souldBeShow: {
+        type: [Boolean],
+        default: true
+      }
+    },
     data () {
       return {
         id: '',
-        show: false
+        show: this.souldBeShow
       }
     },
     updated () {
