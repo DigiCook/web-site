@@ -20,11 +20,11 @@
                 </article>
 
             </section>
-            <transition name="goToListing">
+            <transition name="goToListing" v-on:after-leave="afterEnd">
                 <section v-if="animToListePlat" class="carte">
                     <div class="cartAnimate"></div>
-                    <transition name="fade">
-                        <div v-show="animFade" class="animDiv">
+                    <transition name="fade" v-on:after-leave="launchanimFade">
+                        <div v-if="animFade" class="animDiv">
                             <h1 class="carte-titre">Plats à la Carte</h1>
                             <article>
                                 <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
@@ -94,7 +94,8 @@
         showPopupValider: false,
         displayPopUp: false,
         animToListePlat: true,
-        animFade: true
+        animFade: true,
+        idPlat: 0
       }
     },
     watch: {},
@@ -119,13 +120,16 @@
         this.displayPopUp = true
       },
       clickOnPlat (id) {
-        this.animToListePlat = false
         this.animFade = false
+        this.idPlat = id
         document.querySelector('.carte').style.boxShadow = 'none'
-        document.querySelector('.carte').style.width = '259px'
-        setTimeout(function () {
-          this.$router.push(`listing/${id}`)
-        }.bind(this), 1000)
+        document.querySelector('.carte').style.width = '260px'
+      },
+      launchanimFade () {
+        this.animToListePlat = false
+      },
+      afterEnd () {
+        this.$router.push(`listing/${this.idPlat}`)
       },
       clickOnAide () {
         this.displayPopUp = false
@@ -350,7 +354,7 @@
     }
 
     .fade-enter, .fade-leave-to {
-        opacity: 1;
+        opacity: 0;
     }
 
 </style>
