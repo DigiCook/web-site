@@ -4,7 +4,7 @@
 
     <div class="popUp-inner">
       <btn flat class="popUp-croix">
-        <img src="../assets/close.png"/>
+        <img src="../../assets/close.png"/>
       </btn>
 
       <div class="popUp-main">

@@ -9,6 +9,7 @@ export const SET_TYPEPLAT = 'typePlat/SET_TYPEPLAT'
 
 // comande.js
 export const ADD_MENU_TO_COMMANDE = 'comande/ADD_MENU_TO_COMMANDE'
+export const ADD_PLAT_TO_COMMANDE = 'comande/ADD_PLAT_TO_COMMANDE'
 export const DELETE_ORDER = 'commande/DELETE_ORDER'
 
 // snackbar.js

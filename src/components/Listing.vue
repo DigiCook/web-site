@@ -47,48 +47,53 @@
                     </div>
                 </div>
             </div>
-        </pop-up>
+          </div>
+        </div>
+      </div>
+    </pop-up>
 
-    </div>
+  </div>
 </template>
 
 <script>
-  import fetch from '@/services/fetch.js'
-  import endpoints from '@/services/endpoints.js'
-  import BtnBack from '@/components/BtnBack.vue'
-  import PopUp from '@/components/PopUp.vue'
-  import Btn from '@/components/utils/Btn.vue'
+import fetch from '@/services/fetch.js'
+import endpoints from '@/services/endpoints.js'
+import BtnBack from '@/components/utils/BtnBack.vue'
+import PopUp from '@/components/utils/PopUp.vue'
+import Mixin from '@/mixins'
+import Btn from '@/components/utils/Btn.vue'
 
-  export default {
-    name: 'Listing',
-    components: {
-      BtnBack,
-      Btn,
-      PopUp
+export default {
+  name: 'Listing',
+  mixins: [Mixin],
+  components: {
+    BtnBack,
+    Btn,
+    PopUp
+  },
+  props: {
+    id: {
+      type: [Number, String]
+    }
+  },
+  data () {
+    return {
+      plats: [],
+      showPopUpPlat: false,
+      currentPlat: null
+    }
+  },
+  methods: {
+    returnBack () {
+      this.$router.go(-1)
     },
-    props: {
-      id: {
-        type: [Number, String]
-      }
+    async onItemClick (plat) {
+      this.showPopUpPlat = true
+      this.currentPlat = plat
+      this.currentPlat = (await fetch(endpoints.plat.get, {id: plat.id})).data
     },
-    methods: {
-      returnBack () {
-        this.$router.go(-1)
-      },
-      async onItemClick (plat) {
-        console.log(plat)
-        this.showPopUpPlat = true
-        this.currentPlat = plat
-        this.currentPlat = (await fetch(endpoints.plat.get, {id: plat.id})).data
-        // this.$router.go('http://localhost:8000/#/listing/' + id)
-      },
-      async getPlats () {
-        this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
-        console.log(this.plats)
-      }
-    },
-    updated () {
-      this.fromListing = true
+    async getPlats () {
+      this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
     },
     async created () {
       await this.getPlats()
@@ -97,11 +102,14 @@
       return {
         plats: [],
         showPopUpPlat: false,
-        currentPlat: null,
-        fromListing: false
+        currentPlat: null
       }
     }
+  },
+  async created () {
+    await this.getPlats()
   }
+}
 </script>
 
 <style scoped lang="scss">

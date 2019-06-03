@@ -1,6 +1,6 @@
 <template>
   <div class="Snackbar">
-    {{ text }}
+    <p>{{ text }}</p>
   </div>
 </template>
 
@@ -55,7 +55,7 @@ export default {
   position: fixed;
   z-index: 42;
   height: 24px;
-  padding: 14px;
+  padding: 10px;
   padding-left: 32px;
   padding-right: 32px;
   margin: auto;
@@ -66,12 +66,16 @@ export default {
   line-height: 24px;
   text-align: center;
 
-  background-color: #263238;
-  color: $green-ligth;
+  background-color: $color-neutral;
+  color: $color-white;
 
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   transition: bottom .1s linear;
+
+  p {
+    white-space: nowrap;
+  }
 
   &-show {
     bottom: 0px;

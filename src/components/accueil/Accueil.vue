@@ -49,31 +49,33 @@
 
         <pop-up v-model="displayPopUp">
 
-            <div v-if="showPopupHelp" class="popup-help">
-                <div @click="askForHelp" class="popup-help-button">
-                    <p>Faire appele à un serveur</p>
-                </div>
-            </div>
+    <pop-up v-model="displayPopUp">
 
-            <div v-else-if="showPopupValider" class="popup-valider">
-                <div @click="validerCustomMenu" class="popup-valider-button">
-                    <p>Valider le menu a la carte</p>
-                </div>
-                <div @click="validerCommande" class="popup-valider-button">
-                    <p>Valider ma commande et accèder au récapitulatif</p>
-                </div>
-            </div>
+      <div v-if="showPopupHelp" class="popup-help">
+        <div @click="askForHelp" class="popup-help-button">
+          <p>Faire appele à un serveur</p>
+        </div>
+      </div>
 
-        </pop-up>
+      <div v-else-if="showPopupValider" class="popup-valider">
+        <div @click="validerCustomMenu" class="popup-valider-button">
+          <p>Valider le menu a la carte</p>
+        </div>
+        <div @click="validerCommande" class="popup-valider-button">
+          <p>Valider ma commande et accèder au récapitulatif</p>
+        </div>
+      </div>
 
-    </div>
+    </pop-up>
+
+  </div>
 </template>
 
 <script>
   import MenuCard from '@/components/accueil/MenuCard'
   import fetch from '@/services/fetch'
   import endpoints from '@/services/endpoints'
-  import PopUp from '@/components/PopUp'
+  import PopUp from '@/components/utils/PopUp'
   import Btn from '@/components/utils/Btn'
 
   export default {
@@ -89,19 +91,10 @@
         allPlat: [],
         showPopupHelp: false,
         showPopupValider: false,
-        displayPopUp: false,
-        animToListePlat: true,
-        animFade: true
+        displayPopUp: false
       }
     },
     watch: {
-      'displayPopUp' () {
-        if (!this.displayPopUp) {
-          // Reset values
-          this.showPopupHelp = false
-          this.showPopupValider = false
-        }
-      }
     },
     methods: {
       async getAllMenu () {
@@ -120,12 +113,7 @@
           this.allPlat = this.$store.getters.getTypesPlat
         }
       },
-      onClickValider () {
-        this.showPopupValider = true
-        this.displayPopUp = true
-      },
       onClickAide () {
-        this.showPopupHelp = true
         this.displayPopUp = true
       },
       clickOnPlat (id) {
@@ -137,22 +125,11 @@
           this.$router.push(`listing/${id}`)
         }.bind(this), 1000)
       },
-      askForHelp () {
-        console.log('help Me !')
-        this.displayPopUp = false
-      },
-      validerCustomMenu () {
-        console.log('validerCustomMenu')
+      clickOnAide () {
         this.displayPopUp = false
       },
       validerCommande () {
-        console.log('validerCommande')
         this.displayPopUp = false
-      },
-      animateGoingToMenuPage () {
-        document.querySelector('.animDiv').classList.add('annimOutRight')
-        document.querySelector('.menu').classList.add('annimOutLeft')
-        document.querySelector('.cartAnimate').classList.add('expandeLeft')
       }
     },
     async created () {
