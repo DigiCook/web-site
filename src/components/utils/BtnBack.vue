@@ -29,7 +29,7 @@
     },
     methods: {
       returnBack () {
-        this.$router.go(-1)
+        this.$emit('clickOnMenu')
       }
     }
   }

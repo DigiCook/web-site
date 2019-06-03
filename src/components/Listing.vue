@@ -6,7 +6,7 @@
 
                 <div class="listing-choice">
 
-                    <btn-back :souldBeShow="false">
+                    <btn-back :souldBeShow="false" v-on:clickOnMenu="retour">
                         Retour
                     </btn-back>
                     <transition name="fade">
@@ -95,6 +95,9 @@
       },
       async created () {
         await this.getPlats()
+      },
+      retour () {
+        this.$router.go(-1)
       }
     },
     async created () {
