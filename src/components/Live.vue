@@ -80,15 +80,13 @@ export default {
     },
     addMessage () {
       let text = document.querySelector('textarea')
-      let date = new Date()
-      let obj = {
-        table: this.table.value,
+      let newMessage = {
         message: text.value,
-        date: '' + date + ''
+        tableId: this.tableId
       }
       text.value = ''
-      this.messages.push(obj)
-      this.scrollBottom()
+
+      fetch(endpoints.message.create, newMessage)
     },
     scrollBottom () {
       setTimeout(() => {
