@@ -1,26 +1,32 @@
 <template>
   <div>
     <div class="live">
-      <video src="/vdo.webm" autoplay="true" preload="metadata"/>
+      <!-- <video src="http://localhost:2223/live" autoplay="true" width="640" height="480" preload="metadata"/> -->
+      <canvas id="liveT" width="640" height="480"></canvas>
     </div>
     <div class="chat">
       <div class="messages" id="list-messages">
-        <div :class="v.table === table.value ? 'me' : 'other'" v-for="v in messages">
+        <div :key="`key-message-${message.id}`" :class="message.table.id === tableId ? 'me' : 'other'" v-for="message in messages">
           <div class="message">
-            <p>{{v.date}}, table n{{v.table}}</p>
-            <p>{{v.message}}</p>
+            <p>{{ message.createdAt }}, table n{{ message.table.libelle }}</p>
+            <p>{{ message.message }}</p>
           </div>
         </div>
       </div>
-      <div class="send-area">
-        <textarea name="" id="" cols="30" rows="10" placeholder="Entrez votre message"></textarea>
-        <input type="submit" value="Envoyer" v-on:click="addMessage()">
-      </div>
+    </div>
+    <div class="send-area">
+      <textarea name="" id="" cols="30" rows="10" placeholder="Entrez votre message"></textarea>
+      <input type="submit" value="Envoyer" v-on:click="addMessage()">
     </div>
   </div>
 </template>
 
 <script>
+import JSMpeg from 'jsmpeg'
+import fetch from '@/services/fetch'
+import endpoints from '@/services/endpoints'
+import io from 'socket.io-client'
+import { setTimeout } from 'timers'
 
 export default {
   name: 'Live',
@@ -30,80 +36,49 @@ export default {
   },
   mounted () {
     console.log('[Live:mounted]')
+    this.fetchMessages()
+    this.initSocket()
+
+    const client = new WebSocket('ws://localhost:9999')
+
+    let a = new JSMpeg(client, {
+      canvas: document.querySelector('#liveT')
+    })
+    console.log(a)
+  },
+  beforeDestroy () {
+    this.socket.emit('disconnect')
   },
   data () {
     return {
-      messages: [
-        {
-          table: 5,
-          message: 'message table 5',
-          date: 'date'
-        },
-        {
-          table: 6,
-          message: 'message table 6',
-          date: 'date'
-        },
-        {
-          table: 5,
-          message: 'message table 5',
-          date: 'date'
-        },
-        {
-          table: 6,
-          message: 'message table 6',
-          date: 'date'
-        },
-        {
-          table: 5,
-          message: 'message table 5',
-          date: 'date'
-        },
-        {
-          table: 6,
-          message: 'message table 6',
-          date: 'date'
-        },
-        {
-          table: 5,
-          message: 'message table 5',
-          date: 'date'
-        },
-        {
-          table: 6,
-          message: 'message table 6',
-          date: 'date'
-        },
-        {
-          table: 7,
-          message: 'message table 7',
-          date: 'date'
-        },
-        {
-          table: 7,
-          message: 'message table 7',
-          date: 'date'
-        },
-        {
-          table: 7,
-          message: 'message table 7',
-          date: 'date'
-        },
-        {
-          table: 8,
-          message: 'message table 8',
-          date: 'date'
-        }
-      ],
-      table: {
-        value: 5
-      }
+      messages: [],
+      tableId: 1,
+      socket: null
     }
   },
   watch: {
   },
   methods: {
-    addMessage: function () {
+    initSocket () {
+      this.socket = io('http://localhost:5000')
+      this.socket.emit('connection')
+
+      this.socket.on('message', (message) => {
+        console.log('[Live:initSocket] message', message)
+        this.messages.push(...message)
+        this.scrollBottom()
+      })
+    },
+    async fetchMessages () {
+      console.info('[Live:fetchMessages]')
+
+      const result = await fetch(endpoints.message.get)
+      if (result && result.code === 200 && result.data) {
+        this.messages = result.data
+        this.scrollBottom()
+      }
+    },
+    addMessage () {
       let text = document.querySelector('textarea')
       let date = new Date()
       let obj = {
@@ -115,9 +90,11 @@ export default {
       this.messages.push(obj)
       this.scrollBottom()
     },
-    scrollBottom: function () {
-      let messages = document.getElementById('list-messages')
-      messages.scrollTop = messages.scrollHeight
+    scrollBottom () {
+      setTimeout(() => {
+        let messages = document.getElementById('list-messages')
+        messages.scrollTop = messages.scrollHeight
+      }, 100)
     }
   },
   computed: {
