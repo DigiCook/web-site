@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     initSocket () {
-      this.socket = io('http://localhost:5000')
+      this.socket = io('https://digicook-socket')
       this.socket.emit('connection')
 
       this.socket.on('message', (message) => {
