@@ -3,6 +3,7 @@
     <div class="live">
       <!-- <video src="http://localhost:2223/live" autoplay="true" width="640" height="480" preload="metadata"/> -->
       <canvas id="liveT" width="640" height="480"></canvas>
+      <button>ajouter bouton pourboire pour les cuisiniers</button>
     </div>
     <div class="chat">
       <div class="messages" id="list-messages">
