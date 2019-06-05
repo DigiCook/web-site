@@ -37,7 +37,7 @@
                                 <btn @click.native="onClickAide" class="carte-button carte-button-help">
                                     <p>Appeler un serveur</p>
                                 </btn>
-                                <btn @click.native="onClickValider" class="carte-button carte-button-recap">
+                                <btn @click.native="validerCommande" class="carte-button carte-button-recap">
                                     <p>Valider</p>
                                 </btn>
                             </article>
@@ -48,25 +48,11 @@
         </div>
 
         <pop-up v-model="displayPopUp">
-
-            <pop-up v-model="displayPopUp">
-
-                <div v-if="showPopupHelp" class="popup-help">
-                    <div @click="askForHelp" class="popup-help-button">
-                        <p>Faire appele à un serveur</p>
-                    </div>
+            <div v-if="displayPopUp" class="popup-help">
+                <div @click="clickOnAide" class="popup-help-button">
+                    <p>Appeler un serveur</p>
                 </div>
-
-                <div v-else-if="showPopupValider" class="popup-valider">
-                    <div @click="validerCustomMenu" class="popup-valider-button">
-                        <p>Valider le menu a la carte</p>
-                    </div>
-                    <div @click="validerCommande" class="popup-valider-button">
-                        <p>Valider ma commande et accèder au récapitulatif</p>
-                    </div>
-                </div>
-
-            </pop-up>
+            </div>
         </pop-up>
 
     </div>
@@ -139,6 +125,7 @@
       },
       validerCommande () {
         this.displayPopUp = false
+        this.$router.push('/recapitulatif')
       },
       animateGoingToMenuPage () {
         document.querySelector('.animDiv').classList.add('annimOutRight')
