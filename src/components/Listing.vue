@@ -1,12 +1,12 @@
 <template>
     <div>
-        <transition name="fromListing">
+        <transition name="fromListing" v-on:after-leave="retour">
             <div v-show="fromListing" class="listing">
                 <div class="listing-bandeau"></div>
 
                 <div class="listing-choice">
 
-                    <btn-back :souldBeShow="false" v-on:clickOnMenu="retour">
+                    <btn-back :souldBeShow="false" v-on:clickOnMenu="animBackFromListing">
                         Retour
                     </btn-back>
                     <transition name="fade">
@@ -77,14 +77,10 @@
         plats: [],
         showPopUpPlat: false,
         currentPlat: null,
-
         fromListing: false
       }
     },
     methods: {
-      returnBack () {
-        this.$router.go(-1)
-      },
       async onItemClick (plat) {
         this.showPopUpPlat = true
         this.currentPlat = plat
@@ -93,8 +89,13 @@
       async getPlats () {
         this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
       },
-      async created () {
-        await this.getPlats()
+      launchAnim () {
+        setTimeout(function () {
+          this.fromListing = true
+        }.bind(this), 500)
+      },
+      animBackFromListing () {
+        this.fromListing = false
       },
       retour () {
         this.$router.go(-1)
@@ -103,7 +104,7 @@
     async created () {
       await this.getPlats()
     },
-    updated () {
+    mounted () {
       this.fromListing = true
     }
   }
@@ -118,6 +119,7 @@
             height: 112px;
             width: 100%;
             background-color: $color-main;
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
         }
 
         &-choice {

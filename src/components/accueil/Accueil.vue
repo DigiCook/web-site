@@ -20,7 +20,7 @@
                 </article>
 
             </section>
-            <transition name="goToListing" v-on:after-leave="afterEnd">
+            <transition name="goToListing" v-on:after-leave="afterEnd" v-on:after-enter="SetAnimeFadeTrue">
                 <section v-if="animToListePlat" class="carte">
                     <div class="cartAnimate"></div>
                     <transition name="fade" v-on:after-leave="launchanimFade">
@@ -79,6 +79,7 @@
   import PopUp from '@/components/utils/PopUp'
   import Btn from '@/components/utils/Btn'
 
+  let aaa = true
   export default {
     name: 'Accueil',
     components: {
@@ -88,13 +89,14 @@
     },
     data () {
       return {
+        firstTimeVisite: aaa,
         allMenu: [],
         allPlat: [],
         showPopupHelp: false,
         showPopupValider: false,
         displayPopUp: false,
-        animToListePlat: true,
-        animFade: true,
+        animToListePlat: false,
+        animFade: false,
         idPlat: 0
       }
     },
@@ -122,14 +124,15 @@
       clickOnPlat (id) {
         this.animFade = false
         this.idPlat = id
-        document.querySelector('.carte').style.boxShadow = 'none'
-        document.querySelector('.carte').style.width = '260px'
       },
       launchanimFade () {
         this.animToListePlat = false
       },
       afterEnd () {
         this.$router.push(`listing/${this.idPlat}`)
+      },
+      SetAnimeFadeTrue () {
+        this.animFade = true
       },
       clickOnAide () {
         this.displayPopUp = false
@@ -146,6 +149,14 @@
     async created () {
       this.getAllMenu()
       this.getAllPlat()
+    },
+    mounted () {
+      this.animToListePlat = true
+      console.log(this.firstTimeVisite)
+      if (this.firstTimeVisite) {
+        aaa = false
+        this.animFade = true
+      }
     }
   }
 </script>
@@ -201,8 +212,8 @@
             padding: $margin-main;
             background-color: $color-main;
             color: $color-white;
-            box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
-
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+            width: 260px;
             .animDiv {
                 display: flex;
                 flex-direction: column;
@@ -274,7 +285,6 @@
                 background-color: $color-main;
 
                 color: $color-white;
-                box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
 
             }
         }
@@ -342,7 +352,6 @@
 
     .goToListing-enter-active, .goToListing-leave-active {
         transition: transform .5s;
-        transition-delay: 0.5s;
     }
 
     .goToListing-enter, .goToListing-leave-to {
