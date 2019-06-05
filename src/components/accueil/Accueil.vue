@@ -1,51 +1,61 @@
 <template>
-  <div class="maxHeight">
-    <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil maxHeight">
-      <section class="menu">
-        <h1 class="menu-titre">Nos Menus</h1>
-        <article>
-          <menu-card v-if="allMenu[0]" :dataMenu="allMenu[0]"></menu-card>
-          <div class="menu-line"></div>
-          <menu-card v-if="allMenu[1]" :dataMenu="allMenu[1]"></menu-card>
-        </article>
-        <div class="menu-trait"></div>
-        <article>
-          <menu-card v-if="allMenu[2]" :dataMenu="allMenu[2]"></menu-card>
-          <div class="menu-line"></div>
-          <menu-card v-if="allMenu[3]" :dataMenu="allMenu[3]"></menu-card>
-        </article>
+    <div class="maxHeight">
+        <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil maxHeight">
+            <section class="menu">
+                <h1 class="menu-titre">Nos Menus</h1>
+                <article>
+                    <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[0]"
+                               :dataMenu="allMenu[0]"></menu-card>
+                    <div class="menu-line"></div>
+                    <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[1]"
+                               :dataMenu="allMenu[1]"></menu-card>
+                </article>
+                <div class="menu-trait"></div>
+                <article>
+                    <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[2]"
+                               :dataMenu="allMenu[2]"></menu-card>
+                    <div class="menu-line"></div>
+                    <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[3]"
+                               :dataMenu="allMenu[3]"></menu-card>
+                </article>
 
-      </section>
-      <section class="carte">
-        <h1 class="carte-titre">Plats à la Carte</h1>
-        <article>
-          <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
-            <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
-              <p>{{ typeplat.libelle }}</p>
-            </btn>
-          </aside>
-        </article>
-        <article class="bottom-carte">
-          <btn @click.native="onClickAide" class="carte-button carte-button-help">
-            <p>Aide</p>
-          </btn>
-          <btn @click.native="validerCommande" class="carte-button carte-button-recap">
-            <p>Commande</p>
-          </btn>
-        </article>
-      </section>
+            </section>
+            <transition name="goToListing" v-on:after-leave="afterEnd" v-on:after-enter="SetAnimeFadeTrue">
+                <section v-if="animToListePlat" class="carte">
+                    <div class="cartAnimate"></div>
+                    <transition name="fade" v-on:after-leave="launchanimFade">
+                        <div v-if="animFade" class="animDiv">
+                            <h1 class="carte-titre">Plats à la Carte</h1>
+                            <article>
+                                <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
+                                    <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
+                                        <p>{{ typeplat.libelle }}</p>
+                                    </btn>
+                                </aside>
+                            </article>
+                            <article class="bottom-carte">
+                                <btn @click.native="onClickAide" class="carte-button carte-button-help">
+                                    <p>Appeler un serveur</p>
+                                </btn>
+                                <btn @click.native="validerCommande" class="carte-button carte-button-recap">
+                                    <p>Valider</p>
+                                </btn>
+                            </article>
+                        </div>
+                    </transition>
+                </section>
+            </transition>
+        </div>
+
+        <pop-up v-model="displayPopUp">
+            <div v-if="displayPopUp" class="popup-help">
+                <div @click="clickOnAide" class="popup-help-button">
+                    <p>Appeler un serveur</p>
+                </div>
+            </div>
+        </pop-up>
 
     </div>
-
-    <pop-up v-model="displayPopUp">
-      <div v-if="displayPopUp" class="popup-help">
-        <div @click="clickOnAide" class="popup-help-button">
-          <p>Appeler un serveur</p>
-        </div>
-      </div>
-    </pop-up>
-
-  </div>
 </template>
 
 <script>
@@ -55,6 +65,7 @@
   import PopUp from '@/components/utils/PopUp'
   import Btn from '@/components/utils/Btn'
 
+  let aaa = true
   export default {
     name: 'Accueil',
     components: {
@@ -64,14 +75,18 @@
     },
     data () {
       return {
+        firstTimeVisite: aaa,
         allMenu: [],
         allPlat: [],
         showPopupHelp: false,
-        displayPopUp: false
+        showPopupValider: false,
+        displayPopUp: false,
+        animToListePlat: false,
+        animFade: false,
+        idPlat: 0
       }
     },
-    watch: {
-    },
+    watch: {},
     methods: {
       async getAllMenu () {
         if (this.$store.getters.getMenus.length === 0) {
@@ -93,175 +108,249 @@
         this.displayPopUp = true
       },
       clickOnPlat (id) {
-        this.$router.push(`listing/${id}`)
+        this.animFade = false
+        this.idPlat = id
+      },
+      launchanimFade () {
+        this.animToListePlat = false
+      },
+      afterEnd () {
+        this.$router.push(`listing/${this.idPlat}`)
+      },
+      SetAnimeFadeTrue () {
+        this.animFade = true
       },
       clickOnAide () {
         this.displayPopUp = false
       },
       validerCommande () {
         this.displayPopUp = false
-
         this.$router.push('/recapitulatif')
+      },
+      animateGoingToMenuPage () {
+        document.querySelector('.animDiv').classList.add('annimOutRight')
+        document.querySelector('.menu').classList.add('annimOutLeft')
+        document.querySelector('.cartAnimate').classList.add('expandeLeft')
       }
     },
     async created () {
       this.getAllMenu()
       this.getAllPlat()
+    },
+    mounted () {
+      this.animToListePlat = true
+      console.log(this.firstTimeVisite)
+      if (this.firstTimeVisite) {
+        aaa = false
+        this.animFade = true
+      }
     }
   }
 </script>
 
 <style scoped lang="scss">
-  .maxHeight {
-      height: 100%;
-  }
-
-  .accueil {
-      position: relative;
-      overflow: hidden;
-      font-family: $main-font;
-
-      display: flex;
-      justify-content: space-around;
-
-      .menu {
-          flex: 1;
-          padding: $margin-main;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          background-color: $color-white;
-          &-titre {
-              color: $text-dark;
-              font-size: $title;
-              text-align: center;
-          }
-
-          article {
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-          }
-
-          &-line {
-              display: none;
-              width: 2px;
-              background-color: $second-text-color;
-              margin: 40px 0;
-          }
-
-          &-trait {
-              display: none;
-              height: 2px;
-              background-color: $second-text-color;
-          }
-      }
-
-      .carte {
-          padding: $margin-main;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          background-color: $color-main;
-          color: $color-white;
-          box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
-
-          &-titre {
-              color: $color-white;
-              font-size: $title;
-              text-align: center;
-          }
-
-          &-plat {
-              margin: 20px;
-              padding: 16px;
-              background-color: $color-white;
-
-              p {
-                  text-align: center;
-                  font-size: $sub-title;
-                  color: $text-dark-ligth;
-                  font-weight: $weight-sub-title;
-              }
-          }
-
-          article {
-              margin-top: 30px;
-          }
-
-          .bottom-carte {
-              display: flex;
-              flex-direction: column;
-              justify-content: space-around;
-
-              font-family: $main-font;
-
-              .carte-button {
-                  margin: 20px;
-                  padding: 16px;
-                  display: flex;
-                  flex-direction: column;
-
-                  &-help {
-                      background-color: $color-second;
-                  }
-
-                  &-recap {
-                      background-color: $green-ligth;
-                  }
-
-                  p {
-                      text-align: center;
-                      font-size: $sub-title;
-                      color: $text-dark-ligth;
-                      font-weight: $weight-sub-title;
-                  }
-              }
-          }
-      }
-  }
-
-.popup-help {
-  display: flex;
-  height: 100%;
-
-  &-button {
-    background-color: $button-alert;
-    width: 200px;
-    height: 75px;
-    margin: auto;
-    display: flex;
-    border-radius: 20px;
-
-    p {
-      margin: auto;
-      font-family: $main-font;
-      color: $color-white;
+    .maxHeight {
+        height: 100%;
     }
-  }
-}
 
-.popup-valider {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
+    .accueil {
+        position: relative;
+        overflow: hidden;
+        font-family: $main-font;
 
-  &-button {
-    background-color: $button-ok;
-    width: 250px;
-    height: 75px;
-    margin: 20px auto;
-    display: flex;
-    border-radius: 20px;
+        display: flex;
+        justify-content: space-around;
 
-    p {
-      text-align: center;
-      margin: auto;
-      font-family: $main-font;
-      color: $color-white;
+        .menu {
+            flex: 1;
+            padding: $margin-main;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: $color-white;
+
+            &-titre {
+                color: $text-dark;
+                font-size: $title;
+                text-align: center;
+            }
+
+            article {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            &-line {
+                display: none;
+                width: 2px;
+                background-color: $second-text-color;
+                margin: 40px 0;
+            }
+
+            &-trait {
+                display: none;
+                height: 2px;
+                background-color: $second-text-color;
+            }
+        }
+
+        .carte {
+            padding: $margin-main;
+            background-color: $color-main;
+            color: $color-white;
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+            width: 260px;
+            .animDiv {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+            }
+
+            &-titre {
+                color: $color-white;
+                font-size: $title;
+                text-align: center;
+                z-index: 1;
+
+            }
+
+            &-plat {
+                margin: 20px;
+                padding: 16px;
+                background-color: $color-white;
+
+                p {
+                    text-align: center;
+                    font-size: $sub-title;
+                    color: $text-dark-ligth;
+                    font-weight: $weight-sub-title;
+                }
+            }
+
+            article {
+                margin-top: 30px;
+            }
+
+            .bottom-carte {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+
+                font-family: $main-font;
+
+                .carte-button {
+                    margin: 20px;
+                    padding: 16px;
+                    display: flex;
+                    flex-direction: column;
+
+                    &-help {
+                        background-color: $color-second;
+                    }
+
+                    &-recap {
+                        background-color: $green-ligth;
+                    }
+
+                    p {
+                        text-align: center;
+                        font-size: $sub-title;
+                        color: $text-dark-ligth;
+                        font-weight: $weight-sub-title;
+                    }
+                }
+            }
+
+            .cartAnimate {
+                position: absolute;
+                margin-left: -30px;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: $color-main;
+
+                color: $color-white;
+
+            }
+        }
     }
-  }
-}
+
+    .popup-help {
+        display: flex;
+        height: 100%;
+
+        &-button {
+            background-color: $button-alert;
+            width: 200px;
+            height: 75px;
+            margin: auto;
+            display: flex;
+            border-radius: 20px;
+
+            p {
+                margin: auto;
+                font-family: $main-font;
+                color: $color-white;
+            }
+        }
+    }
+
+    .popup-valider {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+
+        &-button {
+            background-color: $button-ok;
+            width: 250px;
+            height: 75px;
+            margin: 20px auto;
+            display: flex;
+            border-radius: 20px;
+
+            p {
+                text-align: center;
+                margin: auto;
+                font-family: $main-font;
+                color: $color-white;
+            }
+        }
+    }
+
+    .annimOutRight {
+        opacity: 0;
+        transform: translate(300%, 0);
+        transition: transform 1s ease-in, opacity 1s ease-out;
+    }
+
+    .annimOutLeft {
+        opacity: 0;
+        transform: translate(-200%, 0);
+        transition: transform 1s ease-in, opacity 1s ease-out;
+    }
+
+    .expandeLeft {
+        transform: scale(4, 1);
+        transition: transform 1s
+    }
+
+    .goToListing-enter-active, .goToListing-leave-active {
+        transition: transform .5s;
+    }
+
+    .goToListing-enter, .goToListing-leave-to {
+        transform: translate(0, calc(112px - 100%));
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.5s;
+    }
+
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
 
 </style>
