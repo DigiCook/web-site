@@ -257,7 +257,7 @@
     }
 
     .fromListing-enter, .fromListing-leave-to {
-        transform: translateX(calc(100% - 319px));
+        transform: translateX(calc(100% - 320px));
     }
 
     .fade-enter-active, .fade-leave-active {
