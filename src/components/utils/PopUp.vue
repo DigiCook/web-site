@@ -58,7 +58,15 @@ export default {
   left: 0px;
   width: 100%;
   height: 100%;
-
+  animation: fade .5s;
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
   &-background {
     background-color: $color-neutral;
     opacity: 0.8;
@@ -95,7 +103,7 @@ export default {
     background-color: white;
     border-radius: 50%;
 
-    img { 
+    img {
       height: 36px;
       width: 36px;
     }
