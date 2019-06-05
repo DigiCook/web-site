@@ -8,15 +8,15 @@
       <div class="messages" id="list-messages">
         <div :key="`key-message-${message.id}`" :class="message.table.id === tableId ? 'me' : 'other'" v-for="message in messages">
           <div class="message">
-            <p>{{ message.createdAt }}, table n{{ message.table.libelle }}</p>
+            <p class="date-table">{{ dateFormated(message.createdAt) }}, table n{{ message.table.libelle }}</p>
             <p>{{ message.message }}</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="send-area">
-      <textarea name="" id="" cols="30" rows="10" placeholder="Entrez votre message"></textarea>
-      <input type="submit" value="Envoyer" v-on:click="addMessage()">
+      <div class="send-area">
+        <input type="text" placeholder="Entrez votre message...">
+        <input type="submit" value="Envoyer" v-on:click="addMessage()">
+      </div>
     </div>
   </div>
 </template>
@@ -27,10 +27,13 @@ import fetch from '@/services/fetch'
 import endpoints from '@/services/endpoints'
 import io from 'socket.io-client'
 import { setTimeout } from 'timers'
+import Btn from '@/components/utils/Btn'
+import moment from 'moment'
 
 export default {
   name: 'Live',
   components: {
+    Btn
   },
   props: {
   },
@@ -93,6 +96,9 @@ export default {
         let messages = document.getElementById('list-messages')
         messages.scrollTop = messages.scrollHeight
       }, 100)
+    },
+    dateFormated (date) {
+      return moment(date).format('LTS')
     }
   },
   computed: {
@@ -109,50 +115,51 @@ export default {
   }
   .live {
     width: 65%;
-    background: purple;
   }
   .chat {
     width: 35%;
+    background: $color-main;
+    box-shadow: 10px 0px 10px 10px rgba(0, 0, 0, 0.5);
     .send-area {
-      height: 150px;
-      background: red;
-      textarea {
-        height: calc(100% - 10px);
-        margin: 5px;
-        width: calc(100% - 10px - 60px);
+      height: 50px;
+      input {
+        display: inline-block;
         border: none;
         background: transparent;
-        font-size: 15px;
-        float: left;
-      }
-      input[type="submit"]{
-        float: left;
-        width: 60px;
         height: 100%;
-        padding: 5px 10px 5px 0;
-        border: none;
-        background: transparent;
+        padding: 0 20px;
+        outline: none;
       }
     }
     .messages {
-      height: calc(100% - 150px - 10px);
+      height: calc(100% - 50px);
       overflow: scroll;
-      margin-bottom: 10px;
-      background: green;
       .me,
       .other {
-        width: 50%;
+        width: calc(100% - 40px);
         padding: 10px;
         display: block;
-        border-radius: 20px;
+        border-radius: 8px;
+        box-shadow: -2px 0px 10px 1px rgba(0, 0, 0, 0.15);
+        font-size: $sub-title;
+        color: $text-dark-ligth;
+        font-weight: $weight-sub-title;
+        margin: 10px 10px 10px 10px;
+        background: $color-white;
       }
       .me {
-        background: blue;
-        margin: 10px 10px 10px auto;
+        .message {
+          .date-table {
+            color: $color-hint;
+          }
+        }
       }
       .other {
-        background: yellow;
-        margin: 10px auto 10px 10px;
+        .message {
+          .date-table {
+            color: $color-neutral;
+          }
+        }
       }
     }
   }
