@@ -2,7 +2,7 @@
     <div class="maxHeight">
         <div v-if="menu" class="Menu maxHeight">
 
-            <btn-back class="Menu-retoure"></btn-back>
+            <btn-back class="Menu-retoure" v-on:clickOnMenu="retour"></btn-back>
 
             <div class="border">
                 <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
@@ -90,6 +90,9 @@
         this.$store.dispatch('addMenuToCommande', savedMenu)
         this.displaySnackbar(`${savedMenu.nom} ajouté à votre commande`)
         this.$router.push('/')
+      },
+      retour () {
+        this.$router.go(-1)
       }
     },
     computed: {
