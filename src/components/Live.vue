@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="send-area">
-        <input type="text" placeholder="Entrez votre message...">
+        <input id="messageToAdd" type="text" placeholder="Entrez votre message...">
         <input type="submit" value="Envoyer" v-on:click="addMessage()">
       </div>
     </div>
@@ -83,7 +83,7 @@ export default {
       }
     },
     addMessage () {
-      let text = document.querySelector('textarea')
+      let text = document.querySelector('#messageToAdd')
       let newMessage = {
         message: text.value,
         tableId: this.tableId
