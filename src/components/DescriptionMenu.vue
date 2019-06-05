@@ -1,34 +1,32 @@
 <template>
     <div class="maxHeight">
-        <div class="Menu maxHeight">
+        <div v-if="menu" class="Menu maxHeight">
 
-            <btn-back class="Menu-retoure" v-on:clickOnMenu="retour"></btn-back>
-            <transition name="fade">
-                <div v-if="menu" class="border">
-                    <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
+            <btn-back class="Menu-retoure"></btn-back>
 
-                    <div class="Menu-conteneur">
-                        <!-- Image -->
-                        <div>
-                            <img class="Menu-conteneur-image" :src="menu.urlPhoto"/>
-                        </div>
-                        <div class="Menu-conteneur-plats">
+            <div class="border">
+                <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
 
-                            <h3>Contenu du menu</h3>
-                            <p class="Menu-conteneur-plats_separateur">____</p>
-
-                            <p class="Menu-conteneur-plats-plat" :key="`id-plat-${plat.id}`" v-for="plat in menu.plats">
-                                {{
-                                plat.nom }}</p>
-
-                            <p class="Menu-conteneur-plats-prix" v-text="`${menu.prix} €`"></p>
-
-                        </div>
+                <div class="Menu-conteneur">
+                    <!-- Image -->
+                    <div>
+                        <img class="Menu-conteneur-image" :src="menu.urlPhoto"/>
                     </div>
+                    <div class="Menu-conteneur-plats">
 
-                    <p class="Menu-description">{{ menu.description }}</p>
+                        <h3>Contenu du menu</h3>
+                        <p class="Menu-conteneur-plats_separateur">____</p>
+
+                        <p class="Menu-conteneur-plats-plat" :key="`id-plat-${plat.id}`" v-for="plat in menu.plats">{{
+                            plat.nom }}</p>
+
+                        <p class="Menu-conteneur-plats-prix" v-text="`${menu.prix} €`"></p>
+
+                    </div>
                 </div>
-            </transition>
+
+                <p class="Menu-description">{{ menu.description }}</p>
+            </div>
 
             <btn @click.native="saveMenu" class="Menu-ajouter">Ajouter</btn>
         </div>
@@ -92,9 +90,6 @@
         this.$store.dispatch('addMenuToCommande', savedMenu)
         this.displaySnackbar(`${savedMenu.nom} ajouté à votre commande`)
         this.$router.push('/')
-      },
-      retour () {
-        this.$router.go(-1)
       }
     },
     computed: {
@@ -158,14 +153,6 @@
             background-color: $color-white;
         }
 
-        .fade-enter-active {
-            transition: opacity .3s ease-in;
-        }
-
-        .fade-enter {
-            opacity: 0;
-        }
-
         &-titre {
             padding-bottom: $margin-main;
             text-align: center;
@@ -216,7 +203,7 @@
                     display: inline;
                     position: absolute;
                     right: 5%;
-                    bottom: 5%;
+                    bottom:5%;
                     color: $text-dark;
                     font-size: $sub-title;
                     font-weight: 600;
