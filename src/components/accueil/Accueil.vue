@@ -25,7 +25,7 @@
 
                 </section>
             </transition>
-            <transition name="expandeLeft" v-on:after-leave="displayPageMenu">
+            <transition name="expandeLeft" v-on:after-leave="displayPageMenu" v-on:after-enter="afterEnterFromDetailMenu">
                 <div v-show="animExtendLeft" class="flex">
                     <transition name="goToListing" v-on:after-leave="afterEnd" v-on:after-enter="SetAnimeFadeTrue">
                         <section v-if="animToListePlat" class="carte">
@@ -92,8 +92,8 @@
         displayPopUp: false,
         animToListePlat: false,
         animFade: false,
-        animTranslateLeft: true,
-        animExtendLeft: true,
+        animTranslateLeft: false,
+        animExtendLeft: false,
         idPlat: 0,
         idMenu: 0
       }
@@ -143,11 +143,15 @@
         this.idMenu = id
         this.animTranslateLeft = false
       },
+      triggerAnimExtendLeft () {
+        this.animExtendLeft = false
+      },
       displayPageMenu () {
         this.$router.push(`menu/${this.idMenu}`)
       },
-      triggerAnimExtendLeft () {
-        this.animExtendLeft = false
+      afterEnterFromDetailMenu () {
+        this.animTranslateLeft = true
+        console.log('aaaaa')
       }
     },
     async created () {
@@ -156,9 +160,12 @@
     },
     mounted () {
       this.animToListePlat = true
+      this.animExtendLeft = true
+
       if (this.firstTimeVisite) {
         isFirstLoad = false
         this.animFade = true
+        this.animTranslateLeft = true
       }
     }
   }
@@ -212,6 +219,7 @@
         }
         .flex {
             display: flex;
+            margin-left: auto;
         }
         .carte {
             padding: $margin-main;
@@ -282,6 +290,7 @@
             }
 
             .cartAnimate {
+                display: none;
                 position: absolute;
                 margin-left: -30px;
                 top: 0;
