@@ -15,8 +15,8 @@
         </div>
       </div>
       <div class="send-area">
-        <input type="text" placeholder="Entrez votre message...">
-        <input type="submit" value="Envoyer" v-on:click="addMessage()">
+        <input id="inputMessage" type="text" placeholder="Entrez votre message...">
+        <input type="submit" value="Envoyer" @click="addMessage()">
       </div>
     </div>
   </div>
@@ -83,14 +83,17 @@ export default {
       }
     },
     addMessage () {
-      let text = document.querySelector('textarea')
-      let newMessage = {
-        message: text.value,
-        tableId: this.tableId
-      }
-      text.value = ''
+      let inputText = document.querySelector('#inputMessage')
+      if (inputText && inputText.value && inputText.value.length > 0) {
+        let newMessage = {
+          message: inputText.value,
+          tableId: this.tableId
+        }
 
-      fetch(endpoints.message.create, newMessage)
+        inputText.value = ''
+
+        fetch(endpoints.message.create, newMessage)
+      }
     },
     scrollBottom () {
       setTimeout(() => {
