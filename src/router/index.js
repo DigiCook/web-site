@@ -4,6 +4,7 @@ import Recapitulatif from '@/components/Recapitulatif'
 import Accueil from '@/components/accueil/Accueil'
 import Listing from '@/components/Listing'
 import DescriptionMenu from '@/components/DescriptionMenu'
+import Live from '@/components/Live'
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/listing/:id/',
       component: Listing,
       props: true
+    },
+    {
+      name: 'Live',
+      path: '/live',
+      component: Live
     }
   ]
 })

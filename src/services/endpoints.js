@@ -18,6 +18,9 @@ export default {
   },
   typePlat: {
     list: { method: 'GET', url: 'api/typePlat' }
+  },
+  message: {
+    get: { method: 'GET', url: 'api/messages' },
+    create: { method: 'POST', url: 'api/messages' }
   }
-  // TODO: Add all other endpoints
 }
