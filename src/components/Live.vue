@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     initSocket () {
-      this.socket = io('https://digicook-socket.serveo.net')
+      this.socket = io('http://digicook-api.alex-chopard.fr')
       this.socket.emit('connection')
 
       this.socket.on('message', (message) => {
