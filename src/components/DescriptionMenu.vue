@@ -147,6 +147,18 @@
             font-size: $sub-title;
             font-weight: $weight-sub-title;
         }
+        &-retoure,
+        &-ajouter {
+            animation: opacityAnim 1s;
+            @keyframes opacityAnim {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+        }
 
         .border {
             width: 70%;
