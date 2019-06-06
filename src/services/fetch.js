@@ -1,4 +1,4 @@
-const baseUrl = 'https://digicook.serveo.net/'
+const baseUrl = 'http://digicook-api.alex-chopard.fr/'
 
 function call (endpoint, params = {}) {
   return new Promise((resolve, reject) => {

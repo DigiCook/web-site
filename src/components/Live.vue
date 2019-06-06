@@ -15,8 +15,8 @@
         </div>
       </div>
       <div class="send-area">
-        <input id="messageToAdd" type="text" placeholder="Entrez votre message...">
-        <input type="submit" value="Envoyer" v-on:click="addMessage()">
+        <input id="inputMessage" type="text" placeholder="Entrez votre message...">
+        <input type="submit" value="Envoyer" @click="addMessage()">
       </div>
     </div>
   </div>
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     initSocket () {
-      this.socket = io('https://digicook-socket.serveo.net')
+      this.socket = io('http://digicook-api.alex-chopard.fr')
       this.socket.emit('connection')
 
       this.socket.on('message', (message) => {
@@ -85,14 +85,17 @@ export default {
       }
     },
     addMessage () {
-      let text = document.querySelector('#messageToAdd')
-      let newMessage = {
-        message: text.value,
-        tableId: this.tableId
-      }
-      text.value = ''
+      let inputText = document.querySelector('#inputMessage')
+      if (inputText && inputText.value && inputText.value.length > 0) {
+        let newMessage = {
+          message: inputText.value,
+          tableId: this.tableId
+        }
 
-      fetch(endpoints.message.create, newMessage)
+        inputText.value = ''
+
+        fetch(endpoints.message.create, newMessage)
+      }
     },
     scrollBottom () {
       setTimeout(() => {
