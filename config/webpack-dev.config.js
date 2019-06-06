@@ -11,7 +11,7 @@ function getPath (file) {
 module.exports = merge(baseWebpackConfig, {
   devServer: {
     host: 'localhost',
-    port: process.env.PORT || 8000,
+    port: process.env.PORT || 8002,
     contentBase: getPath('dist'),
     compress: true,
     open: true

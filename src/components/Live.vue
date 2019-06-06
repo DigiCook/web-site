@@ -78,7 +78,9 @@ export default {
 
       const result = await fetch(endpoints.message.get)
       if (result && result.code === 200 && result.data) {
-        this.messages = result.data
+        this.messages = result.data.sort(function (a, b) {
+          return a.createdAt.localeCompare(b.createdAt)
+        })
         this.scrollBottom()
       }
     },

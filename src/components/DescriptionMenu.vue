@@ -2,7 +2,7 @@
     <div class="maxHeight">
         <div v-if="menu" class="Menu maxHeight">
 
-            <btn-back class="Menu-retoure"></btn-back>
+            <btn-back class="Menu-retoure" v-on:clickOnMenu="retour"></btn-back>
 
             <div class="border">
                 <h1 class="Menu-titre">{{ menu.nom.toUpperCase() }}</h1>
@@ -34,70 +34,73 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import fetch from '@/services/fetch'
-import endpoints from '@/services/endpoints'
-import BtnBack from '@/components/utils/BtnBack'
-import Mixin from '@/mixins'
-import Btn from '@/components/utils/Btn'
+  import {mapGetters} from 'vuex'
+  import fetch from '@/services/fetch'
+  import endpoints from '@/services/endpoints'
+  import BtnBack from '@/components/utils/BtnBack'
+  import Mixin from '@/mixins'
+  import Btn from '@/components/utils/Btn'
 
-export default {
-  name: 'DescriptionMenu',
-  mixins: [Mixin],
-  components: {
-    BtnBack,
-    Btn
-  },
-  props: {
-    id: {
-      type: [Number, String]
-    }
-  },
-  mounted () {
-    // Check if the full menu are already in the store.
-    const currentMenu = this.menus.find(m => m.id === parseInt(this.id) && m.hasOwnProperty('description'))
-    if (currentMenu) {
-      this.menu = currentMenu
-    }
-
-    // Get or update the full menu.
-    this.fetchMenu()
-  },
-  data () {
-    return {
-      menu: null
-    }
-  },
-  methods: {
-    async fetchMenu () {
-      // Get full menu.
-      try {
-        console.info('[DescriptionMenu:fetchMenu] Fetch the full menu.')
-        const result = await fetch(endpoints.menu.get, {id: this.id})
-        if (result && result.code === 200) {
-          result.data.plats.sort((a, b) => a.id - b.id)
-          this.menu = result.data
-          this.$store.dispatch('addMenu', this.menu)
-        }
-      } catch (error) {
-        console.error('[DescriptionMenu:fetchMenu]', error)
+  export default {
+    name: 'DescriptionMenu',
+    mixins: [Mixin],
+    components: {
+      BtnBack,
+      Btn
+    },
+    props: {
+      id: {
+        type: [Number, String]
       }
     },
-    saveMenu () {
-      const savedMenu = this.menu
-      delete savedMenu.plats
+    mounted () {
+      // Check if the full menu are already in the store.
+      const currentMenu = this.menus.find(m => m.id === parseInt(this.id) && m.hasOwnProperty('description'))
+      if (currentMenu) {
+        this.menu = currentMenu
+      }
 
-      this.$store.dispatch('addMenuToCommande', savedMenu)
-      this.displaySnackbar(`${savedMenu.nom} ajouté à votre commande`)
-      this.$router.push('/')
+      // Get or update the full menu.
+      this.fetchMenu()
+    },
+    data () {
+      return {
+        menu: null
+      }
+    },
+    methods: {
+      async fetchMenu () {
+        // Get full menu.
+        try {
+          console.info('[DescriptionMenu:fetchMenu] Fetch the full menu.')
+          const result = await fetch(endpoints.menu.get, {id: this.id})
+          if (result && result.code === 200) {
+            result.data.plats.sort((a, b) => a.id - b.id)
+            this.menu = result.data
+            this.$store.dispatch('addMenu', this.menu)
+          }
+        } catch (error) {
+          console.error('[DescriptionMenu:fetchMenu]', error)
+        }
+      },
+      saveMenu () {
+        const savedMenu = this.menu
+        delete savedMenu.plats
+
+        this.$store.dispatch('addMenuToCommande', savedMenu)
+        this.displaySnackbar(`${savedMenu.nom} ajouté à votre commande`)
+        this.$router.push('/')
+      },
+      retour () {
+        this.$router.go(-1)
+      }
+    },
+    computed: {
+      ...mapGetters({
+        menus: 'getMenus'
+      })
     }
-  },
-  computed: {
-    ...mapGetters({
-      menus: 'getMenus'
-    })
   }
-}
 </script>
 <style lang="scss">
     html, body {

@@ -2,7 +2,7 @@
   <div class="recap">
     <section class="recap-titre">
     <h1>Récapitulatif de la commande</h1>
-    <btn-back>retour</btn-back>
+    <btn-back :souldBeShow="true" v-on:clickOnMenu="retour">retour</btn-back>
     </section>
     <section class="recap-content">
         <ul class="liste">
@@ -97,6 +97,9 @@ export default {
       if (plat.quantite <= 0) {
         this.deleteLinePlat(plat.id)
       }
+    },
+    retour () {
+      this.$router.go(-1)
     }
 
   },
