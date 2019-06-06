@@ -1,8 +1,8 @@
 <template>
     <div class="maxHeight">
-        <!-- <button v-on:click="animTranslateLeft = !animTranslateLeft">
+        <button v-on:click="aaaa">
             Permuter
-        </button> -->
+        </button>
         <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil maxHeight">
             <transition name="translateMenu" v-on:after-leave="triggerAnimExtendLeft">
                 <section v-show="animTranslateLeft" class="menu">
@@ -25,13 +25,15 @@
 
                 </section>
             </transition>
-            <transition name="expandeLeft" v-on:after-leave="displayPageMenu" v-on:after-enter="afterEnterFromDetailMenu">
+            <transition name="expandeLeft" v-on:after-leave="displayPageMenu"
+                        v-on:after-enter="afterEnterFromDetailMenu">
                 <div v-show="animExtendLeft" class="flex">
-                    <transition name="goToListing" v-on:after-leave="afterEnd" v-on:after-enter="SetAnimeFadeTrue">
-                        <section v-if="animToListePlat" class="carte">
+                    <transition name="goToListing" v-on:after-leave="goToListingPage"
+                                v-on:after-enter="SetAnimeFadeTrue">
+                        <section v-show="animToListePlat" class="carte">
                             <div class="cartAnimate"></div>
-                            <transition name="fade" v-on:after-leave="launchanimFade">
-                                <div v-if="animFade" class="animDiv">
+                            <transition name="fade" v-on:after-leave="launchanimToListing">
+                                <div v-show="animFade" class="animDiv">
                                     <h1 class="carte-titre">Plats à la Carte</h1>
                                     <article>
                                         <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
@@ -75,6 +77,7 @@
   import Btn from '@/components/utils/Btn'
 
   let isFirstLoad = true
+
   export default {
     name: 'Accueil',
     components: {
@@ -90,16 +93,19 @@
         showPopupHelp: false,
         showPopupValider: false,
         displayPopUp: false,
-        animToListePlat: false,
-        animFade: false,
-        animTranslateLeft: false,
-        animExtendLeft: false,
+        animToListePlat: null,
+        animFade: null,
+        animTranslateLeft: null,
+        animExtendLeft: null,
         idPlat: 0,
         idMenu: 0
       }
     },
-    watch: {},
     methods: {
+      aaaa () {
+        this.animToListePlat = true
+        this.animExtendLeft = true
+      },
       async getAllMenu () {
         if (this.$store.getters.getMenus.length === 0) {
           this.allMenu = (await fetch(endpoints.menu.list)).data
@@ -123,10 +129,10 @@
         this.animFade = false
         this.idPlat = id
       },
-      launchanimFade () {
+      launchanimToListing () {
         this.animToListePlat = false
       },
-      afterEnd () {
+      goToListingPage () {
         this.$router.push(`listing/${this.idPlat}`)
       },
       SetAnimeFadeTrue () {
@@ -151,7 +157,6 @@
       },
       afterEnterFromDetailMenu () {
         this.animTranslateLeft = true
-        console.log('aaaaa')
       }
     },
     async created () {
@@ -159,14 +164,30 @@
       this.getAllPlat()
     },
     mounted () {
-      this.animToListePlat = true
-      this.animExtendLeft = true
-
       if (this.firstTimeVisite) {
         isFirstLoad = false
         this.animFade = true
+        this.animExtendLeft = true
+        this.animToListePlat = true
         this.animTranslateLeft = true
       }
+    },
+    beforeRouteEnter (to, from, next) {
+      next(vm => {
+        if (from.name === 'DescriptionMenu') {
+          vm.animFade = true
+          vm.animToListePlat = true
+          vm.animExtendLeft = true
+        }
+
+        if (from.name === 'Listing') {
+          vm.animFade = true
+          // vm.animExtendLeft = true
+          vm.animToListePlat = true
+          // vm.animTranslateLeft = true
+          // setup les hook d'enter pour tout déclenché depuis 1 booléean
+        }
+      })
     }
   }
 </script>
@@ -394,8 +415,6 @@
         .carte {
             transition: opacity .5s;
         }
-        // au display flex avant que l'annim se lance le truc prend la moitier de l'écran avant le temps de lattence, peu être fix paar un before-entre
-        // il faut aussi faire l'animation de retour de la page description menu qui va généré un conflit ddans le mounted du component acceuil
     }
 
     .expandeLeft-enter, .expandeLeft-leave-to {
