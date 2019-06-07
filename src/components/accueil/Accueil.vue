@@ -1,8 +1,5 @@
 <template>
     <div class="maxHeight">
-        <button v-on:click="aaaa">
-            Permuter
-        </button>
         <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil maxHeight">
             <transition name="translateMenu" v-on:after-leave="triggerAnimExtendLeft">
                 <section v-show="animTranslateLeft" class="menu">
@@ -182,7 +179,7 @@
 
         if (from.name === 'Listing') {
           vm.animFade = true
-          // vm.animExtendLeft = true
+          vm.animExtendLeft = true
           vm.animToListePlat = true
           // vm.animTranslateLeft = true
           // setup les hook d'enter pour tout déclenché depuis 1 booléean

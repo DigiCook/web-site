@@ -74,12 +74,10 @@ export default {
     },
     deleteLineMenu (id) {
       console.log('dish deleted')
-      console.log(id)
       this.$store.dispatch('deleteLineMenu', id)
     },
     deleteLinePlat (id) {
       console.log('dish deleted')
-      console.log(id)
       this.$store.dispatch('deleteLinePlat', id)
     },
     deleteOrder () {
