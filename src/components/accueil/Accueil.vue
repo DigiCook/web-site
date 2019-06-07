@@ -99,10 +99,6 @@
       }
     },
     methods: {
-      aaaa () {
-        this.animToListePlat = true
-        this.animExtendLeft = true
-      },
       async getAllMenu () {
         if (this.$store.getters.getMenus.length === 0) {
           this.allMenu = (await fetch(endpoints.menu.list)).data

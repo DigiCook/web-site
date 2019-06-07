@@ -2,7 +2,9 @@
     <div>
         <transition name="fromListing" v-on:after-leave="retour">
             <div v-show="fromListing" class="listing">
-                <div class="listing-bandeau"></div>
+                <div class="listing-bandeau">
+                    <h1>Liste de nos {{name}}</h1>
+                </div>
 
                 <div class="listing-choice">
 
@@ -77,7 +79,10 @@
         plats: [],
         showPopUpPlat: false,
         currentPlat: null,
-        fromListing: false
+        fromListing: false,
+        allPlat: null,
+        currentTypePlatId: null,
+        name: null
       }
     },
     methods: {
@@ -89,20 +94,26 @@
       async getPlats () {
         this.plats = (await fetch(endpoints.plat.byTypePlat, {typePlatId: this.id})).data
       },
-      launchAnim () {
-        setTimeout(function () {
-          this.fromListing = true
-        }.bind(this), 500)
-      },
       animBackFromListing () {
         this.fromListing = false
       },
       retour () {
         this.$router.go(-1)
+      },
+      async getPlatData () {
+        this.allPlat = (await fetch(endpoints.typePlat.list)).data
+        this.currentTypePlatId = window.location.hash.substr(window.location.hash.lastIndexOf('/') + 1)
+        var that = this
+        this.allPlat.forEach((elem, index) => {
+          if (that.currentTypePlatId === elem.id.toString()) {
+            that.name = elem.libelle + 's'
+          }
+        })
       }
     },
     async created () {
       await this.getPlats()
+      await this.getPlatData()
     },
     mounted () {
       this.fromListing = true
@@ -120,6 +131,12 @@
             width: 100%;
             background-color: $color-main;
             box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
+            display: flex;
+            color: $color-white;
+            h1 {
+                margin: auto;
+                font-size: 2.4rem;
+            }
         }
 
         &-choice {
