@@ -1,49 +1,57 @@
 <template>
     <div class="maxHeight">
         <div v-if="allMenu.length > 0 && allPlat.length > 0" class="accueil maxHeight">
-            <section class="menu">
-                <h1 class="menu-titre">Nos Menus</h1>
-                <article>
-                    <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[0]"
-                               :dataMenu="allMenu[0]"></menu-card>
-                    <div class="menu-line"></div>
-                    <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[1]"
-                               :dataMenu="allMenu[1]"></menu-card>
-                </article>
-                <div class="menu-trait"></div>
-                <article>
-                    <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[2]"
-                               :dataMenu="allMenu[2]"></menu-card>
-                    <div class="menu-line"></div>
-                    <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[3]"
-                               :dataMenu="allMenu[3]"></menu-card>
-                </article>
+            <transition name="translateMenu" v-on:after-leave="triggerAnimExtendLeft">
+                <section v-show="animTranslateLeft" class="menu">
+                    <h1 class="menu-titre">Nos Menus</h1>
+                    <article>
+                        <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[0]"
+                                   :dataMenu="allMenu[0]"></menu-card>
+                        <div class="menu-line"></div>
+                        <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[1]"
+                                   :dataMenu="allMenu[1]"></menu-card>
+                    </article>
+                    <div class="menu-trait"></div>
+                    <article>
+                        <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[2]"
+                                   :dataMenu="allMenu[2]"></menu-card>
+                        <div class="menu-line"></div>
+                        <menu-card v-on:clickOnMenu="animateGoingToMenuPage" v-if="allMenu[3]"
+                                   :dataMenu="allMenu[3]"></menu-card>
+                    </article>
 
-            </section>
-            <transition name="goToListing" v-on:after-leave="afterEnd" v-on:after-enter="SetAnimeFadeTrue">
-                <section v-if="animToListePlat" class="carte">
-                    <div class="cartAnimate"></div>
-                    <transition name="fade" v-on:after-leave="launchanimFade">
-                        <div v-if="animFade" class="animDiv">
-                            <h1 class="carte-titre">Plats à la Carte</h1>
-                            <article>
-                                <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
-                                    <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
-                                        <p>{{ typeplat.libelle }}</p>
-                                    </btn>
-                                </aside>
-                            </article>
-                            <article class="bottom-carte">
-                                <btn @click.native="onClickAide" class="carte-button carte-button-help">
-                                    <p>Appeler un serveur</p>
-                                </btn>
-                                <btn @click.native="validerCommande" class="carte-button carte-button-recap">
-                                    <p>Valider</p>
-                                </btn>
-                            </article>
-                        </div>
-                    </transition>
                 </section>
+            </transition>
+            <transition name="expandeLeft" v-on:after-leave="displayPageMenu"
+                        v-on:after-enter="afterEnterFromDetailMenu">
+                <div v-show="animExtendLeft" class="flex">
+                    <transition name="goToListing" v-on:after-leave="goToListingPage"
+                                v-on:after-enter="SetAnimeFadeTrue">
+                        <section v-show="animToListePlat" class="carte">
+                            <div class="cartAnimate"></div>
+                            <transition name="fade" v-on:after-leave="launchanimToListing">
+                                <div v-show="animFade" class="animDiv">
+                                    <h1 class="carte-titre">Plats à la Carte</h1>
+                                    <article>
+                                        <aside :key="`key-plats-${typeplat.id}`" v-for="typeplat in allPlat">
+                                            <btn @click.native="clickOnPlat(typeplat.id)" class="carte-plat">
+                                                <p>{{ typeplat.libelle }}</p>
+                                            </btn>
+                                        </aside>
+                                    </article>
+                                    <article class="bottom-carte">
+                                        <btn @click.native="onClickAide" class="carte-button carte-button-help">
+                                            <p>Appeler un serveur</p>
+                                        </btn>
+                                        <btn @click.native="validerCommande" class="carte-button carte-button-recap">
+                                            <p>Valider</p>
+                                        </btn>
+                                    </article>
+                                </div>
+                            </transition>
+                        </section>
+                    </transition>
+                </div>
             </transition>
         </div>
 
@@ -65,7 +73,8 @@
   import PopUp from '@/components/utils/PopUp'
   import Btn from '@/components/utils/Btn'
 
-  let aaa = true
+  let isFirstLoad = true
+
   export default {
     name: 'Accueil',
     components: {
@@ -75,19 +84,25 @@
     },
     data () {
       return {
-        firstTimeVisite: aaa,
+        firstTimeVisite: isFirstLoad,
         allMenu: [],
         allPlat: [],
         showPopupHelp: false,
         showPopupValider: false,
         displayPopUp: false,
-        animToListePlat: false,
-        animFade: false,
-        idPlat: 0
+        animToListePlat: null,
+        animFade: null,
+        animTranslateLeft: null,
+        animExtendLeft: null,
+        idPlat: 0,
+        idMenu: 0
       }
     },
-    watch: {},
     methods: {
+      aaaa () {
+        this.animToListePlat = true
+        this.animExtendLeft = true
+      },
       async getAllMenu () {
         if (this.$store.getters.getMenus.length === 0) {
           this.allMenu = (await fetch(endpoints.menu.list)).data
@@ -111,10 +126,10 @@
         this.animFade = false
         this.idPlat = id
       },
-      launchanimFade () {
+      launchanimToListing () {
         this.animToListePlat = false
       },
-      afterEnd () {
+      goToListingPage () {
         this.$router.push(`listing/${this.idPlat}`)
       },
       SetAnimeFadeTrue () {
@@ -127,10 +142,18 @@
         this.displayPopUp = false
         this.$router.push('/recapitulatif')
       },
-      animateGoingToMenuPage () {
-        document.querySelector('.animDiv').classList.add('annimOutRight')
-        document.querySelector('.menu').classList.add('annimOutLeft')
-        document.querySelector('.cartAnimate').classList.add('expandeLeft')
+      animateGoingToMenuPage (id) {
+        this.idMenu = id
+        this.animTranslateLeft = false
+      },
+      triggerAnimExtendLeft () {
+        this.animExtendLeft = false
+      },
+      displayPageMenu () {
+        this.$router.push(`menu/${this.idMenu}`)
+      },
+      afterEnterFromDetailMenu () {
+        this.animTranslateLeft = true
       }
     },
     async created () {
@@ -138,12 +161,30 @@
       this.getAllPlat()
     },
     mounted () {
-      this.animToListePlat = true
-      console.log(this.firstTimeVisite)
       if (this.firstTimeVisite) {
-        aaa = false
+        isFirstLoad = false
         this.animFade = true
+        this.animExtendLeft = true
+        this.animToListePlat = true
+        this.animTranslateLeft = true
       }
+    },
+    beforeRouteEnter (to, from, next) {
+      next(vm => {
+        if (from.name === 'DescriptionMenu') {
+          vm.animFade = true
+          vm.animToListePlat = true
+          vm.animExtendLeft = true
+        }
+
+        if (from.name === 'Listing') {
+          vm.animFade = true
+          vm.animExtendLeft = true
+          vm.animToListePlat = true
+          // vm.animTranslateLeft = true
+          // setup les hook d'enter pour tout déclenché depuis 1 booléean
+        }
+      })
     }
   }
 </script>
@@ -194,7 +235,10 @@
                 background-color: $second-text-color;
             }
         }
-
+        .flex {
+            display: flex;
+            margin-left: auto;
+        }
         .carte {
             padding: $margin-main;
             background-color: $color-main;
@@ -264,6 +308,7 @@
             }
 
             .cartAnimate {
+                display: none;
                 position: absolute;
                 margin-left: -30px;
                 top: 0;
@@ -351,6 +396,32 @@
 
     .fade-enter, .fade-leave-to {
         opacity: 0;
+    }
+
+    .translateMenu-enter-active, .translateMenu-leave-active {
+        transition: transform .5s, opacity .5s;
+    }
+
+    .translateMenu-enter, .translateMenu-leave-to {
+        transform: translateX(- 100%);
+        opacity: 0;
+    }
+
+    .expandeLeft-enter-active, .expandeLeft-leave-active {
+        transition: padding-left .5s;
+        .carte {
+            transition: opacity .5s;
+        }
+    }
+
+    .expandeLeft-enter, .expandeLeft-leave-to {
+        padding-left: 100vw;
+        background-color: $color-main;
+        margin-left: auto;
+        .carte {
+            opacity: 0;
+            box-shadow: none;
+        }
     }
 
 </style>

@@ -15,10 +15,7 @@
     },
     methods: {
       onClick (id) {
-        this.$emit('clickOnMenu')
-        setTimeout(() => {
-          this.$router.push(`menu/${id}`)
-        }, 1000)
+        this.$emit('clickOnMenu', this.dataMenu.id)
       }
     }
   }
