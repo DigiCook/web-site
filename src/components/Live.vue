@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="live">
-      <!-- <video src="http://localhost:2223/live" autoplay="true" width="640" height="480" preload="metadata"/> -->
-      <canvas id="liveT" width="640" height="480"></canvas>
+      <video src="http://localhost:4242/api/live" autoplay="true" width="640" height="480" preload="metadata"/>
       <button>ajouter bouton pourboire pour les cuisiniers</button>
     </div>
     <div class="chat">
@@ -23,7 +22,6 @@
 </template>
 
 <script>
-import JSMpeg from 'jsmpeg'
 import fetch from '@/services/fetch'
 import endpoints from '@/services/endpoints'
 import io from 'socket.io-client'
@@ -42,13 +40,6 @@ export default {
     console.log('[Live:mounted]')
     this.fetchMessages()
     this.initSocket()
-
-    const client = new WebSocket('ws://localhost:9999')
-
-    let a = new JSMpeg(client, {
-      canvas: document.querySelector('#liveT')
-    })
-    console.log(a)
   },
   beforeDestroy () {
     this.socket.emit('disconnect')
