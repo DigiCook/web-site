@@ -85,9 +85,9 @@ export default {
     position: absolute;
     left: 0px;
     top: 0px;
-    margin: 10%;
-    width: 80%;
-    height: 75%;
+    margin: 12%;
+    width: 70%;
+    height: 60%;
   }
 
   &-main {

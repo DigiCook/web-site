@@ -187,8 +187,10 @@
 
 <style scoped lang="scss">
     .maxHeight {
-        height: 100%;
-    }
+
+        width: 1024px;
+        height: 768px;
+         }
 
     .accueil {
         position: relative;

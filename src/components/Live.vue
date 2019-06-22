@@ -122,7 +122,7 @@
     .chat {
         font-family: $main-font;
         float: left;
-        height: 100vh;
+        height: 768px;
     }
 
     .live {
@@ -197,6 +197,10 @@
             }
         }
 
+        .messages::-webkit-scrollbar {
+            width: 0 !important
+        }
+
         .messages {
             height: calc(100% - 80px);
             overflow: scroll;
@@ -211,7 +215,7 @@
                 font-size: $sub-title;
                 color: $text-dark-ligth;
                 font-weight: $weight-sub-title;
-                margin: 10px 10px 10px 10px;
+                margin: 15px;
                 background: $color-white;
             }
 
