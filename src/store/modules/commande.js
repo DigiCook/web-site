@@ -50,17 +50,14 @@ const state = {
 const mutations = {
   DELETE_LINE_MENU (state, id) {
     const index = state.menus.findIndex(x => x.id === id)
-    console.log('000000000000000', index, state.menus)
     if (index >= 0) {
       state.menus.splice(index, 1)
-      console.log('After removal:', state.menus)
     }
   },
   DELETE_LINE_PLAT (state, id) {
     const index = state.plats.findIndex(x => x.id === id)
     if (index >= 0) {
       state.plats.splice(index, 1)
-      console.log('After removal:', state.menus)
     }
   },
   [types.DELETE_ORDER] (state) {
