@@ -3,14 +3,15 @@
         <transition name="fromListing" v-on:after-leave="retour">
             <div v-show="fromListing" class="listing">
                 <div class="listing-bandeau">
+                    <btn-back :souldBeShow="true" v-on:clickOnMenu="animBackFromListing">
+                        Retour
+                    </btn-back>
                     <h1>Liste de nos {{name}}</h1>
                 </div>
 
                 <div class="listing-choice">
 
-                    <btn-back :souldBeShow="false" v-on:clickOnMenu="animBackFromListing">
-                        Retour
-                    </btn-back>
+
                     <transition name="fade">
                         <section v-show="fromListing" class="choice">
                             <aside :key="`key-plat-${plat.id}`" v-for="plat in plats">

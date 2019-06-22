@@ -211,7 +211,7 @@
                 font-size: $sub-title;
                 color: $text-dark-ligth;
                 font-weight: $weight-sub-title;
-                margin: 10px 10px 10px 10px;
+                margin: 15px;
                 background: $color-white;
             }
 

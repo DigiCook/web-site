@@ -30,7 +30,7 @@
         padding: 20px;
 
         &-img {
-            width: 22vw;
+            width: 220px;
             border-radius: 50%;
         }
 

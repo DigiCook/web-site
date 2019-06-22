@@ -37,15 +37,16 @@
 
 <style scoped lang="scss">
     .btn-back {
-        position: absolute;
-        padding: 10px 30px;
-        left: 30px;
-        top: 30px;
+        position: relative;
+        padding: 8px 30px;
+        left: 40px;
+        top: 40px;
         color: $text-dark;
         background: $color-second;
-        box-sizing: border-box;
         font-size: $sub-title;
         font-weight: $weight-sub-title;
+        width: 52px;
+        height: 20px;
     }
 
     .fade-enter-active, .fade-leave-active {
