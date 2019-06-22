@@ -58,18 +58,20 @@
                     </div>
                 </li>
                 <li class="item">
-
-                    <div class="total"> Total : {{total}}</div>
+                    <div class="totaux">
+                        <p class="total"> Total : {{total}}</p>
+                        <p class="input"><span>partager l'addition : </span><input type="number" v-model="numberOfPoeple"></p>
+                        <p><span>prix divisé pour {{numberOfPoeple}} personnes : </span><span>{{Math.round((total /numberOfPoeple)*100)/100}} €</span></p>
+                    </div>
                 </li>
             </ul>
 
             <section class="validation">
-                <div>
-                    <btn @click="validateOrder()" class="validateBtn">Valider la commande</btn>
-                </div>
-                <div>
-                    <btn @click.native="deleteOrder()" class="deleteOrderBtn">Supprimer la commande</btn>
-                </div>
+
+                <btn @click="validateOrder()" class="validateBtn">Valider la commande</btn>
+
+                <btn @click.native="deleteOrder()" class="deleteOrderBtn">Supprimer la commande</btn>
+
             </section>
         </section>
     </div>
@@ -93,13 +95,12 @@
       console.log('Recapitulatif mounted')
     },
     data () {
-      return {}
+      return {
+        numberOfPoeple: 1
+      }
     },
     watch: {},
     methods: {
-      back () {
-        this.$router.go(-1)
-      },
       validateOrder () {
       },
       deleteLineMenu (id) {
@@ -155,43 +156,88 @@
 <style scoped lang="scss">
     .recap {
         font-family: $main-font;
+        font-size: 20px;
+
         &-titre {
             background-color: $color-main;
             color: $color-white;
             height: 112px;
             box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.5);
             display: flex;
+
             h1 {
                 margin: auto;
                 font-size: 2.4rem;
             }
         }
+
         &-content {
             margin: auto;
             margin-top: 40px;
-            width: 60%;
+            width: 80%;
+
             .item {
                 display: flex;
                 justify-content: space-between;
+
                 &-data {
                     margin: auto;
-                    width: 60%;
-                    &-premier{
+                    margin-right: 20px;
+                    width: 80%;
+
+                    &-premier {
                         display: flex;
                         justify-content: space-between;
                     }
-                    &-second{
+
+                    &-second {
                         width: 60%;
                         display: flex;
                         justify-content: space-between;
                     }
                 }
+
                 &-boutton {
                     display: flex;
+
                     & > div {
                         margin: 15px;
                     }
                 }
+
+                .totaux {
+                    margin-top: 20px;
+                    margin-right: 20px;
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    .input{
+                        input{
+                            width: 30px;
+                            font-size: 20px;
+                            margin-left: 4px;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        .validation {
+            display: flex;
+            margin-top: 30px;
+            justify-content: space-evenly;
+            color: $text-dark;
+            font-weight: 600;
+
+            .validateBtn {
+                background-color: $color-terce;
+                padding: 20px;
+            }
+
+            .deleteOrderBtn {
+                background-color: $color-second;
+                padding: 20px;
             }
         }
     }
