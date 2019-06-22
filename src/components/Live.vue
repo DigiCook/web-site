@@ -122,7 +122,7 @@
     .chat {
         font-family: $main-font;
         float: left;
-        height: 100vh;
+        height: 768px;
     }
 
     .live {
@@ -195,6 +195,10 @@
                     margin: auto;
                 }
             }
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 0 !important
         }
 
         .messages {

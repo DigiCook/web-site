@@ -57,8 +57,9 @@
     .size {
         width: 1024px;
         height: 768px;
-
         border: solid .4px black;
+        border-radius: 2px;
+        overflow: hidden;
     }
 
     .tablette {
