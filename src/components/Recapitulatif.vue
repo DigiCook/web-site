@@ -69,9 +69,10 @@
 
             <section class="validation">
 
-                <btn @click="validateOrder()" class="validateBtn">Valider la commande</btn>
+                <btn @click.native="validateOrder" class="validateBtn">Valider la commande</btn>
 
                 <btn @click.native="deleteOrder()" class="deleteOrderBtn">Supprimer la commande</btn>
+
 
             </section>
         </section>
@@ -103,6 +104,7 @@
     watch: {},
     methods: {
       validateOrder () {
+        this.$router.push('/live')
       },
       deleteLineMenu (id) {
         this.$store.dispatch('deleteLineMenu', id)
