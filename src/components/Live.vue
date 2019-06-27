@@ -5,7 +5,7 @@
             <h1>Live depuis les cuisines !</h1>
             <canvas id="liveT" width="640" height="480"></canvas>
 
-            <div class="button-dons"><p>Faire un don au cuisiner</p></div>
+            <div class="button-dons"><p>Donner un pourboire au cuisiner</p></div>
         </div>
         <div class="chat">
             <div class="messages" id="list-messages">
