@@ -53,16 +53,15 @@
                     </transition>
                 </div>
             </transition>
+
+          <pop-up v-model="displayPopUp">
+              <div v-if="displayPopUp" class="popup-help">
+                  <div @click="clickOnAide" class="popup-help-button">
+                      <p>Appeler un serveur</p>
+                  </div>
+              </div>
+          </pop-up>
         </div>
-
-        <pop-up v-model="displayPopUp">
-            <div v-if="displayPopUp" class="popup-help">
-                <div @click="clickOnAide" class="popup-help-button">
-                    <p>Appeler un serveur</p>
-                </div>
-            </div>
-        </pop-up>
-
     </div>
 </template>
 

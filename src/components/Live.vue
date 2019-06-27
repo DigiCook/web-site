@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="maxHeight">
         <div class="live">
             <!-- <video src="http://localhost:2223/live" autoplay="true" width="640" height="480" preload="metadata"/> -->
             <h1>Live depuis les cuisines !</h1>
@@ -118,6 +118,11 @@
 
 
 <style scoped lang="scss">
+    .maxHeight {
+
+        width: 1024px;
+        height: 768px;
+         }
     .live,
     .chat {
         font-family: $main-font;

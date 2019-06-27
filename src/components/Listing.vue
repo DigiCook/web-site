@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="maxHeight">
         <transition name="fromListing" v-on:after-leave="retour">
             <div v-show="fromListing" class="listing">
                 <div class="listing-bandeau">
@@ -130,6 +130,11 @@
 </script>
 
 <style scoped lang="scss">
+    .maxHeight {
+        position: relative;
+        width: 1024px;
+        height: 768px;
+         }  
     .listing {
         display: flex;
         flex-direction: column;
@@ -237,7 +242,7 @@
                 }
 
                 p {
-                    padding: 50px;
+                    padding: 40px;
                     padding-top: 10px;
                 }
 
