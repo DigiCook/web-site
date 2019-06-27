@@ -52,14 +52,14 @@ export default {
 <style scoped lang="scss">
 
 .Snackbar {
-  position: fixed;
+  position: relative;
   z-index: 42;
   height: 24px;
   padding: 10px;
   padding-left: 32px;
   padding-right: 32px;
   margin: auto;
-  bottom: -52px;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 1.2rem;
@@ -78,7 +78,7 @@ export default {
   }
 
   &-show {
-    bottom: 0px;
+    bottom: 44px;
   }
 }
 
