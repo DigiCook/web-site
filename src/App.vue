@@ -57,7 +57,7 @@
     .size {
         width: 1024px;
         height: 768px;
-        border: solid .5px black;
+        border: solid 1px black;
         border-radius: 2px;
         overflow: hidden;
     }
@@ -70,7 +70,7 @@
         width: 1200px;
         height: 900px;
         border-radius: 30px;
-        border: solid .6px black;
+        border: solid 1.2px black;
         background-color: white;
     }
 
