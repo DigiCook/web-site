@@ -1,5 +1,5 @@
 <template>
-    <div class="recap">
+    <div class="recap maxHeight">
         <section class="recap-titre">
             <btn-back :souldBeShow="true" v-on:clickOnMenu="retour">retour</btn-back>
             <h1>Récapitulatif de la commande</h1>
@@ -129,9 +129,8 @@
         }
       },
       retour () {
-        this.$router.go(-1)
+        this.$router.push('/')
       }
-
     },
     computed: {
       total () {
@@ -155,6 +154,11 @@
 
 
 <style scoped lang="scss">
+.maxHeight {
+
+        width: 1024px;
+        height: 768px;
+         }
     .recap {
         font-family: $main-font;
         font-size: 20px;

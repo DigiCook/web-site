@@ -42,7 +42,7 @@
                         <p class="price">{{currentPlat.prix}} €</p>
                         <div class="container-btn-add">
                             <btn class="btn-add">
-                                <p class="btn-add-text">
+                                <p class="btn-add-text" @click="savePlat">
                                     ajouter au panier
                                 </p>
                             </btn>
@@ -110,6 +110,13 @@
             that.name = elem.libelle + 's'
           }
         })
+      },
+      savePlat () {
+        const savedPlat = this.currentPlat
+
+        this.$store.dispatch('addPlatToCommande', savedPlat)
+        this.displaySnackbar(`${savedPlat.nom} ajouté à votre commande`)
+        this.$router.push('/')
       }
     },
     async created () {
