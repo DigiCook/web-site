@@ -12,7 +12,7 @@
                 <div :key="`key-message-${message.id}`" :class="message.table.id === tableId ? 'me' : 'other'"
                      v-for="message in messages">
                     <div class="message">
-                        <p class="date-table">{{ dateFormated(message.createdAt) }}, table n{{ message.table.libelle
+                        <p class="date-table">{{ dateFormated(message.createdAt) }}, table {{ message.table.libelle
                             }}</p>
                         <p class="message-text">{{ message.message }}</p>
                     </div>
