@@ -4,7 +4,7 @@
             <!-- <video src="http://localhost:2223/live" autoplay="true" width="640" height="480" preload="metadata"/> -->
             <h1>Live depuis les cuisines !</h1>
             <!--<canvas id="liveT" width="640" height="480"></canvas>-->
-            <video class="liveVid" autoplay width="480" height="480" >
+            <video class="liveVid" autoplay width="600" height="600" >
               <source :src="live" type="video/webm">
             </video>
 
